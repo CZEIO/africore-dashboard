@@ -74,7 +74,7 @@
         
         {
             modalContent.classList.remove("anime-modal");
-            const botNames = { nerox: "NeroX", czeio: "CZEIO", kushi: "Missy" };
+            const botNames = { czeio: "CZEIO" };
             document.getElementById("modal-title").textContent = botNames[bot] || bot;
             document.getElementById("modal-desc").textContent = "Bot-Panel Zugang";
             document.getElementById("modal-icon-fallback").className = "fa-solid fa-user";
@@ -204,7 +204,7 @@
 
     // Profile bilder laden
     async function loadProfiles() {
-        for (const bot of ['nerox', 'czeio', 'kushi']) {
+        for (const bot of ['czeio']) {
             try {
                 const res = await fetch(`/api/bot/${bot}/profile`);
                 const data = await res.json();
