@@ -225,6 +225,71 @@ app.get('/api/anime/stream', requireAnime, async (req, res) => {
     } catch (e) { res.json({ error: e.message }); }
 });
 
+// ========== MEGAKINO ==========
+const ANNOUNCEMENTS_FILE = path.join(__dirname, 'announcements.json');
+
+app.get('/api/megakino/search', requireAnime, async (req, res) => {
+    try {
+        const megakino = require('./megakino');
+        const query = req.query.q;
+        if (!query) return res.json({ results: [] });
+        const results = await megakino.search(query);
+        res.json({ results });
+    } catch (e) { res.json({ results: [], error: e.message }); }
+});
+
+app.get('/api/megakino/detail', requireAnime, async (req, res) => {
+    try {
+        const megakino = require('./megakino');
+        const url = req.query.url;
+        if (!url) return res.status(400).json({ error: 'URL fehlt' });
+        const detail = await megakino.getDetail(url);
+        res.json(detail);
+    } catch (e) { res.json({ error: e.message }); }
+});
+
+app.get('/api/megakino/resolve', requireAnime, async (req, res) => {
+    try {
+        const megakino = require('./megakino');
+        const voeUrl = req.query.url;
+        if (!voeUrl) return res.status(400).json({ error: 'URL fehlt' });
+        const directUrl = await megakino.resolveVoeLink(voeUrl);
+        if (directUrl) {
+            res.json({ source: directUrl, type: directUrl.includes('.m3u8') ? 'hls' : 'mp4' });
+        } else {
+            res.json({ error: 'Konnte Voe-Link nicht auflösen', source: null });
+        }
+    } catch (e) { res.json({ error: e.message, source: null }); }
+});
+
+app.get('/api/megakino/seasons', requireAnime, async (req, res) => {
+    try {
+        const megakino = require('./megakino');
+        const name = req.query.name;
+        if (!name) return res.json({ seasons: [] });
+        const seasons = await megakino.getSeasons(name);
+        res.json({ seasons });
+    } catch (e) { res.json({ seasons: [], error: e.message }); }
+});
+
+app.get('/api/movies/genre', requireAnime, async (req, res) => {
+    try {
+        const megakino = require('./megakino');
+        const genre = req.query.genre;
+        if (!genre) return res.json({ results: [] });
+        const results = await megakino.getMoviesByGenre(genre);
+        res.json({ results });
+    } catch (e) { res.json({ results: [], error: e.message }); }
+});
+
+app.get('/api/announcements', (req, res) => {
+    try {
+        if (fs.existsSync(ANNOUNCEMENTS_FILE)) {
+            res.json(JSON.parse(fs.readFileSync(ANNOUNCEMENTS_FILE, 'utf8')));
+        } else { res.json({ announcements: [] }); }
+    } catch { res.json({ announcements: [] }); }
+});
+
 // ========== ANILIST API ==========
 const ANILIST_URL = 'https://graphql.anilist.co';
 const FALLBACK = [
