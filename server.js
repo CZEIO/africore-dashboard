@@ -1329,12 +1329,29 @@ app.get('/api/bot/:botId/qr', requireAuth, (req, res) => {
     const { botId } = req.params;
     if (req.session.botId !== botId) return res.status(403).json({ error: 'Kein Zugriff' });
     if (!BOTS[botId]) return res.status(400).json({ error: 'Unbekannter Bot' });
+    // Zuerst Remote-QR prüfen (vom Bot gepusht)
+    const remoteQrPath = path.join(__dirname, 'data', 'qr_' + botId + '.png');
+    if (fs.existsSync(remoteQrPath)) {
+        return res.sendFile(remoteQrPath);
+    }
+    // Fallback: lokaler QR
     const qrPath = path.join(BOTS[botId].botPath, 'qr.png');
     if (fs.existsSync(qrPath)) {
         res.sendFile(qrPath);
     } else {
         res.status(404).json({ error: 'Kein QR-Code vorhanden' });
     }
+});
+
+app.post('/api/bot/:botId/qr-push', (req, res) => {
+    const { botId } = req.params;
+    const { qr } = req.body;
+    if (!qr) return res.status(400).json({ error: 'Kein QR-Code' });
+    const qrDir = path.join(__dirname, 'data');
+    fs.mkdirSync(qrDir, { recursive: true });
+    const qrPath = path.join(qrDir, 'qr_' + botId + '.png');
+    fs.writeFileSync(qrPath, Buffer.from(qr, 'base64'));
+    res.json({ ok: true });
 });
 
 const LOGIN_LOG_PATH = path.join(__dirname, 'data', 'login_log.json');
