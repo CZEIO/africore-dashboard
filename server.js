@@ -819,9 +819,9 @@ async function isBotRunningRemote(botId) {
 async function isBotRunning(botId) {
     if (isBotRunningLocal(botId)) return true;
     if (await isBotRunningRemote(botId)) return true;
-    // Pruefe Remote-Status (vom Bot per Polling gemeldet)
+    // Pruefe Remote-Status (vom Bot per Polling gemeldet) — max 20 Sekunden alt
     const remote = remoteBotStatus[botId];
-    if (remote && remote.connected && (Date.now() - remote.lastSeen < 15000)) {
+    if (remote && remote.connected && remote.lastSeen && (Date.now() - remote.lastSeen < 20000)) {
         return true;
     }
     return false;
@@ -1144,6 +1144,10 @@ app.get('/api/bot/:botId/remote-status', (req, res) => {
     const { botId } = req.params;
     const s = remoteBotStatus[botId];
     if (!s) return res.json({ connected: false, status: 'offline', lastSeen: 0 });
+    // Wenn Status älter als 20 Sekunden → als offline treaten
+    if (s.lastSeen && (Date.now() - s.lastSeen > 20000)) {
+        return res.json({ connected: false, status: 'offline', lastSeen: s.lastSeen });
+    }
     res.json(s);
 });
 

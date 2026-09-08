@@ -538,9 +538,11 @@ async function loadData() {
         ]);
 
         // Remote-Status priorisieren wenn Bot nicht lokal erreichbar
-        const isConnected = health?.connected || remoteStatus?.connected || false;
-        const botStatus = health?.status || remoteStatus?.status || 'unknown';
-        const botUptime = health?.uptime || remoteStatus?.uptime || 0;
+        // Prüfe ob Remote-Status aktuell ist (max 20 Sekunden alt)
+        const remoteFresh = remoteStatus && remoteStatus.lastSeen && (Date.now() - remoteStatus.lastSeen < 20000);
+        const isConnected = health?.connected || (remoteFresh && remoteStatus.connected) || false;
+        const botStatus = health?.status || (remoteFresh ? remoteStatus.status : 'offline') || 'unknown';
+        const botUptime = health?.uptime || (remoteFresh ? remoteStatus.uptime : 0) || 0;
 
         if (stats) renderStats(stats);
         if (botUptime > 0 || isConnected) renderUptime(botUptime);
