@@ -10,9 +10,5 @@ services:
         value: production
       - key: SESSION_SECRET
         generateValue: true
-      - key: BOT_NEROX_PASSWORD
-        sync: false
       - key: BOT_CZEIO_PASSWORD
-        sync: false
-      - key: BOT_KUSHI_PASSWORD
         sync: false

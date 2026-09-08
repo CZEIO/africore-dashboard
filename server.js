@@ -90,16 +90,6 @@ const profileUpload = multer({
 });
 
 const BOTS = {
-    nerox: {
-        name: 'NeroX Bot',
-        password: process.env.BOT_NEROX_PASSWORD,
-        color: '#ff4757',
-        icon: 'fa-skull',
-        description: 'NeroX WhatsApp Bot Control Panel',
-        dbPath: path.join(__dirname, 'database'),
-        botPath: path.join(__dirname),
-        apiPort: 3081
-    },
     czeio: {
         name: 'CZEIO Bot',
         password: process.env.BOT_CZEIO_PASSWORD,
@@ -109,16 +99,6 @@ const BOTS = {
         dbPath: path.join(__dirname, 'database'),
         botPath: path.join(__dirname),
         apiPort: 3080
-    },
-    kushi: {
-        name: 'Missy Bot',
-        password: process.env.BOT_KUSHI_PASSWORD || 'kushi2026',
-        color: '#ff6b9d',
-        icon: 'fa-heart',
-        description: 'Missy WhatsApp Bot Control Panel',
-        dbPath: path.join(__dirname, 'database'),
-        botPath: path.join(__dirname),
-        apiPort: 3082
     }
 };
 
