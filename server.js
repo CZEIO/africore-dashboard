@@ -725,7 +725,13 @@ async function isBotRunningRemote(botId) {
 
 async function isBotRunning(botId) {
     if (isBotRunningLocal(botId)) return true;
-    return await isBotRunningRemote(botId);
+    if (await isBotRunningRemote(botId)) return true;
+    // Pruefe Remote-Status (vom Bot per Polling gemeldet)
+    const remote = remoteBotStatus[botId];
+    if (remote && remote.connected && (Date.now() - remote.lastSeen < 15000)) {
+        return true;
+    }
+    return false;
 }
 
 app.get('/api/bot/:botId/process-status', requireAuth, async (req, res) => {
@@ -1022,6 +1028,53 @@ app.post('/api/bot/:botId/reconnect', requireAuth, async (req, res) => {
     } catch (e) {
         res.status(500).json({ error: 'Fehler: ' + e.message });
     }
+});
+
+// ========== REMOTE BOT CONTROL (fuer Cloud-Dashboard) ==========
+const remoteBotStatus = {};
+const remoteBotCommands = {};
+
+app.post('/api/bot/:botId/remote-status', (req, res) => {
+    const { botId } = req.params;
+    const { connected, status, uptime, pid } = req.body;
+    remoteBotStatus[botId] = {
+        connected: !!connected,
+        status: status || 'unknown',
+        uptime: uptime || 0,
+        pid: pid || null,
+        lastSeen: Date.now()
+    };
+    res.json({ ok: true });
+});
+
+app.get('/api/bot/:botId/remote-status', (req, res) => {
+    const { botId } = req.params;
+    const s = remoteBotStatus[botId];
+    if (!s) return res.json({ connected: false, status: 'offline', lastSeen: 0 });
+    res.json(s);
+});
+
+app.post('/api/bot/:botId/remote-command', requireAuth, (req, res) => {
+    const { botId } = req.params;
+    if (req.session.botId !== botId) return res.status(403).json({ error: 'Kein Zugriff' });
+    if (!BOTS[botId]) return res.status(400).json({ error: 'Unbekannter Bot' });
+    const { command } = req.body;
+    if (!['start', 'stop', 'restart'].includes(command)) {
+        return res.status(400).json({ error: 'Ungültiger Befehl' });
+    }
+    remoteBotCommands[botId] = {
+        command,
+        timestamp: Date.now()
+    };
+    res.json({ ok: true, message: `Befehl "${command}" gespeichert` });
+});
+
+app.get('/api/bot/:botId/remote-command', (req, res) => {
+    const { botId } = req.params;
+    const cmd = remoteBotCommands[botId];
+    if (!cmd) return res.json({ pending: false });
+    delete remoteBotCommands[botId];
+    res.json({ pending: true, command: cmd.command });
 });
 
 // ========== BOT PROXY API (Live-Daten) ==========

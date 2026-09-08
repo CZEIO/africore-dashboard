@@ -527,23 +527,30 @@ async function loadData() {
             } catch { return null; }
         };
 
-        const [stats, users, groups, warnings, status, health] = await Promise.all([
+        const [stats, users, groups, warnings, status, health, remoteStatus] = await Promise.all([
             safeFetch(`/api/bot/${botId}/stats`),
             safeFetch(`/api/bot/${botId}/users`),
             safeFetch(`/api/bot/${botId}/groups`),
             safeFetch(`/api/bot/${botId}/warnings`),
             safeFetch('/api/status'),
-            safeFetch(`/api/bot/${botId}/bot-health`)
+            safeFetch(`/api/bot/${botId}/bot-health`),
+            safeFetch(`/api/bot/${botId}/remote-status`)
         ]);
 
+        // Remote-Status priorisieren wenn Bot nicht lokal erreichbar
+        const isConnected = health?.connected || remoteStatus?.connected || false;
+        const botStatus = health?.status || remoteStatus?.status || 'unknown';
+        const botUptime = health?.uptime || remoteStatus?.uptime || 0;
+
         if (stats) renderStats(stats);
-        if (health) renderUptime(health?.connected ? (health.uptime || 0) : 0);
+        if (botUptime > 0 || isConnected) renderUptime(botUptime);
+        else if (health) renderUptime(health?.uptime || 0);
         if (stats) renderTopUsers(stats.topUsers || []);
         if (users) renderUsers(users.users || []);
         if (groups) renderGroups(groups.groups || []);
         if (warnings) renderWarnings(warnings.warnings || []);
-        renderBotStatus(health?.connected || false, health?.status || 'unknown');
-        currentBotStatus = health?.status || 'unknown';
+        renderBotStatus(isConnected, botStatus);
+        currentBotStatus = botStatus;
 
         const now = new Date();
         document.getElementById('last-update').textContent =
@@ -1424,12 +1431,48 @@ async function controlBot(action) {
                 pollQRCode();
             }
         } else {
-            msg.textContent = data.error || 'Fehler';
-            msg.className = 'form-message error';
+            // Fallback: Remote-Command an Render senden (Bot pollt)
+            try {
+                const remoteRes = await fetch(`/api/bot/${botId}/remote-command`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ command: action })
+                });
+                const remoteData = await remoteRes.json();
+                if (remoteData.ok) {
+                    msg.textContent = `Befehl "${action}" gesendet — Bot führt aus...`;
+                    msg.className = 'form-message success';
+                    pollBotStatus(action);
+                } else {
+                    msg.textContent = data.error || remoteData.error || 'Fehler';
+                    msg.className = 'form-message error';
+                }
+            } catch {
+                msg.textContent = data.error || 'Fehler';
+                msg.className = 'form-message error';
+            }
         }
     } catch {
-        msg.textContent = 'Verbindungsfehler';
-        msg.className = 'form-message error';
+        // Fallback: Remote-Command an Render senden
+        try {
+            const remoteRes = await fetch(`/api/bot/${botId}/remote-command`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ command: action })
+            });
+            const remoteData = await remoteRes.json();
+            if (remoteData.ok) {
+                msg.textContent = `Befehl "${action}" gesendet — Bot führt aus...`;
+                msg.className = 'form-message success';
+                pollBotStatus(action);
+            } else {
+                msg.textContent = 'Verbindungsfehler';
+                msg.className = 'form-message error';
+            }
+        } catch {
+            msg.textContent = 'Verbindungsfehler';
+            msg.className = 'form-message error';
+        }
     }
 
     [startBtn, stopBtn, restartBtn].forEach(btn => btn.classList.remove('loading'));
