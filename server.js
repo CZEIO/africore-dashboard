@@ -155,9 +155,18 @@ function requireAuth(req, res, next) {
     const animeToken = req.headers['x-anime-token'] || req.cookies?.anime_token;
     if (animeToken) {
         try {
-            const tokensFile = path.join(DB_DIR, 'anime_tokens.json');
-            if (fs.existsSync(tokensFile)) {
-                const tokens = JSON.parse(fs.readFileSync(tokensFile, 'utf8'));
+            let tokens = null;
+            // Zuerst Push-Daten prüfen
+            const pushed = remotePushData['czeio'];
+            if (pushed && pushed.allData && pushed.allData.anime_tokens) {
+                tokens = pushed.allData.anime_tokens;
+            } else {
+                const tokensFile = path.join(DB_DIR, 'anime_tokens.json');
+                if (fs.existsSync(tokensFile)) {
+                    tokens = JSON.parse(fs.readFileSync(tokensFile, 'utf8'));
+                }
+            }
+            if (tokens) {
                 const tokenEntry = Object.values(tokens).find(t => t.token === animeToken && t.active);
                 if (tokenEntry) {
                     req.session.botId = 'anime';
@@ -183,12 +192,21 @@ app.post('/api/login', loginLimiter, async (req, res) => {
 
     // Anime-Login mit generierten Tokens
     if (bot === 'anime') {
-        const tokensFile = path.join(DB_DIR, 'anime_tokens.json');
+        // Zuerst Push-Daten prüfen, dann lokale Datei
+        let tokens = null;
+        const pushed = remotePushData['czeio'];
+        if (pushed && pushed.allData && pushed.allData.anime_tokens) {
+            tokens = pushed.allData.anime_tokens;
+        } else {
+            const tokensFile = path.join(DB_DIR, 'anime_tokens.json');
+            if (fs.existsSync(tokensFile)) {
+                tokens = JSON.parse(fs.readFileSync(tokensFile, 'utf8'));
+            }
+        }
         try {
-            if (!fs.existsSync(tokensFile)) {
+            if (!tokens) {
                 return res.status(401).json({ error: 'Keine Anime-Zugänge vorhanden' });
             }
-            const tokens = JSON.parse(fs.readFileSync(tokensFile, 'utf8'));
             const tokenEntry = Object.values(tokens).find(t => t.token === password && t.active);
             
             if (tokenEntry) {
@@ -197,7 +215,7 @@ app.post('/api/login', loginLimiter, async (req, res) => {
                 req.session.animeUser = tokenEntry.username;
                 logLogin('anime', req.ip);
                 animeNotification('Login', tokenEntry.username, 'Africore betreten');
-                return res.json({ success: true, redirect: '/anime.html', username: tokenEntry.username });
+                return res.json({ success: true, redirect: '/series-movies.html', username: tokenEntry.username });
             } else {
                 return res.status(401).json({ error: 'Ungültiges Anime-Passwort' });
             }
@@ -1205,24 +1223,35 @@ loadPushDataFromDisk();
 
 app.post('/api/bot/:botId/push-data', (req, res) => {
     const { botId } = req.params;
-    const { users, groups, warnings, stats, settings } = req.body;
-    remotePushData[botId] = {
-        users: users || {},
-        groups: groups || {},
-        warnings: warnings || {},
-        stats: stats || {},
-        settings: settings || {},
-        lastPush: Date.now()
-    };
-    // In Dateien speichern damit Daten Deploy-Überleben
-    const pushDir = path.join(__dirname, 'data', 'push_' + botId);
-    fs.mkdirSync(pushDir, { recursive: true });
-    try {
-        if (users) fs.writeFileSync(path.join(pushDir, 'users.json'), JSON.stringify(users, null, 2));
-        if (groups) fs.writeFileSync(path.join(pushDir, 'groups.json'), JSON.stringify(groups, null, 2));
-        if (warnings) fs.writeFileSync(path.join(pushDir, 'warnings.json'), JSON.stringify(warnings, null, 2));
-        if (stats) fs.writeFileSync(path.join(pushDir, 'stats.json'), JSON.stringify(stats, null, 2));
-    } catch (e) { console.log('[Push] Datei-Fehler:', e.message); }
+    const { allData, users, groups, warnings, stats, settings } = req.body;
+    
+    // Neues Format: allData enthält ALLE DB-Dateien
+    if (allData) {
+        remotePushData[botId] = {
+            allData,
+            users: allData.registriert || {},
+            groups: allData.groups || {},
+            warnings: allData.warnings || {},
+            stats: allData._stats || {},
+            settings: allData.settings || {},
+            lastPush: Date.now()
+        };
+        // ALLE Dateien auf Disk speichern
+        const pushDir = path.join(__dirname, 'data', 'push_' + botId);
+        fs.mkdirSync(pushDir, { recursive: true });
+        try {
+            for (const [key, value] of Object.entries(allData)) {
+                fs.writeFileSync(path.join(pushDir, key + '.json'), JSON.stringify(value, null, 2));
+            }
+        } catch (e) { console.log('[Push] Datei-Fehler:', e.message); }
+    } else {
+        // Altes Format
+        remotePushData[botId] = {
+            users: users || {}, groups: groups || {},
+            warnings: warnings || {}, stats: stats || {},
+            settings: settings || {}, lastPush: Date.now()
+        };
+    }
     res.json({ ok: true });
 });
 
@@ -2538,7 +2567,7 @@ app.post('/api/anime/approve', express.json(), async (req, res) => {
         } else {
             // WhatsApp user
             const userJid = sub.userId;
-            const text = `✅ *Abo freigeschaltet!*\n━━━━━━━━━━━━━━━━━━\n\n📦 *${tierInfo.name}*\n⏱️ ${monthLabel}\n💰 ${sub.price}€\n📅 Gültig bis: ${expiryText}\n\n🔐 *Zugangsdaten*\n━━━━━━━━━━━━━━━━━━\n👤 User: \`${sub.username}\`\n🔑 Key: \`${token}\`\n\n🌐 *So einloggen:*\n1. Öffne https://czeio-nerox-dashboard.tailb341be.ts.net/anime-login.html\n2. Gib deinen Key ein\n\nViel Spaß beim Schauen! 🎬`;
+            const text = `✅ *Abo freigeschaltet!*\n━━━━━━━━━━━━━━━━━━\n\n📦 *${tierInfo.name}*\n⏱️ ${monthLabel}\n💰 ${sub.price}€\n📅 Gültig bis: ${expiryText}\n\n🔐 *Zugangsdaten*\n━━━━━━━━━━━━━━━━━━\n👤 User: \`${sub.username}\`\n🔑 Key: \`${token}\`\n\n🌐 *So einloggen:*\n1. Öffne https://africore-dashboard.onrender.com/anime-login\n2. Gib deinen Key ein\n\nViel Spaß beim Schauen! 🎬`;
             const postData = JSON.stringify({ jid: userJid, text, mentions: [userJid] });
             const options = { hostname: 'localhost', port: 3080, path: '/api/send-message', method: 'POST', headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(postData) } };
             await new Promise((resolve, reject) => {
