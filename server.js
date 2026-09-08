@@ -1258,8 +1258,26 @@ app.post('/api/bot/:botId/push-data', (req, res) => {
 app.get('/api/bot/:botId/push-data', (req, res) => {
     const { botId } = req.params;
     const data = remotePushData[botId];
-    if (!data) return res.json({ exists: false });
-    res.json(data);
+    if (data) return res.json(data);
+    // Fallback: Von Disk laden
+    const pushDir = path.join(__dirname, 'data', 'push_' + botId);
+    if (fs.existsSync(pushDir)) {
+        const diskData = { users: {}, groups: {}, warnings: {}, stats: {}, settings: {}, allData: {}, lastPush: 0 };
+        try {
+            const files = fs.readdirSync(pushDir).filter(f => f.endsWith('.json'));
+            for (const file of files) {
+                const key = file.replace('.json', '');
+                diskData.allData[key] = JSON.parse(fs.readFileSync(path.join(pushDir, file), 'utf8'));
+            }
+            diskData.users = diskData.allData.registriert || {};
+            diskData.groups = diskData.allData.groups || {};
+            diskData.stats = diskData.allData._stats || {};
+            diskData.lastPush = Date.now();
+            remotePushData[botId] = diskData;
+            return res.json(diskData);
+        } catch (e) { console.log('[Push] Disk-Ladefehler:', e.message); }
+    }
+    res.json({ exists: false });
 });
 
 // ========== BOT PROXY API (Live-Daten) ==========
