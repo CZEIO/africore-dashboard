@@ -363,6 +363,22 @@ app.get('/api/bot/:botId/stats', requireAuth, (req, res) => {
     }
 
     try {
+        // Pruefe ob Push-Daten vorhanden sind
+        const pushed = remotePushData[botId];
+        if (pushed && pushed.stats && (Date.now() - pushed.lastPush < 120000)) {
+            return res.json({
+                botName: BOTS[botId].name,
+                totalUsers: pushed.stats.totalUsers || 0,
+                totalGroups: pushed.stats.totalGroups || 0,
+                totalWarnings: pushed.stats.totalWarnings || 0,
+                totalXP: pushed.stats.totalXP || 0,
+                totalBalance: pushed.stats.totalBalance || 0,
+                avgLevel: pushed.stats.avgLevel || 0,
+                topUsers: pushed.stats.topUsers || [],
+                muted: false
+            });
+        }
+
         const users = loadUsers(botId);
         const warnings = loadDB(botId, 'warnings', {});
         const knownGroups = loadDB(botId, 'knowngroups', {});
@@ -439,6 +455,21 @@ app.get('/api/bot/:botId/users', requireAuth, (req, res) => {
     }
 
     try {
+        // Pruefe ob Push-Daten vorhanden sind
+        const pushed = remotePushData[botId];
+        if (pushed && pushed.users && Object.keys(pushed.users).length > 0 && (Date.now() - pushed.lastPush < 120000)) {
+            const userList = Object.entries(pushed.users).map(([jid, data]) => ({
+                jid,
+                name: data.name || jid.split('@')[0],
+                xp: data.xp || 0,
+                level: data.level || 1,
+                rank: data.rank || getRank(data.level || 1),
+                balance: data.balance || 0,
+                phone: data.phone || jid.replace('@s.whatsapp.net', '').replace('@lid', '')
+            })).sort((a, b) => b.xp - a.xp);
+            return res.json({ users: userList });
+        }
+
         const users = loadUsers(botId);
         const userList = Object.entries(users).map(([jid, data]) => ({
             jid,
@@ -468,6 +499,32 @@ app.get('/api/bot/:botId/groups', requireAuth, (req, res) => {
     }
 
     try {
+        // Pruefe ob Push-Daten vorhanden sind
+        const pushed = remotePushData[botId];
+        if (pushed && pushed.groups && Object.keys(pushed.groups).length > 0 && (Date.now() - pushed.lastPush < 120000)) {
+            let groupList = [];
+            if (Array.isArray(pushed.groups)) {
+                groupList = pushed.groups.map(jid => ({
+                    jid,
+                    name: jid.split('@')[0],
+                    members: -1
+                }));
+            } else {
+                groupList = Object.entries(pushed.groups).map(([jid, data]) => {
+                    let name = jid.split('@')[0];
+                    let members = -1;
+                    if (typeof data === 'string') {
+                        name = data;
+                    } else if (typeof data === 'object' && data !== null) {
+                        name = data.name || data.subject || jid.split('@')[0];
+                        members = data.members || -1;
+                    }
+                    return { jid, name, members };
+                });
+            }
+            return res.json({ groups: groupList });
+        }
+
         let groups = loadDB(botId, 'knowngroups', {});
         let groupList = [];
 
@@ -529,6 +586,42 @@ app.get('/api/bot/:botId/warnings', requireAuth, (req, res) => {
     }
 
     try {
+        // Pruefe ob Push-Daten vorhanden sind
+        const pushed = remotePushData[botId];
+        if (pushed && pushed.warnings && (Date.now() - pushed.lastPush < 120000)) {
+            let warningList = [];
+            if (Array.isArray(pushed.warnings)) {
+                warningList = pushed.warnings.map((w, i) => ({
+                    jid: w.jid || `Warning ${i + 1}`,
+                    name: w.name || w.jid || `Warning ${i + 1}`,
+                    count: w.count || 1,
+                    reason: w.reason || 'Kein Grund'
+                }));
+            } else if (typeof pushed.warnings === 'object') {
+                for (const [key, value] of Object.entries(pushed.warnings)) {
+                    if (typeof value === 'object' && value !== null) {
+                        for (const [userJid, count] of Object.entries(value)) {
+                            warningList.push({
+                                jid: userJid,
+                                name: userJid.replace('@s.whatsapp.net', '').replace('@lid', ''),
+                                count: count,
+                                reason: 'Verwarnung',
+                                group: key
+                            });
+                        }
+                    } else if (typeof value === 'number') {
+                        warningList.push({
+                            jid: key,
+                            name: key.replace('@s.whatsapp.net', '').replace('@lid', ''),
+                            count: value,
+                            reason: 'Verwarnung'
+                        });
+                    }
+                }
+            }
+            return res.json({ warnings: warningList });
+        }
+
         const warnings = loadDB(botId, 'warnings', {});
         const users = loadUsers(botId);
         let warningList = [];
@@ -1075,6 +1168,36 @@ app.get('/api/bot/:botId/remote-command', (req, res) => {
     if (!cmd) return res.json({ pending: false });
     delete remoteBotCommands[botId];
     res.json({ pending: true, command: cmd.command });
+});
+
+// ========== REMOTE DATA PUSH (Bot schickt Daten an Render) ==========
+const remotePushData = {};
+
+app.post('/api/bot/:botId/push-data', (req, res) => {
+    const { botId } = req.params;
+    const { users, groups, warnings, stats, settings } = req.body;
+    remotePushData[botId] = {
+        users: users || {},
+        groups: groups || {},
+        warnings: warnings || {},
+        stats: stats || {},
+        settings: settings || {},
+        lastPush: Date.now()
+    };
+    // Auch in DB-Dateien speichern damit Dashboard-Logik funktioniert
+    const botDir = path.join(DB_DIR, 'push_' + botId);
+    fs.mkdirSync(botDir, { recursive: true });
+    if (users) fs.writeFileSync(path.join(botDir, 'registriert.json'), JSON.stringify(users, null, 2));
+    if (groups) fs.writeFileSync(path.join(botDir, 'knowngroups.json'), JSON.stringify(groups, null, 2));
+    if (warnings) fs.writeFileSync(path.join(botDir, 'warnings.json'), JSON.stringify(warnings, null, 2));
+    res.json({ ok: true });
+});
+
+app.get('/api/bot/:botId/push-data', (req, res) => {
+    const { botId } = req.params;
+    const data = remotePushData[botId];
+    if (!data) return res.json({ exists: false });
+    res.json(data);
 });
 
 // ========== BOT PROXY API (Live-Daten) ==========
