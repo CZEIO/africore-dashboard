@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEROX X CZEIO X MISSY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <video class="login-bg-video" id="login-bg-video" autoplay loop muted playsinline>
+        <source src="login-bg.mp4" type="video/mp4">
+    </video>
+    <div class="login-bg-overlay"></div>
+
+    <button class="login-sound-btn" id="login-sound-btn" title="Sound an/aus">
+        <i class="fa-solid fa-volume-xmark" id="login-sound-icon"></i>
+    </button>
+
+    <!-- SPLASH SCREEN -->
+    <div class="splash" id="splash">
+        <div class="splash-content">
+            <div class="splash-logo">
+                <div class="splash-ring"></div>
+                <div class="splash-ring r2"></div>
+                <div class="splash-core">
+                    <svg class="splash-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+            </div>
+            <h1 class="splash-title" id="splash-title"></h1>
+            <div class="splash-loader">
+                <div class="loader-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGIN PAGE -->
+    <div class="page" id="page">
+        <div class="bg-grid"></div>
+
+        <div class="container">
+            <header class="header">
+                <div class="logo">
+                    <div class="logo-ring"></div>
+                    <div class="logo-ring r2"></div>
+                    <div class="logo-core">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                </div>
+                <h1 class="title">NEROX X CZEIO X MISSY</h1>
+                <p class="subtitle">Dein Control Center — Bots, Anime & mehr</p>
+                <p class="header-desc">Verwalte deine WhatsApp Bots, schaue Anime und habe jederzeit alles im Griff. Sicher, schnell und individuell anpassbar.</p>
+                <div class="header-stats">
+                    <div class="stat-pill"><i class="fa-solid fa-robot"></i> 3 Bots</div>
+                    <div class="stat-pill"><i class="fa-solid fa-bolt"></i> 24/7 Online</div>
+                    <div class="stat-pill"><i class="fa-solid fa-shield-halved"></i> Sicher</div>
+                    <div class="stat-pill"><i class="fa-solid fa-code"></i> Custom Built</div>
+                </div>
+            </header>
+
+            <div class="bot-grid">
+
+                <!-- NEROX -->
+                <div class="bot-card nerox-card" onclick="openLogin('nerox')" data-bot="nerox">
+                    <div class="card-shimmer"></div>
+                    <div class="card-glow"></div>
+                    <div class="card-border-anim"></div>
+                    <div class="card-content">
+                        <div class="bot-avatar nerox-avatar" id="avatar-nerox">
+                            <div class="avatar-ring-spin"></div>
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <h2>NeroX</h2>
+                        <p class="bot-subtitle">Control Panel</p>
+                        <div class="bot-features">
+                            <span class="feature-tag"><i class="fa-solid fa-shield-halved"></i> Admin</span>
+                            <span class="feature-tag"><i class="fa-solid fa-coins"></i> Economy</span>
+                            <span class="feature-tag"><i class="fa-solid fa-gamepad"></i> Games</span>
+                            <span class="feature-tag"><i class="fa-solid fa-music"></i> Musik</span>
+                            <span class="feature-tag"><i class="fa-solid fa-brain"></i> KI</span>
+                        </div>
+                        <p class="bot-desc">Volles Admin-Panel mit Economy-System, Mini-Games, Musik-Player & KI-Integration. Dein mächtigster WhatsApp Bot mit 80+ Befehlen.</p>
+                        <div class="bot-extra">
+                            <div class="extra-item"><i class="fa-solid fa-users-gear"></i> Gruppen-Verwaltung</div>
+                            <div class="extra-item"><i class="fa-solid fa-image"></i> Sticker & Media</div>
+                            <div class="extra-item"><i class="fa-solid fa-chart-line"></i> Level-System</div>
+                        </div>
+                        <div class="bot-status">
+                            <span class="status-dot nerox-dot"></span>
+                            <span>Online</span>
+                            <span class="status-sep">·</span>
+                            <span class="bot-cmds">80+ Befehle</span>
+                        </div>
+                    </div>
+                    <div class="card-cta">
+                        <span>Oeffnen</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- CZEIO -->
+                <div class="bot-card czeio-card" onclick="openLogin('czeio')" data-bot="czeio">
+                    <div class="card-shimmer"></div>
+                    <div class="card-glow"></div>
+                    <div class="card-border-anim"></div>
+                    <div class="card-content">
+                        <div class="bot-avatar czeio-avatar" id="avatar-czeio">
+                            <div class="avatar-ring-spin czeio-ring"></div>
+                            <i class="fa-solid fa-crown"></i>
+                        </div>
+                        <h2 class="czeio-text">CZEIO</h2>
+                        <p class="bot-subtitle">Der Hauptbot</p>
+                        <div class="bot-features">
+                            <span class="feature-tag czeio-tag"><i class="fa-solid fa-crown"></i> Owner</span>
+                            <span class="feature-tag czeio-tag"><i class="fa-solid fa-users"></i> Groups</span>
+                            <span class="feature-tag czeio-tag"><i class="fa-solid fa-wand-magic-sparkles"></i> Premium</span>
+                            <span class="feature-tag czeio-tag"><i class="fa-solid fa-robot"></i> JARVIS</span>
+                            <span class="feature-tag czeio-tag"><i class="fa-solid fa-trash-can"></i> Anti-Delete</span>
+                        </div>
+                        <p class="bot-desc">Der Hauptbot mit allem was das Herz begehrt — Royale Economy, Anti-Delete, JARVIS KI-Assistent, Auto-Moderation & exklusive Premium-Features.</p>
+                        <div class="bot-extra">
+                            <div class="extra-item"><i class="fa-solid fa-crown"></i> Royale Rang-System</div>
+                            <div class="extra-item"><i class="fa-solid fa-shield"></i> Anti-Delete & Logging</div>
+                            <div class="extra-item"><i class="fa-solid fa-wand-magic-sparkles"></i> JARVIS KI</div>
+                        </div>
+                        <div class="bot-status">
+                            <span class="status-dot czeio-dot"></span>
+                            <span>Online</span>
+                            <span class="status-sep">·</span>
+                            <span class="bot-cmds">100+ Befehle</span>
+                        </div>
+                    </div>
+                    <div class="card-cta czeio-cta">
+                        <span>Oeffnen</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- KUSHI -->
+                <div class="bot-card kushi-card" onclick="openLogin('kushi')" data-bot="kushi">
+                    <div class="card-shimmer"></div>
+                    <div class="card-glow"></div>
+                    <div class="card-border-anim"></div>
+                    <div class="card-content">
+                        <div class="bot-avatar kushi-avatar" id="avatar-kushi">
+                            <div class="avatar-ring-spin kushi-ring"></div>
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <h2 class="kushi-text">Missy</h2>
+                        <p class="bot-subtitle">Missy's Bot</p>
+                        <div class="bot-features">
+                            <span class="feature-tag kushi-tag"><i class="fa-solid fa-heart"></i> Missy</span>
+                            <span class="feature-tag kushi-tag"><i class="fa-solid fa-music"></i> Musik</span>
+                            <span class="feature-tag kushi-tag"><i class="fa-solid fa-sparkles"></i> Fun</span>
+                            <span class="feature-tag kushi-tag"><i class="fa-solid fa-download"></i> Download</span>
+                            <span class="feature-tag kushi-tag"><i class="fa-solid fa-palette"></i> Sticker</span>
+                        </div>
+                        <p class="bot-desc">Missy's eigener Bot — Economy, Anime-Suche, Sticker-Generator, Media-Download & persönliche Features für jeden User. Dein all-in-one Unterhaltungs-Bot.</p>
+                        <div class="bot-extra">
+                            <div class="extra-item"><i class="fa-solid fa-coins"></i> Economy & Level</div>
+                            <div class="extra-item"><i class="fa-solid fa-film"></i> Anime & Streaming</div>
+                            <div class="extra-item"><i class="fa-solid fa-face-smile"></i> Fun & Games</div>
+                        </div>
+                        <div class="bot-status">
+                            <span class="status-dot kushi-dot"></span>
+                            <span>Online</span>
+                            <span class="status-sep">·</span>
+                            <span class="bot-cmds">70+ Befehle</span>
+                        </div>
+                    </div>
+                    <div class="card-cta kushi-cta">
+                        <span>Oeffnen</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <div class="footer-pill"><i class="fa-solid fa-shield-halved"></i> Verschluesselt</div>
+                <div class="footer-pill"><i class="fa-solid fa-bolt"></i> Schnell</div>
+                <div class="footer-pill"><i class="fa-solid fa-code"></i> Built with Code</div>
+                <div class="footer-pill"><i class="fa-solid fa-heart"></i> Made with Love</div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- LOGIN MODAL -->
+    <div id="login-modal" class="modal hidden">
+        <div class="modal-content" id="modal-content">
+            <div class="modal-particles" id="modal-particles"></div>
+            <button class="modal-close" onclick="closeLogin()">&times;</button>
+            <div class="modal-icon" id="modal-icon">
+                <div class="modal-icon-ring"></div>
+                <div class="modal-icon-ring r2"></div>
+                <div class="modal-icon-core" id="modal-icon-core">
+                    <i class="fa-solid fa-user" id="modal-icon-fallback"></i>
+                    <img id="modal-icon-img" src="" alt="" style="display:none">
+                </div>
+            </div>
+            <h2 id="modal-title"></h2>
+            <p id="modal-desc" class="muted"></p>
+            <div class="login-input-wrap">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="login-password" placeholder="Passwort eingeben..." autofocus>
+                <button class="login-eye" onclick="togglePass()">
+                    <i class="fa-solid fa-eye" id="eye-icon"></i>
+                </button>
+            </div>
+            <button id="login-btn" onclick="doLogin()">
+                <span class="btn-text"><i class="fa-solid fa-right-to-bracket"></i> Einloggen</span>
+                <span class="btn-loader hidden"></span>
+            </button>
+            <p id="login-error" class="error"></p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

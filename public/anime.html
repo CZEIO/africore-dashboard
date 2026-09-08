@@ -1,0 +1,2581 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Africore - Anime Streamen & Herunterladen</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <style>
+        /* Adblocker - Versteckt Werbung */
+        [id*="ad-"], [id*="ad_"], [id*="ads"], [class*="ad-"], [class*="ad_"], [class*="ads-"],
+        [class*="advert"], [class*="banner-ad"], [class*="popup"], [class*="modal-ad"],
+        [id*="google_ads"], [id*="taboola"], [id*="outbrain"], [class*="taboola"], [class*="outbrain"],
+        iframe[src*="doubleclick"], iframe[src*="googlesyndication"], iframe[src*="adnxs"],
+        iframe[src*="advertising"], iframe[src*="adservice"], iframe[src*="pagead"],
+        .adsbygoogle, .adsbygoogle_wrapper, #ad-container, .ad-container,
+        [data-ad], [data-ads], [data-slot], [data-google-query-id],
+        .video-ad, .preroll-ad, .midroll-ad, .overlay-ad,
+        div[id*="video_ad"], div[class*="video-ad"],
+        .gpt-ad, .ad-slot, .ad-wrapper, .ad-banner,
+        iframe[src*="playerahu"], iframe[src*="clipwatching"],
+        div[class*="xc"], div[id*="xc"], .fu-player-companion {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            height: 0 !important;
+            width: 0 !important;
+            position: absolute !important;
+            pointer-events: none !important;
+        }
+        /* Popups/Overlays blockieren */
+        [style*="z-index: 9999"], [style*="z-index:9999"],
+        [style*="position: fixed"][style*="background"],
+        div[style*="position:fixed"][style*="z-index"] {
+            display: none !important;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #111111;
+            --bg-secondary: #16162a;
+            --bg-card: #1e1e32;
+            --bg-card-hover: #2a2a45;
+            --bg-input: #16162a;
+            --accent: #7c5cff;
+            --accent-hover: #8d6fff;
+            --accent-dark: #5b3fd4;
+            --accent-glow: rgba(124, 92, 255, 0.25);
+            --accent-subtle: rgba(124, 92, 255, 0.1);
+            --text-primary: #e0e0e0;
+            --text-secondary: #aaa;
+            --text-muted: #888;
+            --border: #2a2a40;
+            --border-hover: #3a3a55;
+            --shadow: rgba(0, 0, 0, 0.6);
+            --shadow-accent: rgba(124, 92, 255, 0.2);
+            --glass: #16162a;
+            --glass-border: #2a2a40;
+        }
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { color: var(--accent-hover); }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #111111; }
+        ::-webkit-scrollbar-thumb { background: #3a3a5a; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7c5cff; }
+
+        .header {
+            background: rgba(22, 22, 42, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(124, 92, 255, 0.2);
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .header-inner {
+            max-width: 1200px; margin: 0 auto; padding: 0 20px;
+            display: flex; align-items: center; height: 50px; gap: 20px;
+        }
+        .logo {
+            font-size: 1.2rem; font-weight: 700; color: var(--accent);
+            display: flex; align-items: center; gap: 8px; cursor: pointer; white-space: nowrap;
+        }
+        .logo i { font-size: 1.2rem; }
+        .logo span { color: var(--accent); }
+        .nav { display: flex; gap: 2px; }
+        .nav a {
+            color: var(--text-secondary); padding: 6px 12px; border-radius: 4px;
+            font-size: 0.85rem; transition: background 0.2s; display: flex; align-items: center; gap: 6px;
+        }
+        .nav a:hover { color: #7c5cff; background: rgba(124,92,255,0.05); text-shadow: 0 0 8px rgba(124, 92, 255, 0.3); }
+        .nav a.active { color: #7c5cff; background: rgba(100,100,100,0.1); text-shadow: 0 0 8px rgba(124, 92, 255, 0.3); }
+        .header-search { flex: 1; max-width: 350px; position: relative; }
+        .header-search input {
+            width: 100%; padding: 7px 36px 7px 12px;
+            background: rgba(13, 13, 24, 0.8);
+            border: 1px solid #2a2a40; border-radius: 8px; color: var(--text-primary);
+            font-size: 0.85rem; outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .header-search input:focus {
+            border-color: #7c5cff;
+            box-shadow: 0 0 12px rgba(124, 92, 255, 0.2);
+        }
+        .header-search input::placeholder { color: var(--text-muted); }
+        .header-search button {
+            position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+            background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 6px;
+        }
+        .header-search button:hover { color: var(--accent); }
+        .header-user { display: flex; align-items: center; gap: 8px; margin-left: auto; white-space: nowrap; }
+        .header-user .user-badge {
+            background: rgba(124,92,255,0.1); color: var(--accent);
+            padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; border: 1px solid #2a2a40;
+        }
+        .logout-btn {
+            background: rgba(124,92,255,0.08); border: 1px solid #2a2a40;
+            color: #888; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
+        }
+        .logout-btn:hover { background: rgba(124,92,255,0.15); }
+
+        /* Main Content */
+        .main { max-width: 1200px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+
+        /* Welcome Banner */
+        .welcome-banner {
+            background: linear-gradient(135deg, rgba(26,58,138,0.3), rgba(91,63,212,0.3), rgba(139,92,246,0.2));
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(124, 92, 255, 0.15);
+            border-radius: 12px; padding: 30px 24px; margin-bottom: 24px;
+        }
+        .welcome-banner h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
+        .welcome-banner h1 i { color: var(--accent); margin-right: 10px; }
+        .welcome-banner p { color: var(--text-secondary); font-size: 0.95rem; }
+
+        .announcement-banner {
+            background: rgba(30, 30, 50, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(124, 92, 255, 0.15);
+            border-radius: 12px; padding: 12px 18px; margin-bottom: 16px;
+            display: flex; align-items: center; justify-content: space-between; overflow: hidden;
+        }
+        .announcement-slide { display: flex; align-items: center; gap: 10px; }
+        .announcement-slide i { font-size: 1.1rem; color: var(--accent); }
+        .announcement-slide span { font-size: 0.9rem; color: var(--text-primary); }
+        .announcement-dots { display: flex; gap: 5px; margin-left: 12px; }
+        .announcement-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(124, 92, 255, 0.15); cursor: pointer; transition: background 0.3s; }
+        .announcement-dot.active { background: #7c5cff; box-shadow: 0 0 8px rgba(124, 92, 255, 0.4); }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 1.15rem; font-weight: 700; margin-bottom: 16px;
+            display: flex; align-items: center; gap: 8px; padding-bottom: 8px;
+            border-bottom: 1px solid #2a2a40;
+        }
+        .section-title i { color: var(--accent); }
+
+        /* A-Z Navigation */
+        .az-nav {
+            display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 20px;
+            padding: 12px 14px; background: rgba(30, 30, 50, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(124, 92, 255, 0.15); border-radius: 12px;
+        }
+        .az-nav button {
+            width: 32px; height: 32px; background: rgba(13, 13, 24, 0.8); border: 1px solid rgba(124, 92, 255, 0.15);
+            border-radius: 4px; color: var(--text-muted); font-size: 0.8rem; font-weight: 600; cursor: pointer;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .az-nav button:hover { background: rgba(124, 92, 255, 0.15); color: #b4a0ff; border-color: rgba(124, 92, 255, 0.4); box-shadow: 0 0 10px rgba(124, 92, 255, 0.2); }
+        .az-nav button.active { background: rgba(124, 92, 255, 0.15); color: #b4a0ff; border-color: rgba(124, 92, 255, 0.4); box-shadow: 0 0 12px rgba(124, 92, 255, 0.2); }
+
+        /* Search Section */
+        .search-section { background: rgba(30, 30, 50, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(124, 92, 255, 0.15); border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+        .search-bar { display: flex; gap: 10px; max-width: 600px; margin: 0 auto; }
+        .search-bar input {
+            flex: 1; padding: 10px 14px;
+            background: rgba(13, 13, 24, 0.8);
+            border: 1px solid #2a2a40; border-radius: 8px; color: var(--text-primary); font-size: 0.95rem; outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .search-bar input:focus {
+            border-color: #7c5cff;
+            box-shadow: 0 0 12px rgba(124, 92, 255, 0.2);
+        }
+        .search-bar input::placeholder { color: var(--text-muted); }
+        .search-bar button {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #5b3fd4, #7c5cff, #c026d3); border: none;
+            border-radius: 4px; color: #fff; font-size: 0.95rem; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; gap: 6px;
+            box-shadow: 0 0 15px rgba(124, 92, 255, 0.3);
+        }
+        .search-bar button:hover {
+            box-shadow: 0 0 25px rgba(124, 92, 255, 0.5);
+            transform: translateY(-1px);
+        }
+
+        /* Anime Grid */
+        .anime-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; margin-bottom: 30px; }
+        .anime-card {
+            background: rgba(30, 30, 50, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(124, 92, 255, 0.15);
+            border-radius: 12px; overflow: hidden; cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative; pointer-events: auto !important;
+        }
+        .anime-card * { pointer-events: none; }
+        .anime-card:hover {
+            border-color: rgba(124, 92, 255, 0.4);
+            box-shadow: 0 0 20px rgba(124, 92, 255, 0.2), 0 0 40px rgba(124, 92, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        .anime-card .poster { width: 100%; height: 250px; object-fit: cover; }
+        .anime-card .poster-wrapper { position: relative; }
+        .anime-card .poster-wrapper::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 50%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7)); pointer-events: none;
+        }
+        .anime-card .card-info { padding: 10px; }
+        .anime-card .card-title { font-size: 0.85rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .anime-card .card-meta { font-size: 0.72rem; color: var(--text-muted); margin-top: 3px; }
+        .anime-card .badge-new {
+            position: absolute; top: 8px; right: 8px;
+            background: var(--accent); color: #111; padding: 2px 8px; border-radius: 3px;
+            font-size: 0.6rem; font-weight: 700; z-index: 2;
+        }
+
+        /* Carousel */
+        .carousel-wrapper { position: relative; margin-bottom: 30px; }
+        .carousel { display: flex; gap: 12px; overflow-x: auto; scroll-behavior: smooth; padding: 8px 4px 20px; scrollbar-width: none; }
+        .carousel::-webkit-scrollbar { display: none; }
+        .carousel .anime-card { min-width: 170px; max-width: 170px; flex-shrink: 0; }
+        .carousel-btn {
+            position: absolute; top: 40%; transform: translateY(-50%);
+            width: 36px; height: 36px;
+            background: rgba(30, 30, 50, 0.8);
+            border: 1px solid rgba(124, 92, 255, 0.3);
+            color: #e0e0e0;
+            backdrop-filter: blur(8px);
+            border-radius: 4px; cursor: pointer; z-index: 10;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .carousel-btn:hover {
+            background: rgba(124, 92, 255, 0.3);
+            border-color: #7c5cff;
+            box-shadow: 0 0 15px rgba(124, 92, 255, 0.3);
+        }
+        .carousel-btn.prev { left: -4px; }
+        .carousel-btn.next { right: -4px; }
+
+        /* Detail Page */
+        .detail-page { }
+        .detail-header {
+            display: flex; gap: 24px; margin-bottom: 24px;
+            background: rgba(30, 30, 50, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(124, 92, 255, 0.15); border-radius: 12px; padding: 20px;
+        }
+        .detail-poster {
+            width: 180px; height: 260px; object-fit: cover; border-radius: 4px;
+            flex-shrink: 0; border: 1px solid #2a2a40;
+        }
+        .detail-info { flex: 1; }
+        .detail-info h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
+        .detail-info .meta { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 14px; display: flex; gap: 16px; flex-wrap: wrap; }
+        .detail-info .meta span { display: flex; align-items: center; gap: 5px; }
+        .detail-info .meta i { color: var(--accent); }
+        .detail-info .description { color: var(--text-secondary); line-height: 1.7; }
+        .original-title { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px; font-style: italic; }
+        .meta-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; margin-bottom: 14px; }
+        .meta-item { display: flex; flex-direction: column; gap: 2px; }
+        .meta-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+        .meta-value { font-size: 0.85rem; color: var(--text-primary); }
+        .detail-desc { color: var(--text-secondary); line-height: 1.7; margin: 16px 0; padding: 12px; background: rgba(13, 13, 24, 0.8); border-radius: 8px; border: 1px solid rgba(124, 92, 255, 0.15); }
+        .detail-trailer { margin: 16px 0; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 4px; }
+        .detail-trailer iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .detail-source { margin-top: 16px; }
+        .detail-source a { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: var(--accent); color: #fff; border-radius: 4px; text-decoration: none; font-weight: 600; }
+        .detail-source a:hover { background: var(--accent-hover); }
+        .quality-badge { position: absolute; top: 6px; right: 6px; background: var(--accent); color: #111; padding: 2px 6px; border-radius: 3px; font-size: 0.65rem; font-weight: 700; }
+        .card-meta-sm { font-size: 0.72rem; color: var(--text-secondary); margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        .stream-section { margin: 16px 0; }
+        .episode-nav { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .episode-nav label { color: var(--text-secondary); font-size: 0.85rem; }
+        .episode-nav select { background: rgba(13, 13, 24, 0.8); border: 1px solid rgba(124, 92, 255, 0.15); color: var(--text-primary); padding: 6px 12px; border-radius: 4px; font-size: 0.85rem; cursor: pointer; }
+        .episode-nav select option { background: #1e1e32; color: var(--text-primary); }
+        .player-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 4px; background: #000; margin-bottom: 10px; }
+        .player-container iframe, .player-container video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; }
+        .source-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+        .source-btn { padding: 6px 14px; background: rgba(13, 13, 24, 0.8); border: 1px solid rgba(124, 92, 255, 0.15); color: var(--text-secondary); border-radius: 4px; cursor: pointer; font-size: 0.82rem; transition: border-color 0.3s, box-shadow 0.3s; }
+        .source-btn:hover { background: rgba(124,92,255,0.1); color: var(--text-primary); border-color: rgba(124, 92, 255, 0.3); }
+        .source-btn.active { background: rgba(124, 92, 255, 0.15); color: #b4a0ff; border-color: rgba(124, 92, 255, 0.4); box-shadow: 0 0 12px rgba(124, 92, 255, 0.2); }
+
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px;
+            background: rgba(30, 30, 50, 0.8); backdrop-filter: blur(8px);
+            border: 1px solid rgba(124, 92, 255, 0.3); border-radius: 4px;
+            color: var(--text-primary); cursor: pointer; font-size: 0.85rem; margin-bottom: 16px;
+        }
+        .back-btn:hover { background: rgba(124, 92, 255, 0.3); border-color: #7c5cff; box-shadow: 0 0 15px rgba(124, 92, 255, 0.3); }
+
+        /* Season Tabs */
+        .season-tabs { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+        .season-tab {
+            padding: 8px 18px; background: rgba(13, 13, 24, 0.8); border: 1px solid rgba(124, 92, 255, 0.15);
+            border-radius: 4px; color: var(--text-secondary); cursor: pointer; font-weight: 600; font-size: 0.85rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .season-tab:hover { background: rgba(124,92,255,0.1); color: var(--text-primary); border-color: rgba(124, 92, 255, 0.3); }
+        .season-tab.active { background: rgba(124, 92, 255, 0.15); color: #b4a0ff; border-color: rgba(124, 92, 255, 0.4); box-shadow: 0 0 12px rgba(124, 92, 255, 0.2); }
+
+        /* AniList Card Extras */
+        .card-score {
+            position: absolute; top: 8px; left: 8px;
+            background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 3px;
+            font-size: 0.7rem; font-weight: 700; z-index: 2;
+        }
+        .card-badge {
+            position: absolute; top: 8px; right: 8px;
+            background: #b44dff; color: #fff; padding: 2px 8px; border-radius: 3px;
+            font-size: 0.65rem; font-weight: 600; z-index: 2;
+        }
+
+        /* Detail Banner */
+        .detail-banner {
+            width: 100%; height: 260px;
+            background-size: cover; background-position: center;
+            border-radius: 6px; margin-bottom: -80px;
+            position: relative;
+        }
+
+        /* Genre Tags */
+        .genre-tag {
+            display: inline-block; padding: 3px 10px;
+            background: rgba(124, 92, 255, 0.15);
+            border: 1px solid rgba(124, 92, 255, 0.3);
+            border-radius: 20px; font-size: 0.75rem; color: #b4a0ff;
+        }
+        .genre-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* Next Episode */
+        .next-ep {
+            background: rgba(124,92,255,0.1); border: 1px solid #2a2a40;
+            color: var(--accent); padding: 8px 14px; border-radius: 4px;
+            font-size: 0.85rem; margin: 10px 0; display: inline-flex; align-items: center; gap: 6px;
+        }
+
+        /* Characters */
+        .characters-section, .relations-section { margin-top: 20px; }
+        .characters-section h3, .relations-section h3 { font-size: 0.95rem; margin-bottom: 10px; }
+        .char-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+        .char-card {
+            background: #0d0d18; border: 1px solid #2a2a40; border-radius: 4px;
+            padding: 10px; display: flex; align-items: center; gap: 10px;
+        }
+        .char-card:hover { border-color: #3a3a55; }
+        .char-card img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid #2a2a40; }
+        .char-name { font-size: 0.82rem; font-weight: 600; }
+        .char-role { font-size: 0.7rem; color: var(--text-muted); text-transform: capitalize; }
+
+        /* Relations */
+        .rel-list { display: flex; flex-wrap: wrap; gap: 6px; }
+        .rel-item { background: #0d0d18; border: 1px solid #2a2a40; border-radius: 4px; padding: 6px 12px; font-size: 0.8rem; }
+        .rel-item:hover { border-color: #3a3a55; }
+        .rel-type { color: var(--accent); font-weight: 600; margin-right: 4px; text-transform: capitalize; }
+
+        /* Action Buttons */
+        .action-buttons { display: flex; gap: 10px; margin-top: 14px; }
+        .btn-primary {
+            background: linear-gradient(135deg, #5b3fd4, #7c5cff, #c026d3); color: #fff; border: none;
+            box-shadow: 0 0 15px rgba(124, 92, 255, 0.3);
+            padding: 10px 20px; border-radius: 4px; cursor: pointer;
+            font-size: 0.88rem; font-weight: 600;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 25px rgba(124, 92, 255, 0.5);
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            background: rgba(13, 13, 24, 0.8); color: var(--text-primary);
+            border: 1px solid rgba(124, 92, 255, 0.15); padding: 10px 20px; border-radius: 4px; cursor: pointer;
+            font-size: 0.88rem; text-decoration: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .btn-secondary:hover { background: rgba(124,92,255,0.1); border-color: rgba(124, 92, 255, 0.3); box-shadow: 0 0 10px rgba(124, 92, 255, 0.1); }
+
+        /* Episode Grid */
+        .ep-grid { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0; }
+        .ep-btn {
+            width: 44px; height: 44px; background: rgba(13, 13, 24, 0.8); border: 1px solid rgba(124, 92, 255, 0.15);
+            border-radius: 4px; color: var(--text-primary); font-size: 0.9rem; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .ep-btn:hover { background: rgba(124,92,255,0.1); border-color: rgba(124, 92, 255, 0.3); }
+        .ep-btn.active { background: rgba(124, 92, 255, 0.15); border-color: rgba(124, 92, 255, 0.4); color: #b4a0ff; box-shadow: 0 0 12px rgba(124, 92, 255, 0.2); }
+
+        /* Player Season/Episode Overview */
+        .player-season-section {
+            margin-top: 20px; padding: 16px 0; border-top: 1px solid rgba(124, 92, 255, 0.15);
+        }
+        .player-season-section .section-label {
+            font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;
+        }
+        .player-season-tabs {
+            display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap;
+        }
+        .player-season-tab {
+            padding: 6px 14px; background: rgba(13, 13, 24, 0.8); border: 1px solid rgba(124, 92, 255, 0.15);
+            border-radius: 4px; color: var(--text-muted); font-size: 0.82rem; font-weight: 600;
+            cursor: pointer; transition: all 0.3s;
+        }
+        .player-season-tab:hover { background: rgba(124,92,255,0.1); color: var(--text-primary); border-color: rgba(124, 92, 255, 0.3); }
+        .player-season-tab.active { background: rgba(124, 92, 255, 0.15); color: #b4a0ff; border-color: rgba(124, 92, 255, 0.4); box-shadow: 0 0 12px rgba(124, 92, 255, 0.2); }
+        .player-ep-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); gap: 6px;
+        }
+        .player-ep-tile {
+            aspect-ratio: 1; background: rgba(13, 13, 24, 0.8); border: 1px solid rgba(124, 92, 255, 0.15);
+            border-radius: 4px; color: var(--text-primary); font-size: 0.9rem; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; position: relative; overflow: hidden;
+        }
+        .player-ep-tile:hover { background: rgba(124,92,255,0.1); border-color: rgba(124, 92, 255, 0.3); transform: translateY(-1px); }
+        .player-ep-tile.active {
+            background: rgba(124, 92, 255, 0.15); border-color: var(--accent); color: #b4a0ff;
+            box-shadow: 0 0 12px rgba(124, 92, 255, 0.3);
+        }
+        .player-ep-tile.active::after {
+            content: '\f04b'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+            position: absolute; top: 2px; right: 4px; font-size: 0.55rem; color: var(--accent);
+        }
+        .player-ep-tile .ep-title {
+            font-size: 0.65rem; color: var(--text-muted); position: absolute; bottom: 2px;
+            left: 0; right: 0; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            padding: 0 2px; display: none;
+        }
+        .player-ep-tile:hover .ep-title, .player-ep-tile.active .ep-title { display: block; }
+
+        .episode-actions-box { margin-top: 14px; }
+        .ep-actions-bar {
+            background: rgba(13, 13, 24, 0.8); border: 1px solid rgba(124, 92, 255, 0.15); border-radius: 4px;
+            padding: 12px 18px; display: flex; align-items: center; gap: 14px;
+        }
+        .ep-label { font-weight: 700; color: var(--accent); font-size: 1rem; flex: 1; }
+
+        /* Video Player */
+        .player-container { background: #000; border-radius: 4px; overflow: hidden; margin-bottom: 16px; }
+        .player-header {
+            padding: 12px 18px; border-bottom: 1px solid rgba(124, 92, 255, 0.15);
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(30, 30, 50, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+        }
+        .player-header h3 { font-size: 1rem; flex: 1; }
+        .player-nav { display: flex; align-items: center; gap: 10px; }
+        .next-ep-btn {
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #5b3fd4, #7c5cff, #c026d3); color: #fff;
+            border: none; border-radius: 4px; font-size: 0.82rem; font-weight: 600; cursor: pointer;
+            box-shadow: 0 0 15px rgba(124, 92, 255, 0.3);
+        }
+        .next-ep-btn:hover { box-shadow: 0 0 25px rgba(124, 92, 255, 0.5); transform: translateY(-1px); }
+        .player-wrapper { background: #000; min-height: 400px; position: relative; }
+        .player-wrapper video { width: 100%; height: 100%; }
+        .player-wrapper iframe { width: 100%; height: 100%; min-height: 400px; border: none; }
+        .player-controls {
+            padding: 12px 18px; display: flex; align-items: center; gap: 10px;
+            border-top: 1px solid rgba(124, 92, 255, 0.15);
+            background: rgba(30, 30, 50, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+        }
+        .player-controls button {
+            padding: 8px 18px;
+            background: linear-gradient(135deg, #5b3fd4, #7c5cff, #c026d3); border: none;
+            border-radius: 4px; color: #fff; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; gap: 6px;
+            box-shadow: 0 0 15px rgba(124, 92, 255, 0.3);
+        }
+        .player-controls button:hover { box-shadow: 0 0 25px rgba(124, 92, 255, 0.5); transform: translateY(-1px); }
+
+        /* Host Bar */
+        .host-bar { display: flex; gap: 6px; padding: 10px 16px; background: rgba(13, 13, 24, 0.8); border-bottom: 1px solid rgba(124, 92, 255, 0.15); overflow-x: auto; flex-wrap: wrap; }
+        .host-btn {
+            padding: 6px 14px; background: rgba(30, 30, 50, 0.8); backdrop-filter: blur(8px);
+            border: 1px solid rgba(124, 92, 255, 0.3);
+            border-radius: 4px; color: var(--text-secondary); cursor: pointer; font-size: 0.82rem; font-weight: 600;
+        }
+        .host-btn:hover { border-color: #7c5cff; color: var(--text-primary); box-shadow: 0 0 10px rgba(124, 92, 255, 0.2); }
+        .host-btn.active { background: rgba(124, 92, 255, 0.15); border-color: rgba(124, 92, 255, 0.4); color: #b4a0ff; box-shadow: 0 0 12px rgba(124, 92, 255, 0.2); }
+
+        /* Loading */
+        .loading { text-align: center; padding: 50px 20px; color: var(--text-muted); }
+        .loading i { font-size: 2rem; margin-bottom: 12px; color: var(--accent); animation: spin 1s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.4s ease forwards; }
+        .loading p { margin-top: 10px; font-size: 0.9rem; }
+
+        /* Empty State */
+        .empty-state { text-align: center; padding: 50px 20px; color: var(--text-muted); }
+        .empty-state i { font-size: 3rem; margin-bottom: 12px; opacity: 0.3; }
+        .empty-state p { font-size: 1rem; }
+
+        /* Footer */
+        .footer { background: rgba(22, 22, 42, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-top: 1px solid rgba(124, 92, 255, 0.2); padding: 30px 20px; margin-top: 60px; text-align: center; }
+        .footer p { color: var(--text-muted); font-size: 0.85rem; }
+        .footer .footer-links { margin-top: 10px; display: flex; justify-content: center; gap: 20px; }
+        .footer .footer-links a { color: var(--text-secondary); font-size: 0.85rem; }
+        .footer .footer-links a:hover { color: var(--accent); }
+        .footer .credit { margin-top: 14px; color: var(--text-muted); font-size: 0.78rem; }
+        .footer .credit span { color: var(--accent); font-weight: 600; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-inner { gap: 8px; }
+            .nav { display: none; }
+            .header-search { max-width: 180px; }
+            .detail-header { flex-direction: column; align-items: center; text-align: center; }
+            .detail-info .meta { justify-content: center; }
+            .detail-poster { width: 150px; height: 210px; }
+            .anime-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+            .welcome-banner { padding: 20px 16px; }
+            .welcome-banner h1 { font-size: 1.3rem; }
+            .search-bar { flex-direction: column; }
+            .carousel .anime-card { min-width: 145px; max-width: 145px; }
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed; bottom: 24px; right: 24px;
+            background: linear-gradient(135deg, #5b3fd4, #7c5cff, #c026d3); color: #fff;
+            padding: 10px 20px; border-radius: 8px;
+            font-weight: 600; font-size: 0.88rem;
+            z-index: 9999; transform: translateY(80px); opacity: 0;
+            box-shadow: 0 0 20px rgba(124, 92, 255, 0.3);
+            transition: all 0.3s;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+
+        /* Stream Button */
+        .btn-stream { padding: 8px 18px; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; background: linear-gradient(135deg, #5b3fd4, #7c5cff, #c026d3); color: #fff; box-shadow: 0 0 15px rgba(124, 92, 255, 0.3); }
+        .btn-stream:hover { box-shadow: 0 0 25px rgba(124, 92, 255, 0.5); transform: translateY(-1px); }
+
+        /* Language Bar */
+        .lang-bar { display: flex; gap: 6px; padding: 10px 16px; background: rgba(13, 13, 24, 0.8); border-bottom: 1px solid rgba(124, 92, 255, 0.15); overflow-x: auto; flex-wrap: wrap; }
+        .lang-bar:empty { display: none; }
+        .lang-btn {
+            padding: 6px 14px; background: rgba(30, 30, 50, 0.8); backdrop-filter: blur(8px);
+            border: 1px solid rgba(124, 92, 255, 0.3);
+            border-radius: 4px; color: var(--text-secondary); cursor: pointer; font-size: 0.82rem;
+            font-weight: 600; display: inline-flex; align-items: center; gap: 5px;
+        }
+        .lang-btn:hover { border-color: #7c5cff; color: var(--text-primary); box-shadow: 0 0 10px rgba(124, 92, 255, 0.2); }
+        .lang-btn.active { background: rgba(124, 92, 255, 0.15); border-color: rgba(124, 92, 255, 0.4); color: #b4a0ff; box-shadow: 0 0 12px rgba(124, 92, 255, 0.2); }
+        .lang-btn i { font-size: 0.75rem; }
+
+        .host-bar-container { border-bottom: 1px solid rgba(124, 92, 255, 0.15); }
+
+        /* Legal */
+        .legal-page { max-width: 700px; margin: 0 auto; }
+        .legal-page h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
+        .legal-page h1 i { color: var(--accent); margin-right: 8px; }
+        .legal-page .legal-subtitle { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 24px; }
+        .legal-section {
+            background: rgba(30, 30, 50, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(124, 92, 255, 0.15); border-radius: 12px;
+            padding: 20px; margin-bottom: 14px;
+        }
+        .legal-section h2 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; color: var(--accent); display: flex; align-items: center; gap: 6px; }
+        .legal-section h2 i { font-size: 0.9rem; }
+        .legal-section p, .legal-section li { color: var(--text-secondary); line-height: 1.7; font-size: 0.88rem; }
+        .legal-section ul { list-style: none; padding: 0; }
+        .legal-section ul li { padding: 3px 0 3px 16px; position: relative; }
+        .legal-section ul li::before { content: '•'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+        .legal-section .label { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 10px; }
+        .legal-section .value { color: var(--text-primary); font-weight: 500; }
+
+        .section-animate { }
+        .anime-card { }
+        .modal, .overlay, .admin-panel {
+            background: rgba(17, 17, 17, 0.9);
+            backdrop-filter: blur(8px);
+        }
+        .bestellung-tab {
+            padding: 8px 16px; border: 1px solid #2a2a40; border-radius: 4px;
+            background: #0d0d18; color: var(--text-muted); cursor: pointer; font-size: 0.85rem;
+        }
+        .bestellung-tab:hover { background: #1a1a2e; color: var(--text); }
+        .bestellung-tab.active-tab { background: rgba(124,92,255,0.1); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+        .bestellung-card {
+            background: rgba(13, 13, 24, 0.8); border: 1px solid rgba(124, 92, 255, 0.15); border-radius: 12px;
+            padding: 16px; margin-bottom: 10px; display: flex; align-items: center;
+            justify-content: space-between; flex-wrap: wrap; gap: 10px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .bestellung-card:hover {
+            border-color: rgba(124, 92, 255, 0.4);
+            box-shadow: 0 0 15px rgba(124, 92, 255, 0.1);
+        }
+        .stat-box { background: rgba(13, 13, 24, 0.8); border: 1px solid rgba(124, 92, 255, 0.15); border-radius: 12px; padding: 12px 16px; min-width: 130px; text-align: center; }
+        .stat-box .stat-num { font-size: 1.6rem; font-weight: 700; }
+        .stat-box .stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 3px; }
+    .cw-card {
+        position: relative;
+        min-width: 200px;
+        max-width: 220px;
+        background: rgba(30, 30, 50, 0.7);
+        border: 1px solid rgba(124, 92, 255, 0.15);
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s;
+        flex-shrink: 0;
+    }
+    .cw-card:hover {
+        border-color: rgba(124, 92, 255, 0.4);
+        box-shadow: 0 0 20px rgba(124, 92, 255, 0.2);
+        transform: translateY(-2px);
+    }
+    .cw-poster {
+        width: 100%;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+        display: block;
+    }
+    .cw-info {
+        padding: 10px 12px;
+    }
+    .cw-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #e0e0e0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 4px;
+    }
+    .cw-meta {
+        font-size: 0.75rem;
+        color: #888;
+    }
+    .cw-progress-bar {
+        height: 3px;
+        background: #2a2a40;
+        border-radius: 2px;
+        margin-top: 6px;
+        overflow: hidden;
+    }
+    .cw-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #5b3fd4, #7c5cff, #c026d3);
+        border-radius: 2px;
+    }
+    .cw-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    .cw-card:hover .cw-overlay {
+        opacity: 1;
+    }
+    .cw-play-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(124, 92, 255, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1rem;
+    }
+    .cw-scroll {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+        padding: 8px 0 16px;
+        scroll-behavior: smooth;
+    }
+    .cw-scroll::-webkit-scrollbar { height: 4px; }
+    .cw-scroll::-webkit-scrollbar-thumb { background: #3a3a5a; border-radius: 2px; }
+    </style>
+</head>
+<body>
+    <!-- ANIME SPLASH SCREEN -->
+    <div id="anime-splash" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;background:#111111;display:flex;align-items:center;justify-content:center;transition:opacity 0.5s,visibility 0.5s;">
+        <div style="text-align:center;">
+            <img src="logo.png" alt="Africore" style="width:80px;height:80px;margin:0 auto 20px;border-radius:16px;object-fit:cover;">
+            <h1 style="font-size:2rem;font-weight:300;color:#e0e0e0;margin-bottom:8px;letter-spacing:0.1em;">AFRICORE</h1>
+            <p style="color:#888;font-size:0.85rem;">Lade Inhalte...</p>
+            <div style="width:160px;height:3px;background:#2a2a40;margin:16px auto 0;border-radius:2px;overflow:hidden;">
+                <div style="width:0;height:100%;background:linear-gradient(90deg, #1a3a8a, #5b3fd4, #8b5cf6, #c026d3);border-radius:2px;animation:splashLoad 2s ease forwards;"></div>
+            </div>
+        </div>
+    </div>
+    <style>
+        @keyframes splashLoad { 0%{width:0} 100%{width:100%} }
+    </style>
+
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo" onclick="goHome()">
+                <img src="logo.png" alt="Africore" style="width:32px;height:32px;border-radius:6px;object-fit:cover;">
+                <span>Africore</span>
+            </div>
+            <nav class="nav">
+                <a href="#" class="active" onclick="goHome()"><i class="fas fa-home"></i> Startseite</a>
+                <a href="series-movies.html"><i class="fas fa-tv"></i> Serien & Filme</a>
+                <a href="#" onclick="scrollToSection('catalog')"><i class="fas fa-list"></i> Katalog</a>
+                <a href="#" id="nav-bestellungen" style="display:none" onclick="showBestellungen()"><i class="fas fa-receipt"></i> Bestellungen</a>
+                <a href="#" onclick="scrollToSection('search-section')"><i class="fas fa-search"></i> Suche</a>
+                <a href="#" onclick="showDownloads()"><i class="fas fa-download"></i> Downloads</a>
+            </nav>
+            <div class="header-search">
+                <input type="text" id="header-search-input" placeholder="Anime suchen..." onkeydown="if(event.key==='Enter')headerSearch()">
+                <button onclick="headerSearch()"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="header-user">
+                <span id="admin-btn" style="display:none;padding:4px 10px;background:rgba(100,100,100,0.1);border:1px solid #333;border-radius:4px;color:#888;cursor:pointer;font-size:0.8rem;margin-right:6px" onclick="showAdmin()"><i class="fas fa-shield-halved"></i> Admin</span>
+                <span class="user-badge" id="username"><i class="fas fa-user"></i> User</span>
+                <button class="logout-btn" onclick="logout()" title="Abmelden"><i class="fas fa-right-from-bracket"></i></button>
+            </div>
+        </div>
+        <div style="height:1px;background:linear-gradient(90deg, transparent, var(--accent), transparent);opacity:0.3;"></div>
+    </header>
+
+    <main class="main" id="content">
+        <div id="announcement-banner" class="announcement-banner" style="display:none">
+            <div class="announcement-slide" id="announcement-slide">
+                <i class="fas fa-bullhorn"></i>
+                <span id="announcement-text"></span>
+            </div>
+            <div class="announcement-dots" id="announcement-dots"></div>
+        </div>
+
+        <div id="welcome-banner" class="welcome-banner">
+            <h1><i class="fas fa-tv"></i> Willkommen bei Africore</h1>
+            <p>Entdecke, streame und lade deine Lieblings-Anime herunter. Durchsuche unsere riesige Bibliothek und finde dein nächstes Lieblings-Anime.</p>
+        </div>
+
+        <div id="search-section" class="search-section section-animate">
+            <div class="section-title"><i class="fas fa-search"></i> Anime suchen</div>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Name eingeben (z.B. Naruto, One Piece, Attack on Titan)" onkeydown="if(event.key==='Enter')searchAnime()">
+                <button onclick="searchAnime()"><i class="fas fa-search"></i> Suchen</button>
+            </div>
+        </div>
+
+        <div id="search-results" style="display:none">
+            <div class="section-title"><i class="fas fa-search"></i> Suchergebnisse</div>
+            <div id="results-grid" class="anime-grid"></div>
+        </div>
+
+        <!-- Continue Watching -->
+        <div id="continue-watching-section" style="margin-bottom:28px;">
+            <h2 style="margin-bottom:12px"><i class="fas fa-forward" style="color:#7c5cff;margin-right:8px"></i>Weiter schauen</h2>
+            <div class="cw-scroll" id="cw-container">
+                <div style="color:#888;font-size:0.9rem;padding:20px 0"><i class="fas fa-info-circle" style="margin-right:6px"></i>Spiele eine Episode ab, um hier weiterzuschauen.</div>
+            </div>
+        </div>
+
+        <div id="new-episodes-section" class="section-animate">
+            <div class="section-title"><i class="fas fa-clock"></i> Neue Episoden</div>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev" onclick="scrollCarousel('new-episodes-carousel', -1)"><i class="fas fa-chevron-left"></i></button>
+                <div class="carousel" id="new-episodes-carousel">
+                    <div class="loading"><i class="fas fa-spinner fa-spin"></i><p>Lade neue Episoden...</p></div>
+                </div>
+                <button class="carousel-btn next" onclick="scrollCarousel('new-episodes-carousel', 1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <div id="trending-section" class="section-animate">
+            <div class="section-title"><i class="fas fa-chart-line"></i> Trending</div>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev" onclick="scrollCarousel('trending-carousel', -1)"><i class="fas fa-chevron-left"></i></button>
+                <div class="carousel" id="trending-carousel">
+                    <div class="loading"><i class="fas fa-spinner fa-spin"></i><p>Lade Trending...</p></div>
+                </div>
+                <button class="carousel-btn next" onclick="scrollCarousel('trending-carousel', 1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <div id="popular-section" class="section-animate">
+            <div class="section-title"><i class="fas fa-fire"></i> Beliebte Anime</div>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev" onclick="scrollCarousel('popular-carousel', -1)"><i class="fas fa-chevron-left"></i></button>
+                <div class="carousel" id="popular-carousel">
+                    <div class="loading"><i class="fas fa-spinner fa-spin"></i><p>Lade beliebte Anime...</p></div>
+                </div>
+                <button class="carousel-btn next" onclick="scrollCarousel('popular-carousel', 1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <div id="top-section" class="section-animate">
+            <div class="section-title"><i class="fas fa-trophy"></i> Top Bewertet</div>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev" onclick="scrollCarousel('top-carousel', -1)"><i class="fas fa-chevron-left"></i></button>
+                <div class="carousel" id="top-carousel">
+                    <div class="loading"><i class="fas fa-spinner fa-spin"></i><p>Lade Top Anime...</p></div>
+                </div>
+                <button class="carousel-btn next" onclick="scrollCarousel('top-carousel', 1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <div id="catalog" class="section-animate">
+            <div class="section-title"><i class="fas fa-list"></i> Anime Katalog</div>
+            <div class="az-nav" id="az-nav"></div>
+            <div id="catalog-grid" class="anime-grid"></div>
+        </div>
+
+        <div id="detail-view" style="display:none"></div>
+        <div id="player-view" style="display:none"></div>
+
+        <!-- PRICING / ABO LANDING PAGE -->
+        <!-- LOGIN-FELD (nie angezeigt - Redirect auf Startseite) -->
+        <div id="pricing-view" style="display:none"></div>
+
+        <!-- ADMIN PANEL -->
+        <div id="admin-view" style="display:none;max-width:900px;margin:40px auto;padding:0 20px">
+            <div style="background:var(--bg-card);border:1px solid var(--glass-border);border-radius:20px;padding:32px">
+                <h2 style="margin-bottom:24px"><i class="fas fa-shield-halved" style="color:var(--accent);margin-right:10px"></i>Admin Panel — Abo-Bestellungen</h2>
+                <div id="admin-pending-list">
+                    <div class="loading"><i class="fas fa-spinner fa-spin"></i><p>Lade Bestellungen...</p></div>
+                </div>
+                <div id="admin-active-list" style="margin-top:32px">
+                    <h3 style="margin-bottom:16px;color:var(--text-secondary)"><i class="fas fa-users" style="margin-right:8px"></i>Aktive Abos</h3>
+                    <div id="admin-active-grid"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="bestellungen-view" style="display:none;max-width:1000px;margin:40px auto;padding:0 20px">
+            <div style="background:var(--bg-card);border:1px solid var(--glass-border);border-radius:20px;padding:32px">
+                <h2 style="margin-bottom:24px"><i class="fas fa-receipt" style="color:var(--accent);margin-right:10px"></i>Bestellungen</h2>
+
+                <div style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap">
+                    <button onclick="loadBestellungen('pending')" id="btn-pending" class="bestellung-tab active-tab"><i class="fas fa-clock"></i> Ausstehend</button>
+                    <button onclick="loadBestellungen('approved')" id="btn-approved" class="bestellung-tab"><i class="fas fa-check-circle"></i> Genehmigt</button>
+                    <button onclick="loadBestellungen('rejected')" id="btn-rejected" class="bestellung-tab"><i class="fas fa-times-circle"></i> Abgelehnt</button>
+                    <button onclick="loadBestellungen('all')" id="btn-all" class="bestellung-tab"><i class="fas fa-list"></i> Alle</button>
+                </div>
+
+                <div id="bestellungen-stats" style="display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap"></div>
+                <div id="bestellungen-list"></div>
+            </div>
+        </div>
+        <div id="downloads-view" style="display:none;max-width:1000px;margin:40px auto;padding:0 20px"></div>
+    </main>
+
+    <footer class="footer">
+        <div style="height:1px;background:linear-gradient(90deg, transparent, var(--accent), transparent);opacity:0.2;margin-bottom:30px;"></div>
+        <p>Africore - Deine Anime-Streaming-Plattform</p>
+        <div class="footer-links">
+            <a href="#" onclick="goHome()"><i class="fas fa-home"></i> Startseite</a>
+            <a href="#" onclick="scrollToSection('popular-section')"><i class="fas fa-fire"></i> Populär</a>
+            <a href="#" onclick="scrollToSection('catalog')"><i class="fas fa-film"></i> Katalog</a>
+            <a href="#" onclick="showImpressum()"><i class="fas fa-scale-balanced"></i> Impressum</a>
+            <a href="#" onclick="showDatenschutz()"><i class="fas fa-shield-halved"></i> Datenschutz</a>
+        </div>
+        <p class="credit">Erstellt mit <i class="fas fa-heart" style="color:#888"></i> von <span>CZEIO</span></p>
+    </footer>
+
+    <!-- IMPRESSUM -->
+    <div id="impressum-view" style="display:none"></div>
+    <!-- DATENSCHUTZ -->
+    <div id="datenschutz-view" style="display:none"></div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const savedToken = localStorage.getItem('anime_token');
+        const username = localStorage.getItem('anime_user') || 'User';
+        document.getElementById('username').innerHTML = '<i class="fas fa-user"></i> ' + username;
+
+        // --- DEUTSCHE ÜBERSETZUNGEN ---
+        const STATUS_DE = { RELEASING: '🕐 Läuft', FINISHED: '✅ Abgeschlossen', NOT_YET_RELEASED: '📅 Bald', CANCELLED: '❌ Abgesetzt', HIATUS: '⏸️ Pause' };
+        const FORMAT_DE = { TV: 'TV-Serie', TV_SHORT: 'Kurzserie', MOVIE: 'Film', OVA: 'OVA', ONA: 'ONA', SPECIAL: 'Spezial', MUSIC: 'Musik', MANGA: 'Manga', NOVEL: 'Roman', ONE_SHOT: 'One-Shot' };
+        const SEASON_DE = { WINTER: 'Winter', SPRING: 'Frühling', SUMMER: 'Sommer', FALL: 'Herbst' };
+        const GENRE_DE = { Action: 'Action', Adventure: 'Abenteuer', Comedy: 'Komödien', Drama: 'Drama', Ecchi: 'Ecchi', Fantasy: 'Fantasy', Horror: 'Horror', Mahou_shoujo: 'Magical Girl', Mecha: 'Mecha', Music: 'Musik', Mystery: 'Mystery', Psychologic: 'Psychologie', Romance: 'Romance', Sci_fi: 'Sci-Fi', Slice_of_life: 'Alltag', Sports: 'Sport', Supernatural: 'Übernatürlich', Thriller: 'Thriller' };
+        const RELATION_DE = { SEQUEL: 'Fortsetzung', PREQUEL: 'Vorgeschichte', SIDE_STORY: 'Nebengeschichte', ALTERNATIVE: 'Alternative', SPIN_OFF: 'Spin-Off', ADAPTATION: 'Adaption', PARENT: 'Hauptwerk', SUMMARY: 'Zusammenfassung' };
+
+        function deStatus(s) { return STATUS_DE[s] || s || ''; }
+        function deFormat(f) { return FORMAT_DE[f] || f || ''; }
+        function deSeason(s) { return SEASON_DE[s] || s || ''; }
+        function deGenre(g) { return GENRE_DE[g] || g || ''; }
+        function deRelation(r) { return RELATION_DE[r] || r?.replace(/_/g, ' ') || ''; }
+
+        // Umlaute & Sonderzeichen korrigieren
+        function fixUmlaute(str) {
+            if (!str) return str;
+            return str
+                .replace(/Südnen|Sueden/g, 'Süden')
+                .replace(/über/g, 'über')
+                .replace(/Über/g, 'Über')
+                .replace(/öffnen/g, 'öffnen')
+                .replace(/Flügel/g, 'Flügel')
+                .replace(/für/g, 'für')
+                .replace(/Tür/g, 'Tür')
+                .replace(/Käfig/g, 'Käfig')
+                .replace(/Märchen/g, 'Märchen')
+                .replace(/Vergeltung/g, 'Vergeltung')
+                .replace(/würde/g, 'würde')
+                .replace(/Übersetzung/g, 'Übersetzung')
+                .replace(/Straße/g, 'Straße')
+                .replace(/Gefäß/g, 'Gefäß')
+                .replace(/Genüsse/g, 'Genüsse')
+                .replace(/Größe/g, 'Größe')
+                .replace(/Verführung/g, 'Verführung');
+        }
+
+        let currentView = 'home';
+        let lastSearchResults = [];
+        let userTier = null;
+        let userExpiresAt = null;
+
+        // Login mit Key
+        // Prüfe ob eingeloggt
+        async function checkSubscription() {
+            if (!savedToken) return false;
+            try {
+                const res = await fetch('/api/anime/subscription', { headers: { 'X-Anime-Token': savedToken } });
+                const data = await res.json();
+                if (data.active) {
+                    userTier = data.tier;
+                    userExpiresAt = data.expiresAt;
+                    if (data.username) {
+                        username = data.username;
+                        localStorage.setItem('anime_user', data.username);
+                        document.getElementById('username').innerHTML = '<i class="fas fa-user"></i> ' + username;
+                    }
+                    updateUserBadge();
+                }
+                return data.active;
+            } catch { return false; }
+        }
+
+        function updateUserBadge() {
+            const tierNames = { basic: 'Basic', standard: 'Standard', premium: 'Premium' };
+            const tierColors = { basic: '#888', standard: '#777', premium: '#999' };
+            const el = document.getElementById('username');
+            let html = '<i class="fas fa-user"></i> ' + username;
+            if (userTier) {
+                const color = tierColors[userTier] || '#888';
+                const name = tierNames[userTier] || userTier;
+                html += ' <span style="color:' + color + ';font-size:0.75rem;font-weight:600;margin-left:6px">' + name + '</span>';
+            }
+            if (userExpiresAt) {
+                const exp = new Date(userExpiresAt);
+                const now = new Date();
+                const diff = exp - now;
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let timeStr = '';
+                if (days > 0) timeStr = days + 'T ' + hours + 'Std';
+                else if (hours > 0) timeStr = hours + ' Std';
+                else {
+                    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    timeStr = mins + ' Min';
+                }
+                html += ' <span style="color:var(--text-muted);font-size:0.7rem;margin-left:6px"><i class="fas fa-clock" style="margin-right:2px"></i>' + timeStr + '</span>';
+            } else {
+                html += ' <span style="color:#888;font-size:0.7rem;font-weight:600;margin-left:6px"><i class="fas fa-infinity" style="margin-right:2px"></i>Lebenslang</span>';
+            }
+            el.innerHTML = html;
+        }
+
+        // Anime Splash Screen
+        (function() {
+            const splash = document.getElementById('anime-splash');
+            if (!splash) return;
+            setTimeout(() => {
+                splash.style.opacity = '0';
+                splash.style.visibility = 'hidden';
+                setTimeout(() => splash.remove(), 800);
+            }, 3800);
+        })();
+
+        // Hide pricing if logged in
+        (async function init() {
+            if (!savedToken) {
+                document.getElementById('anime-splash').style.display = 'none';
+                document.getElementById('content').innerHTML = `
+                    <div style="display:flex;align-items:center;justify-content:center;min-height:60vh;">
+                        <div style="text-align:center;max-width:400px;width:100%;padding:40px;">
+                            <i class="fas fa-lock" style="font-size:3rem;color:var(--accent);margin-bottom:20px;opacity:0.5;"></i>
+                            <h2 style="font-size:1.5rem;font-weight:700;margin-bottom:10px;">Anmeldung erforderlich</h2>
+                            <p style="color:var(--text-secondary);margin-bottom:30px;">Du musst dich einloggen um Africore zu nutzen.</p>
+                            <a href="/anime-login" style="display:inline-block;padding:14px 32px;background:#555;color:#fff;border-radius:12px;font-weight:600;font-size:1rem;text-decoration:none;box-shadow:0 4px 15px var(--shadow-accent);">Einloggen</a>
+                        </div>
+                    </div>`;
+                return;
+            }
+            try {
+                const res = await fetch('/api/anime/subscription', { headers: { 'X-Anime-Token': savedToken } });
+                const data = await res.json();
+                if (data.active) {
+                    userTier = data.tier;
+                    userExpiresAt = data.expiresAt;
+                    if (data.username) {
+                        username = data.username;
+                        localStorage.setItem('anime_user', data.username);
+                    }
+                    document.getElementById('pricing-view').style.display = 'none';
+                    updateUserBadge();
+                } else {
+                    localStorage.removeItem('anime_token');
+                    localStorage.removeItem('anime_user');
+                    window.location.href = '/';
+                    return;
+                }
+            } catch (e) {
+                document.getElementById('pricing-view').style.display = 'none';
+                updateUserBadge();
+            }
+            loadTrending();
+            loadPopular();
+            loadTop();
+            loadNewEpisodes();
+            loadAnnouncements();
+            try {
+                const ownerRes = await fetch('/api/anime/is-owner', { headers: { 'X-Anime-Token': savedToken } });
+                const ownerData = await ownerRes.json();
+                if (ownerData.isOwner) {
+                    document.getElementById('admin-btn').style.display = 'inline-block';
+                    document.getElementById('nav-bestellungen').style.display = 'inline-block';
+                }
+            } catch {}
+            setInterval(() => { if (userTier) updateUserBadge(); }, 60000);
+        })();
+
+        // --- A-Z Navigation ---
+        const azContainer = document.getElementById('az-nav');
+        const letters = '#ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+        letters.forEach(letter => {
+            const btn = document.createElement('button');
+            btn.textContent = letter;
+            btn.onclick = () => filterCatalog(letter === '#' ? 'number' : letter.toLowerCase());
+            azContainer.appendChild(btn);
+        });
+
+        // --- AniList Anime Card ---
+        function createAniListCard(anime) {
+            const title = fixUmlaute(anime.title.english || anime.title.romaji || anime.title.native || 'Unbekannt');
+            const cover = anime.coverImage?.large || anime.coverImage?.medium || 'https://via.placeholder.com/180x260?text=Anime';
+            const score = anime.averageScore ? `★ ${anime.averageScore}%` : '';
+            const genres = anime.genres?.slice(0, 2).map(g => deGenre(g)).join(', ') || '';
+            const episodes = anime.episodes ? `${anime.episodes} Ep.` : '';
+            const status = deStatus(anime.status);
+            const nextEp = anime.nextAiringEpisode ? `Ep. ${anime.nextAiringEpisode.episode}` : '';
+            const slug = (anime.title.romaji || anime.title.english || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+            
+            return `
+                <div class="anime-card" data-anilist-id="${anime.id}" data-slug="${slug}" onclick="openAnime(this)">
+                    <div class="poster-wrapper">
+                        <img class="poster" src="${cover}" alt="${title}" onerror="this.src='https://via.placeholder.com/180x260?text=Anime'">
+                        ${score ? `<div class="card-score">${score}</div>` : ''}
+                        ${nextEp ? `<div class="card-badge">${nextEp}</div>` : ''}
+                    </div>
+                    <div class="card-info">
+                        <div class="card-title">${title}</div>
+                        <div class="card-meta">${genres}${episodes ? ' • ' + episodes : ''}${status ? ' • ' + status : ''}</div>
+                    </div>
+                </div>`;
+        }
+
+        function openAnime(el) {
+            const id = el.getAttribute('data-anilist-id');
+            const slug = el.getAttribute('data-slug');
+            if (id) showAnimeDetail(parseInt(id), slug);
+        }
+
+        // --- Trending ---
+        async function loadTrending() {
+            try {
+                const res = await fetch('/api/anilist/trending');
+                const data = await res.json();
+                if (data.results && data.results.length > 0) {
+                    window.trendingAnime = data.results;
+                    document.getElementById('trending-carousel').innerHTML = data.results.map(a => createAniListCard(a)).join('');
+                }
+            } catch { document.getElementById('trending-carousel').innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Fehler beim Laden</p></div>'; }
+        }
+
+        // --- Popular ---
+        async function loadPopular() {
+            try {
+                const res = await fetch('/api/anilist/popular');
+                const data = await res.json();
+                if (data.results && data.results.length > 0) {
+                    window.popularAnime = data.results;
+                    document.getElementById('popular-carousel').innerHTML = data.results.map(a => createAniListCard(a)).join('');
+                }
+            } catch { document.getElementById('popular-carousel').innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Fehler beim Laden</p></div>'; }
+        }
+
+        // --- Top ---
+        async function loadTop() {
+            try {
+                const res = await fetch('/api/anilist/top');
+                const data = await res.json();
+                if (data.results && data.results.length > 0) {
+                    document.getElementById('top-carousel').innerHTML = data.results.map(a => createAniListCard(a)).join('');
+                }
+            } catch { document.getElementById('top-carousel').innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Fehler beim Laden</p></div>'; }
+        }
+
+        // --- Neue Episoden (AniWorld) ---
+        async function loadNewEpisodes() {
+            try {
+                const res = await fetch('/api/anime/new-episoden');
+                const data = await res.json();
+                const items = data.results || [];
+                if (items.length === 0) {
+                    document.getElementById('new-episodes-carousel').innerHTML = '<div class="empty-state"><i class="fas fa-clock"></i><p>Keine neuen Episoden</p></div>';
+                    return;
+                }
+                document.getElementById('new-episodes-carousel').innerHTML = items.map(ep => {
+                    const title = ep.title;
+                    const slug = ep.slug;
+                    return `<div class="anime-card" onclick="openAnimeFromSlug('${slug}')">
+                        <div class="poster-wrapper">
+                            <img class="poster" src="${ep.cover}" alt="${title}" onerror="this.src='https://via.placeholder.com/180x260?text=${encodeURIComponent(title)}'">
+                            <div class="quality-badge" style="background:rgba(14,165,233,0.9)">S${ep.season}E${ep.episode}</div>
+                        </div>
+                        <div class="card-info">
+                            <div class="card-title">${title}</div>
+                            <div class="card-meta">Staffel ${ep.season} · Episode ${ep.episode}</div>
+                            ${ep.date ? `<div class="card-meta-sm">${ep.date}</div>` : ''}
+                        </div>
+                    </div>`;
+                }).join('');
+            } catch { document.getElementById('new-episodes-carousel').innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Fehler beim Laden</p></div>'; }
+        }
+
+        function openAnimeFromSlug(slug) {
+            const title = slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+            showAnime('/anime/stream/' + slug, title);
+        }
+
+        // --- Ankündigungen ---
+        let announcementTimer = null;
+        let currentAnnouncement = 0;
+        async function loadAnnouncements() {
+            try {
+                const res = await fetch('/api/announcements');
+                const data = await res.json();
+                const active = (data.announcements || []).filter(a => a.active);
+                if (active.length === 0) return;
+                const banner = document.getElementById('announcement-banner');
+                const dotsContainer = document.getElementById('announcement-dots');
+                dotsContainer.innerHTML = active.map((_, i) => `<div class="announcement-dot${i === 0 ? ' active' : ''}" onclick="showAnnouncement(${i})"></div>`).join('');
+                banner.style.display = 'flex';
+                window._announcements = active;
+                showAnnouncement(0);
+                if (active.length > 1) {
+                    announcementTimer = setInterval(() => {
+                        currentAnnouncement = (currentAnnouncement + 1) % active.length;
+                        showAnnouncement(currentAnnouncement);
+                    }, 6000);
+                }
+            } catch {}
+        }
+
+        function showAnnouncement(index) {
+            currentAnnouncement = index;
+            const active = window._announcements || [];
+            if (!active[index]) return;
+            const a = active[index];
+            const slide = document.getElementById('announcement-slide');
+            slide.style.animation = 'none';
+            slide.offsetHeight;
+            slide.style.animation = 'announcementFade 0.5s ease';
+            slide.innerHTML = `<i class="${a.icon}" style="color:${a.color || 'var(--accent)'}"></i><strong style="color:${a.color || 'var(--accent)'}">${a.title}</strong><span>${a.text}</span>`;
+            document.querySelectorAll('.announcement-dot').forEach((d, i) => d.classList.toggle('active', i === index));
+        }
+
+        function scrollCarousel(id, dir) {
+            const el = document.getElementById(id);
+            el.scrollBy({ left: dir * 400, behavior: 'smooth' });
+        }
+
+        // --- Search (AniList) ---
+        async function searchAnime(title) {
+            const query = title || document.getElementById('search-input').value.trim();
+            if (!query) return;
+            document.getElementById('results-grid').innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i><p>Suche läuft...</p></div>';
+            document.getElementById('search-results').style.display = 'block';
+            document.getElementById('detail-view').style.display = 'none';
+            document.getElementById('new-episodes-section').style.display = 'none';
+            document.getElementById('player-view').style.display = 'none';
+            document.getElementById('announcement-banner').style.display = 'none';
+            document.getElementById('welcome-banner').style.display = 'none';
+            document.getElementById('continue-watching-section').style.display = 'none';
+            currentView = 'search';
+
+            try {
+                const res = await fetch('/api/anilist/search?q=' + encodeURIComponent(query));
+                const data = await res.json();
+                
+                if (data.results && data.results.length > 0) {
+                    lastSearchResults = data.results;
+                    document.getElementById('results-grid').innerHTML = data.results.map(a => createAniListCard(a)).join('');
+                    if (window._cwAutoPlay) {
+                        const firstCard = document.querySelector('#results-grid .anime-card');
+                        if (firstCard) setTimeout(() => openAnime(firstCard), 300);
+                    }
+                } else {
+                    document.getElementById('results-grid').innerHTML = '<div class="empty-state"><i class="fas fa-search"></i><p>Keine Ergebnisse für "' + query + '" gefunden</p></div>';
+                }
+            } catch (e) {
+                document.getElementById('results-grid').innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Fehler bei der Suche</p></div>';
+            }
+        }
+
+        function headerSearch() {
+            const q = document.getElementById('header-search-input').value.trim();
+            document.getElementById('search-input').value = q;
+            searchAnime();
+            scrollToSection('search-section');
+        }
+
+        // --- Detail View (AniList + AniWorld) ---
+        async function showAnimeDetail(anilistId, slug) {
+            // Player stoppen wenn offen
+            stopPlayer();
+            
+            // Für Zurück-Navigation im Player merken
+            window._currentAnilistId = anilistId;
+            window._currentSlug = slug;
+            
+            document.getElementById('detail-view').innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i><p>Lade Anime-Details...</p></div>';
+            document.getElementById('detail-view').style.display = 'block';
+            document.getElementById('search-results').style.display = 'none';
+            document.getElementById('new-episodes-section').style.display = 'none';
+            document.getElementById('popular-section').style.display = 'none';
+            document.getElementById('trending-section').style.display = 'none';
+            document.getElementById('top-section').style.display = 'none';
+            document.getElementById('catalog').style.display = 'none';
+            document.getElementById('player-view').style.display = 'none';
+            document.getElementById('announcement-banner').style.display = 'none';
+            document.getElementById('search-section').style.display = 'none';
+            document.getElementById('continue-watching-section').style.display = 'none';
+            document.getElementById('welcome-banner').style.display = 'none';
+            currentView = 'detail';
+
+            try {
+                const res = await fetch('/api/anilist/' + anilistId);
+                const data = await res.json();
+                const a = data.anime;
+                if (!a) { document.getElementById('detail-view').innerHTML = '<div class="empty-state"><p>Anime nicht gefunden</p></div>'; return; }
+
+                const title = fixUmlaute(a.title.english || a.title.romaji || a.title.native);
+                const cover = a.coverImage?.large || a.coverImage?.medium || '';
+                window._currentPoster = cover;
+                const banner = a.bannerImage || '';
+                const score = a.averageScore || a.meanScore || 0;
+                const genres = a.genres?.map(g => deGenre(g)).join(', ') || '';
+                const studio = a.studios?.nodes?.[0]?.name || '';
+                const status = deStatus(a.status);
+                const desc = a.description?.replace(/<[^>]*>/g, '').substring(0, 500) || 'Keine Beschreibung verfügbar.';
+                const nextEp = a.nextAiringEpisode ? `Ep. ${a.nextAiringEpisode.episode} in ${Math.ceil((a.nextAiringEpisode.airingAt - Date.now()/1000) / 86400)} Tagen` : '';
+                const aniwUrl = `/anime/stream/${slug}`;
+
+                // Versuche AniWorld Staffeln zu laden - mehrere Suchbegriffe parallel
+                let seasonsHtml = '';
+                let resolvedAniwUrl = aniwUrl;
+                try {
+                    const searchTerms = [title];
+                    if (a.title.romaji && fixUmlaute(a.title.romaji) !== title) searchTerms.push(fixUmlaute(a.title.romaji));
+                    if (a.title.japanese) searchTerms.push(a.title.japanese);
+                    if (a.title.native) searchTerms.push(a.title.native);
+                    const multiRes = await fetch('/api/anime/search-multi?q=' + encodeURIComponent(searchTerms.join('||')));
+                    const multiData = await multiRes.json();
+                    if (multiData.results && multiData.results.length > 0) {
+                        resolvedAniwUrl = multiData.results[0].url;
+                    }
+                    const seasonsRes = await fetch('/api/anime/seasons?url=' + encodeURIComponent(resolvedAniwUrl));
+                    const seasonsData = await seasonsRes.json();
+                    if (seasonsData.seasons && seasonsData.seasons.length > 0) {
+                        seasonsHtml = `
+                            <div class="season-tabs" id="season-tabs">
+                                ${seasonsData.seasons.map((s, i) => `
+                                    <button class="season-tab ${i === 0 ? 'active' : ''}" onclick="showEpisodes('${resolvedAniwUrl}', ${s.season}, '${title.replace(/'/g, "\\'")}', this)">
+                                        <i class="fas fa-folder"></i> Staffel ${s.season}
+                                    </button>`).join('')}
+                            </div>
+                            <div id="episodes-container"></div>`;
+                    }
+                } catch (e) { console.error('AniWorld seasons error:', e); }
+
+                // Charaktere
+                let charsHtml = '';
+                if (a.characters?.edges?.length > 0) {
+                    charsHtml = `
+                        <div class="characters-section">
+                            <h3><i class="fas fa-users"></i> Charaktere</h3>
+                            <div class="char-grid">
+                                ${a.characters.edges.slice(0, 8).map(c => `
+                                    <div class="char-card">
+                                        <img src="${c.node.image?.medium || ''}" alt="${c.node.name?.full || ''}" onerror="this.src='https://via.placeholder.com/60x60?text=?'">
+                                        <div>
+                                            <div class="char-name">${c.node.name?.full || ''}</div>
+                                            <div class="char-role">${c.role}</div>
+                                        </div>
+                                    </div>`).join('')}
+                            </div>
+                        </div>`;
+                }
+
+                // Relationen
+                let relationsHtml = '';
+                if (a.relations?.edges?.length > 0) {
+                    const rels = a.relations.edges.filter(r => ['SEQUEL', 'PREQUEL', 'SIDE_STORY', 'ALTERNATIVE', 'SPIN_OFF'].includes(r.relationType));
+                    if (rels.length > 0) {
+                        relationsHtml = `
+                            <div class="relations-section">
+                                <h3><i class="fas fa-project-diagram"></i> Verwandte Anime</h3>
+                                <div class="rel-list">
+                                    ${rels.map(r => `
+                                        <div class="rel-item">
+                                            <span class="rel-type">${deRelation(r.relationType)}</span>
+                                            <span class="rel-title">${r.node.title?.romaji || r.node.title?.english || ''}</span>
+                                        </div>`).join('')}
+                                </div>
+                            </div>`;
+                    }
+                }
+
+                document.getElementById('detail-view').innerHTML = `
+                    <button class="back-btn" onclick="goHome()"><i class="fas fa-arrow-left"></i> Zurück</button>
+                    <div class="detail-banner" style="background-image:url('${banner}')">
+                        <div class="detail-banner-overlay"></div>
+                    </div>
+                    <div class="detail-content">
+                        <div class="detail-header">
+                            <img class="detail-poster" src="${cover}" alt="${title}" onerror="this.src='https://via.placeholder.com/200x280?text=Anime'">
+                            <div class="detail-info">
+                                <h1>${title}</h1>
+                                ${a.title.romaji && a.title.romaji !== title ? `<p class="alt-title">${a.title.romaji}</p>` : ''}
+                                <div class="meta-grid">
+                                    ${score ? `<div class="meta-item"><span class="meta-label">Score</span><span class="meta-value score">★ ${score}%</span></div>` : ''}
+                                    ${a.episodes ? `<div class="meta-item"><span class="meta-label">Episoden</span><span class="meta-value">${a.episodes}</span></div>` : ''}
+                                    ${a.duration ? `<div class="meta-item"><span class="meta-label">Dauer</span><span class="meta-value">${a.duration} Min.</span></div>` : ''}
+                                    <div class="meta-item"><span class="meta-label">Status</span><span class="meta-value">${status}</span></div>
+                                    ${a.format ? `<div class="meta-item"><span class="meta-label">Format</span><span class="meta-value">${deFormat(a.format)}</span></div>` : ''}
+                                    ${studio ? `<div class="meta-item"><span class="meta-label">Studio</span><span class="meta-value">${studio}</span></div>` : ''}
+                                    ${a.season && a.seasonYear ? `<div class="meta-item"><span class="meta-label">Staffel</span><span class="meta-value">${deSeason(a.season)} ${a.seasonYear}</span></div>` : ''}
+                                </div>
+                                ${genres ? `<div class="genre-tags">${genres.split(', ').map(g => `<span class="genre-tag">${g}</span>`).join('')}</div>` : ''}
+                                ${nextEp ? `<div class="next-ep"><i class="fas fa-clock"></i> ${nextEp}</div>` : ''}
+                                <div class="description">${desc}${desc.length >= 500 ? '...' : ''}</div>
+                                <div class="action-buttons">
+                                    ${seasonsHtml ? '<button class="btn-primary" onclick="document.getElementById(\'season-tabs\')?.scrollIntoView({behavior:\'smooth\'})"><i class="fas fa-play"></i> Staffeln</button>' : ''}
+                                    <a href="https://anilist.co/anime/${anilistId}" target="_blank" class="btn-secondary"><i class="fas fa-external-link-alt"></i> AniList</a>
+                                </div>
+                            </div>
+                        </div>
+                        ${seasonsHtml}
+                        ${charsHtml}
+                        ${relationsHtml}`;
+
+                if (seasonsHtml) {
+                    const cwPlay = window._cwAutoPlay;
+                    const targetSeason = cwPlay ? (parseInt(cwPlay.season) || 1) : 1;
+                    if (cwPlay && targetSeason !== 1) {
+                        setTimeout(() => {
+                            const tabs = document.querySelectorAll('.season-tab');
+                            tabs.forEach(t => {
+                                if (t.textContent.includes('Staffel ' + targetSeason)) t.click();
+                            });
+                        }, 300);
+                    } else {
+                        try {
+                            showEpisodes(resolvedAniwUrl, targetSeason, title, null);
+                        } catch {}
+                    }
+                }
+            } catch (e) {
+                document.getElementById('detail-view').innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Fehler beim Laden der Details: ' + e.message + '</p></div>';
+            }
+        }
+
+        async function showAnime(url, title) {
+            // Fallback: Direkt AniWorld laden
+            const slug = url.split('/').pop();
+            document.getElementById('detail-view').innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i><p>Lade Staffeln...</p></div>';
+            document.getElementById('detail-view').style.display = 'block';
+            document.getElementById('search-results').style.display = 'none';
+            document.getElementById('new-episodes-section').style.display = 'none';
+            document.getElementById('popular-section').style.display = 'none';
+            document.getElementById('trending-section').style.display = 'none';
+            document.getElementById('top-section').style.display = 'none';
+            document.getElementById('catalog').style.display = 'none';
+            document.getElementById('player-view').style.display = 'none';
+            document.getElementById('announcement-banner').style.display = 'none';
+            document.getElementById('search-section').style.display = 'none';
+            document.getElementById('continue-watching-section').style.display = 'none';
+            document.getElementById('welcome-banner').style.display = 'none';
+            currentView = 'detail';
+
+            try {
+                const res = await fetch('/api/anime/seasons?url=' + encodeURIComponent(url));
+                const data = await res.json();
+                let seasonsHtml = '';
+                if (data.seasons && data.seasons.length > 0) {
+                    seasonsHtml = `
+                        <div class="season-tabs" id="season-tabs">
+                            ${data.seasons.map((s, i) => `
+                                <button class="season-tab ${i === 0 ? 'active' : ''}" onclick="showEpisodes('${url}', ${s.season}, '${title.replace(/'/g, "\\'")}', this)">
+                                    <i class="fas fa-folder"></i> Staffel ${s.season}
+                                </button>`).join('')}
+                        </div>
+                        <div id="episodes-container"></div>`;
+                } else {
+                    seasonsHtml = '<div class="empty-state"><i class="fas fa-folder-open"></i><p>Keine Staffeln gefunden</p></div>';
+                }
+                document.getElementById('detail-view').innerHTML = `
+                    <button class="back-btn" onclick="goHome()"><i class="fas fa-arrow-left"></i> Zurück</button>
+                    <div class="detail-content">
+                        <h1>${title}</h1>
+                        <p style="color:#aaa">Quelle: AniWorld</p>
+                        ${seasonsHtml}`;
+                if (data.seasons && data.seasons.length > 0) {
+                    showEpisodes(url, data.seasons[0].season, title, null);
+                }
+            } catch (e) {
+                document.getElementById('detail-view').innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Fehler beim Laden</p></div>';
+            }
+        }
+
+        async function showEpisodes(url, seasonNum, title, tabEl) {
+            if (tabEl) {
+                document.querySelectorAll('.season-tab').forEach(t => t.classList.remove('active'));
+                tabEl.classList.add('active');
+            }
+            const container = document.getElementById('episodes-container');
+            container.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i><p>Lade Episoden...</p></div>';
+
+            try {
+                const res = await fetch('/api/anime/episodes?url=' + encodeURIComponent(url) + '&season=' + seasonNum);
+                const data = await res.json();
+
+                if (!data.episodes || data.episodes.length === 0) {
+                    container.innerHTML = '<div class="empty-state"><i class="fas fa-film"></i><p>Keine Episoden gefunden</p></div>';
+                    return;
+                }
+
+                container.innerHTML = `
+                    <div class="ep-grid">
+                        ${data.episodes.map((ep, i) => `
+                            <button class="ep-btn" onclick="selectEpisode('${ep.url}', '${title.replace(/'/g, "\\'")}', ${seasonNum}, ${ep.number || (i + 1)}, this, '${(ep.germanTitle || '').replace(/'/g, "\\'")}', '${(ep.englishTitle || '').replace(/'/g, "\\'")}')" title="${ep.title || 'Episode ' + (ep.number || (i + 1))}">
+                                ${ep.number || (i + 1)}
+                            </button>`).join('')}
+                    </div>
+                    <div id="episode-actions" class="episode-actions-box" style="display:none"></div>`;
+
+                if (window._cwAutoPlay && parseInt(window._cwAutoPlay.season) === seasonNum) {
+                    const cwEp = parseInt(window._cwAutoPlay.episode) || 1;
+                    const btns = document.querySelectorAll('.ep-btn');
+                    for (const b of btns) {
+                        if (parseInt(b.textContent.trim()) === cwEp) {
+                            const cwTitle = window._cwAutoPlay.title;
+                            setTimeout(() => {
+                                b.click();
+                                setTimeout(() => {
+                                    const streamBtn = document.querySelector('#episode-actions .btn-stream');
+                                    if (streamBtn) streamBtn.click();
+                                }, 400);
+                            }, 200);
+                            break;
+                        }
+                    }
+                    delete window._cwAutoPlay;
+                }
+            } catch (e) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Fehler beim Laden der Episoden</p></div>';
+            }
+        }
+
+        // --- Episode Selection (AniWorld Style) ---
+        async function selectEpisode(url, title, season, ep, el, germanTitle, englishTitle) {
+            // Highlight aktive Episode
+            document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active'));
+            if (el) el.classList.add('active');
+            
+            // Actions anzeigen
+            const actionsDiv = document.getElementById('episode-actions');
+            actionsDiv.style.display = 'block';
+            
+            // Title info
+            let titleHtml = '';
+            if (germanTitle) titleHtml = `<div style="margin-bottom:8px"><span style="color:var(--accent);font-weight:700">🇩🇪 ${germanTitle}</span>`;
+            if (englishTitle) titleHtml += `<span style="color:var(--text-muted);margin-left:10px">🇬🇧 ${englishTitle}</span>`;
+            if (titleHtml) titleHtml += '</div>';
+            
+            actionsDiv.innerHTML = `
+                <div class="ep-actions-bar" style="flex-direction:column;align-items:flex-start">
+                    ${titleHtml}
+                    <div style="display:flex;align-items:center;gap:14px;width:100%">
+                        <span class="ep-label">Episode ${ep}</span>
+                        <button class="btn-stream" onclick="streamEpisode('${url}', '${title.replace(/'/g, "\\'")}', ${season}, ${ep})"><i class="fas fa-play"></i> Stream</button>
+                        <button class="btn-download" onclick="downloadEpisode('${url}', '${title.replace(/'/g, "\\'")}', ${season}, ${ep}, 'aniworld')" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:0.85rem"><i class="fas fa-download"></i> Download</button>
+                    </div>
+                    <div id="episode-description" style="margin-top:12px;color:var(--text-secondary);font-size:0.9rem;line-height:1.7">
+                        <i class="fas fa-spinner fa-spin" style="color:var(--accent)"></i> Lade Beschreibung...
+                    </div>
+                </div>`;
+            
+            // Fetch description
+            try {
+                const descRes = await fetch('/api/anime/episode-info?url=' + encodeURIComponent(url));
+                const descData = await descRes.json();
+                const descEl = document.getElementById('episode-description');
+                if (descEl && descData.description) {
+                    descEl.innerHTML = `<span style="color:var(--accent);font-weight:600">📝 Beschreibung:</span> ${descData.description}`;
+                } else if (descEl) {
+                    descEl.innerHTML = '';
+                }
+            } catch {}
+            // Mark as watched when stream starts
+            const _selToken = localStorage.getItem('anime_token');
+            if (_selToken) {
+                fetch('/api/watch/mark', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-Anime-Token': _selToken },
+                    body: JSON.stringify({ title, season, episode: ep })
+                }).catch(() => {});
+            }
+        }
+
+        // --- Player ---
+        function getDeviceId() {
+            let id = localStorage.getItem('device_id');
+            if (!id) { id = 'dev_' + Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('device_id', id); }
+            return id;
+        }
+        let _streamHeartbeat = null;
+        async function deregisterStream() {
+            const token = localStorage.getItem('anime_token');
+            if (!token) return;
+            try { await fetch('/api/stream/deregister', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Anime-Token': token }, body: JSON.stringify({ deviceId: getDeviceId() }) }); } catch {}
+            if (_streamHeartbeat) { clearInterval(_streamHeartbeat); _streamHeartbeat = null; }
+        }
+        async function downloadEpisode(url, title, season, ep, source) {
+            const token = localStorage.getItem('anime_token');
+            if (!token) return alert('Bitte einloggen');
+            // Resolve stream URL first
+            let streamUrl = null;
+            try {
+                const res = await fetch('/api/anime/stream?url=' + encodeURIComponent(url));
+                const data = await res.json();
+                if (data.languages?.[0]?.hosts?.[0]) {
+                    streamUrl = data.languages[0].hosts[0].url;
+                }
+            } catch {}
+            if (!streamUrl) return alert('Stream-URL konnte nicht aufgelöst werden');
+            try {
+                const chk = await fetch('/api/anime/subscription', { headers: { 'X-Anime-Token': token } }).then(r => r.json());
+                if (chk.tier === 'basic') return alert('Downloads sind nur für Standard und Premium verfügbar');
+            } catch {}
+            const btn = event.target.closest('button');
+            if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Starte...'; }
+            try {
+                const result = await fetch('/api/downloads/start', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-Anime-Token': token },
+                    body: JSON.stringify({ title, season, episode: ep, streamUrl, source, poster: window._currentPoster || null })
+                }).then(r => r.json());
+                if (result.error) { alert(result.error); if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-download"></i> Download'; } return; }
+                if (btn) { btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Herunterladen...'; }
+                const pollInterval = setInterval(async () => {
+                    try {
+                        const status = await fetch('/api/downloads/status/' + result.downloadId, { headers: { 'X-Anime-Token': token } }).then(r => r.json());
+                        if (btn) btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${status.progress}%`;
+                        if (status.status === 'completed') {
+                            clearInterval(pollInterval);
+                            if (btn) { btn.innerHTML = '<i class="fas fa-check"></i> Downloaded'; btn.style.background = '#00d4aa'; }
+                        } else if (status.status === 'failed') {
+                            clearInterval(pollInterval);
+                            if (btn) { btn.innerHTML = '<i class="fas fa-times"></i> Fehler'; btn.disabled = false; }
+                        }
+                    } catch {}
+                }, 2000);
+            } catch (e) {
+                alert('Download fehlgeschlagen: ' + e.message);
+                if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-download"></i> Download'; }
+            }
+        }
+        async function streamEpisode(url, title, season, ep) {
+            // Check stream limit
+            const _stToken = localStorage.getItem('anime_token');
+            if (_stToken) {
+                try {
+                    const chk = await fetch('/api/stream/check', { headers: { 'X-Anime-Token': _stToken } }).then(r => r.json());
+                    if (!chk.canStream) {
+                        alert(`Maximal ${chk.maxStreams} gleichzeitiger Stream${chk.maxStreams > 1 ? 's' : ''} erlaubt (${chk.activeCount}/${chk.maxStreams}). Beende erst einen anderen Stream.`);
+                        return;
+                    }
+                } catch {}
+            }
+            currentView = 'player';
+            // Register stream session
+            if (_stToken) {
+                try {
+                    const reg = await fetch('/api/stream/session', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Anime-Token': _stToken }, body: JSON.stringify({ deviceId: getDeviceId(), title, episode: `${season}x${ep}` }) }).then(r => r.json());
+                    if (!reg.canStream) {
+                        alert(reg.error || 'Maximale Stream-Anzahl erreicht');
+                        return;
+                    }
+                } catch {}
+                // Start heartbeat
+                if (_streamHeartbeat) clearInterval(_streamHeartbeat);
+                _streamHeartbeat = setInterval(() => {
+                    fetch('/api/stream/heartbeat', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Anime-Token': _stToken }, body: JSON.stringify({ deviceId: getDeviceId() }) }).catch(() => {});
+                }, 10000);
+                window.addEventListener('beforeunload', deregisterStream);
+            }
+            // Save watch progress
+            const _wpToken = localStorage.getItem('anime_token');
+            if (_wpToken) {
+                fetch('/api/watch/progress', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-Anime-Token': _wpToken },
+                    body: JSON.stringify({ title, season, episode: ep, source: 'aniworld', poster: window._currentPoster || null, germanTitle: null, englishTitle: null })
+                }).catch(() => {});
+            }
+            document.getElementById('detail-view').style.display = 'none';
+            document.getElementById('search-results').style.display = 'none';
+            document.getElementById('player-view').style.display = 'block';
+            
+            // Nächste Episode URL berechnen
+            const nextEp = parseInt(ep) + 1;
+            const nextEpUrl = url.replace(/episode-\d+/, 'episode-' + nextEp);
+            
+            // AniList ID für Zurück-Navigation merken
+            const backAnilistId = window._currentAnilistId;
+            const backSlug = window._currentSlug;
+            
+            const backAction = backAnilistId 
+                ? `showAnimeDetail(${backAnilistId}, '${(backSlug || '').replace(/'/g, "\\'")}')`
+                : `goHome()`;
+            
+            document.getElementById('player-view').innerHTML = `
+                <button class="back-btn" onclick="${backAction}"><i class="fas fa-arrow-left"></i> Zurück</button>
+                <div class="player-container">
+                    <div class="player-header">
+                        <div style="flex:1">
+                            <h3>${title} - Staffel ${season} Episode ${ep}</h3>
+                            <div id="player-episode-desc" style="font-size:0.85rem;color:var(--text-secondary);margin-top:6px"></div>
+                        </div>
+                        <div class="player-nav">
+                            <button class="next-ep-btn" onclick="streamEpisode('${nextEpUrl}', '${title.replace(/'/g, "\\'")}', ${season}, ${nextEp})"><i class="fas fa-forward"></i> Nächste Folge</button>
+                            <span style="color:var(--accent);font-size:0.85rem"><i class="fas fa-play-circle"></i> Africore</span>
+                        </div>
+                    </div>
+                    <div id="lang-bar" class="lang-bar"></div>
+                    <div class="player-wrapper" id="player-content">
+                        <div class="loading"><i class="fas fa-spinner fa-spin"></i><p>Lade Sprachen & Video-Hosts...</p></div>
+                    </div>
+                    <div id="host-bar-container" class="host-bar-container"></div>
+                </div>
+                <div id="player-season-section" class="player-season-section">
+                    <div class="section-label"><i class="fas fa-list"></i> Episoden</div>
+                    <div id="player-season-tabs" class="player-season-tabs"></div>
+                    <div id="player-season-episodes"></div>
+                </div>`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Load season/episode overview below player
+            loadPlayerSeasonEpisodes(url, title, season, ep);
+
+            // Fetch episode description
+            try {
+                const descRes = await fetch('/api/anime/episode-info?url=' + encodeURIComponent(url));
+                const descData = await descRes.json();
+                const descEl = document.getElementById('player-episode-desc');
+                if (descEl && descData.description) {
+                    let titleStr = '';
+                    if (descData.germanTitle) titleStr = `🇩🇪 ${descData.germanTitle}`;
+                    if (descData.englishTitle) titleStr += ` 🇬🇧 ${descData.englishTitle}`;
+                    descEl.innerHTML = `${titleStr ? titleStr + '<br>' : ''}${descData.description}`;
+                }
+            } catch {}
+
+            try {
+                const res = await fetch('/api/anime/stream?url=' + encodeURIComponent(url));
+                const data = await res.json();
+                
+                if (!data.languages || data.languages.length === 0) {
+                    document.getElementById('player-content').innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>Keine Sprachen/Hosts gefunden</p>
+                            <p style="font-size:0.8rem;color:var(--text-secondary);margin-top:8px">Versuche es später erneut oder nutze einen anderen Anime.</p>
+                        </div>`;
+                    return;
+                }
+                
+                // Store language data globally for switching
+                window._streamLanguages = data.languages;
+                window._currentLangIdx = 0;
+                
+                // Render language tabs
+                const langBar = document.getElementById('lang-bar');
+                langBar.innerHTML = data.languages.map((lang, i) => 
+                    `<button class="lang-btn ${i === 0 ? 'active' : ''}" onclick="switchLanguage(${i}, this)">${getLangIcon(lang.name)} ${lang.name}</button>`
+                ).join('');
+                
+                // Render hosts for first language
+                renderHosts(0);
+                
+            } catch (e) {
+                document.getElementById('player-content').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Fehler beim Laden: ${e.message}</p>
+                    </div>`;
+            }
+        }
+
+        // --- Player Season/Episode Overview ---
+        function getPlayerBaseUrl(url) {
+            // URL Pattern: /stream/series/1234/german/staffel-X/episode-Y → /stream/series/1234
+            const match = url.match(/^(.*?\/(?:anime|series)\/\d+)/);
+            if (match) return match[1];
+            // Fallback: strip staffel/episode parts
+            return url.replace(/\/staffel-\d+.*$/, '').replace(/\/episode-\d+.*$/, '');
+        }
+
+        async function loadPlayerSeasonEpisodes(animeUrl, title, currentSeason, currentEp) {
+            const container = document.getElementById('player-season-section');
+            if (!container) return;
+            container.innerHTML = '<div class="loading" style="padding:16px 0"><i class="fas fa-spinner fa-spin"></i> <span style="color:var(--text-muted);font-size:0.85rem">Lade Episoden...</span></div>';
+
+            try {
+                const baseUrl = getPlayerBaseUrl(animeUrl);
+                const seasonsRes = await fetch('/api/anime/seasons?url=' + encodeURIComponent(baseUrl));
+                const seasonsData = await seasonsRes.json();
+
+                if (!seasonsData.seasons || seasonsData.seasons.length === 0) {
+                    container.innerHTML = '';
+                    return;
+                }
+
+                window._playerSeasons = seasonsData.seasons;
+                window._playerAnimeUrl = baseUrl;
+                window._playerAnimeTitle = title;
+
+                renderPlayerSeasonTabs(seasonsData.seasons, currentSeason, currentEp);
+                loadPlayerSeasonEpisodesList(baseUrl, currentSeason, currentEp);
+            } catch {
+                container.innerHTML = '';
+            }
+        }
+
+        function renderPlayerSeasonTabs(seasons, activeSeason, currentEp) {
+            const tabsEl = document.getElementById('player-season-tabs');
+            if (!tabsEl) return;
+            tabsEl.innerHTML = seasons.map(s =>
+                `<button class="player-season-tab ${s.season === parseInt(activeSeason) ? 'active' : ''}"
+                    onclick="switchPlayerSeason(${s.season}, this)">${s.title || 'Staffel ' + s.season}</button>`
+            ).join('');
+        }
+
+        async function switchPlayerSeason(seasonNum, tabEl) {
+            document.querySelectorAll('.player-season-tab').forEach(t => t.classList.remove('active'));
+            if (tabEl) tabEl.classList.add('active');
+            const container = document.getElementById('player-season-episodes');
+            if (!container) return;
+            container.innerHTML = '<div class="loading" style="padding:12px 0"><i class="fas fa-spinner fa-spin"></i></div>';
+
+            try {
+                const baseUrl = window._playerAnimeUrl;
+                const res = await fetch('/api/anime/episodes?url=' + encodeURIComponent(baseUrl) + '&season=' + seasonNum);
+                const data = await res.json();
+                renderPlayerEpisodeTiles(data.episodes || [], seasonNum, null);
+            } catch {
+                container.innerHTML = '<div class="empty-state" style="padding:12px"><i class="fas fa-exclamation-triangle"></i> Fehler beim Laden</div>';
+            }
+        }
+
+        async function loadPlayerSeasonEpisodesList(baseUrl, seasonNum, currentEp) {
+            const container = document.getElementById('player-season-episodes');
+            if (!container) return;
+            container.innerHTML = '<div class="loading" style="padding:12px 0"><i class="fas fa-spinner fa-spin"></i></div>';
+
+            try {
+                const res = await fetch('/api/anime/episodes?url=' + encodeURIComponent(baseUrl) + '&season=' + seasonNum);
+                const data = await res.json();
+                renderPlayerEpisodeTiles(data.episodes || [], seasonNum, parseInt(currentEp));
+            } catch {
+                container.innerHTML = '<div class="empty-state" style="padding:12px"><i class="fas fa-exclamation-triangle"></i> Fehler beim Laden</div>';
+            }
+        }
+
+        function renderPlayerEpisodeTiles(episodes, seasonNum, activeEp) {
+            const container = document.getElementById('player-season-episodes');
+            if (!container) return;
+            if (!episodes || episodes.length === 0) {
+                container.innerHTML = '<div class="empty-state" style="padding:12px"><i class="fas fa-film"></i> Keine Episoden</div>';
+                return;
+            }
+            const title = window._playerAnimeTitle || '';
+            const baseUrl = window._playerAnimeUrl || '';
+            container.innerHTML = `<div class="player-ep-grid">
+                ${episodes.map((ep, i) => {
+                    const epNum = ep.number || (i + 1);
+                    const isActive = epNum === activeEp;
+                    const epTitle = ep.germanTitle || ep.title || '';
+                    return `<button class="player-ep-tile ${isActive ? 'active' : ''}"
+                        onclick="playEpisode('${(ep.url || '').replace(/'/g, "\\'")}', '${title.replace(/'/g, "\\'")}', ${seasonNum}, ${epNum})"
+                        title="${epTitle || 'Episode ' + epNum}">
+                        ${epNum}
+                        <span class="ep-title">${epTitle}</span>
+                    </button>`;
+                }).join('')}
+            </div>`;
+        }
+
+        function playEpisode(epUrl, title, seasonNum, epNum) {
+            if (!epUrl) return;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            streamEpisode(epUrl, title, seasonNum, epNum);
+        }
+
+        function getLangIcon(langName) {
+            const name = langName.toLowerCase();
+            if (name.includes('german') && name.includes('dub')) return '<i class="fas fa-volume-up"></i>';
+            if (name.includes('german') && name.includes('sub')) return '<i class="fas fa-closed-captioning"></i>';
+            if (name.includes('japanese') && name.includes('english')) return '<i class="fas fa-language"></i>';
+            if (name.includes('japanese')) return '<i class="fas fa-flag"></i>';
+            if (name.includes('english')) return '<i class="fas fa-globe"></i>';
+            return '<i class="fas fa-music"></i>';
+        }
+
+        function switchLanguage(idx, el) {
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            window._currentLangIdx = idx;
+            renderHosts(idx);
+        }
+
+        function renderHosts(langIdx) {
+            const langs = window._streamLanguages || [];
+            const lang = langs[langIdx];
+            if (!lang || !lang.hosts || lang.hosts.length === 0) {
+                document.getElementById('host-bar-container').innerHTML = '';
+                document.getElementById('player-content').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-film"></i>
+                        <p>Keine Hosts für diese Sprache verfügbar</p>
+                        <p style="font-size:0.8rem;color:var(--text-secondary);margin-top:8px">Versuche eine andere Sprache oder einen anderen Host.</p>
+                    </div>`;
+                return;
+            }
+            
+            const hostBar = document.getElementById('host-bar-container');
+            hostBar.innerHTML = `<div class="host-bar">${lang.hosts.map((h, i) => 
+                `<button class="host-btn ${i === 0 ? 'active' : ''}" onclick="switchHost('${h.url.replace(/'/g, "\\'")}', this, ${langIdx})">${h.name}</button>`
+            ).join('')}</div>`;
+            
+            loadHostWithFallback(lang.hosts, 0, langIdx);
+        }
+
+        function loadHostWithFallback(hosts, hostIdx, langIdx) {
+            if (hostIdx >= hosts.length) {
+                document.getElementById('player-content').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Kein funktionierender Host gefunden</p>
+                        <p style="font-size:0.8rem;color:var(--text-secondary);margin-top:8px">Versuche eine andere Sprache.</p>
+                    </div>`;
+                return;
+            }
+            const host = hosts[hostIdx];
+            document.getElementById('player-content').innerHTML = 
+                `<iframe src="${host.url}" frameborder="0" allowfullscreen allow="autoplay; encrypted-media" style="width:100%;height:100%;min-height:420px;border:none;" 
+                onerror="loadHostWithFallback(window._streamLanguages[${langIdx}].hosts, ${hostIdx + 1}, ${langIdx})"></iframe>`;
+        }
+        
+        function switchHost(videoUrl, el, langIdx) {
+            document.querySelectorAll('.host-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('player-content').innerHTML = 
+                `<iframe src="${videoUrl}" frameborder="0" allowfullscreen allow="autoplay; encrypted-media" style="width:100%;height:100%;min-height:420px;border:none;"></iframe>`;
+        }
+
+
+        // --- Player stoppen bei Navigation ---
+        function stopPlayer() {
+            const pc = document.getElementById('player-content');
+            if (pc) pc.innerHTML = '';
+            const hb = document.getElementById('host-bar-container');
+            if (hb) hb.innerHTML = '';
+            const lb = document.getElementById('lang-bar');
+            if (lb) lb.innerHTML = '';
+            const pss = document.getElementById('player-season-section');
+            if (pss) pss.innerHTML = '';
+            // Alle iframes im ganzen Dokument entfernen (Audio-Stop)
+            document.querySelectorAll('iframe').forEach(f => { f.src = 'about:blank'; });
+            // Alle Videos stoppen
+            document.querySelectorAll('video').forEach(v => { v.pause(); v.src = ''; });
+            window._streamLanguages = [];
+            window._playerSeasons = [];
+            window._playerAnimeUrl = '';
+            window._playerAnimeTitle = '';
+        }
+
+        // --- Navigation ---
+        async function showDownloads() {
+            const token = localStorage.getItem('anime_token');
+            if (!token) return alert('Bitte einloggen');
+            stopPlayer();
+            currentView = 'downloads';
+            document.getElementById('detail-view').style.display = 'none';
+            document.getElementById('player-view').style.display = 'none';
+            document.getElementById('search-results').style.display = 'none';
+            document.getElementById('pricing-view').style.display = 'none';
+            document.getElementById('admin-view').style.display = 'none';
+            document.getElementById('bestellungen-view').style.display = 'none';
+            document.getElementById('popular-section').style.display = 'none';
+            document.getElementById('new-episodes-section').style.display = 'none';
+            document.getElementById('trending-section').style.display = 'none';
+            document.getElementById('top-section').style.display = 'none';
+            document.getElementById('catalog').style.display = 'none';
+            document.getElementById('announcement-banner').style.display = 'none';
+            document.getElementById('search-section').style.display = 'none';
+            document.getElementById('continue-watching-section').style.display = 'none';
+            document.getElementById('welcome-banner').style.display = 'none';
+            const view = document.getElementById('downloads-view');
+            view.style.display = 'block';
+            view.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i><p>Lade Downloads...</p></div>';
+            try {
+                const res = await fetch('/api/downloads/list', { headers: { 'X-Anime-Token': token } });
+                const data = await res.json();
+                const sizeRes = await fetch('/api/downloads/size', { headers: { 'X-Anime-Token': token } });
+                const sizeData = await sizeRes.json();
+                if (!data.downloads || data.downloads.length === 0) {
+                    view.innerHTML = `
+                        <button class="back-btn" onclick="goHome()"><i class="fas fa-arrow-left"></i> Zurück</button>
+                        <div class="empty-state"><i class="fas fa-download"></i><p>Keine Downloads vorhanden</p><p style="color:var(--text-secondary);font-size:0.85rem;margin-top:8px">Lade Serien & Filme herunter, um sie offline zu schauen.</p></div>`;
+                    return;
+                }
+                const formatSize = (bytes) => { if (!bytes) return '0 B'; const k = 1024; const sizes = ['B', 'KB', 'MB', 'GB']; const i = Math.floor(Math.log(bytes) / Math.log(k)); return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i]; };
+                view.innerHTML = `
+                    <button class="back-btn" onclick="goHome()"><i class="fas fa-arrow-left"></i> Zurück</button>
+                    <h2 style="margin:20px 0 10px"><i class="fas fa-download"></i> Downloads</h2>
+                    <p style="color:var(--text-secondary);margin-bottom:20px">${data.downloads.length} Datei${data.downloads.length !== 1 ? 'en' : ''} · ${formatSize(sizeData.totalSize)}</p>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px">
+                        ${data.downloads.map(d => `
+                            <div style="background:var(--card-bg);border-radius:12px;padding:16px;display:flex;gap:12px;align-items:center">
+                                <img src="${d.poster || 'https://via.placeholder.com/60x80?text=DL'}" style="width:60px;height:80px;border-radius:6px;object-fit:cover" onerror="this.src='https://via.placeholder.com/60x80?text=DL'">
+                                <div style="flex:1;min-width:0">
+                                    <div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.title}</div>
+                                    <div style="color:var(--text-secondary);font-size:0.85rem">${d.season ? 'S' + d.season + ' E' + d.episode : 'Episode ' + d.episode}</div>
+                                    <div style="font-size:0.75rem;color:var(--text-secondary);margin-top:4px">${d.status === 'completed' ? '<span style="color:#00d4aa"><i class="fas fa-check"></i> Fertig</span>' : d.status === 'downloading' ? '<span style="color:var(--accent)"><i class="fas fa-spinner fa-spin"></i> ' + (d.progress || 0) + '%</span>' : '<span style="color:#ff6b81"><i class="fas fa-times"></i> Fehler</span>'}</div>
+                                </div>
+                                <div style="display:flex;gap:6px">
+                                    ${d.status === 'completed' ? `<button onclick="playDownload('${d.id}')" style="background:var(--accent);border:none;color:#fff;padding:8px 12px;border-radius:6px;cursor:pointer"><i class="fas fa-play"></i></button>` : ''}
+                                    <button onclick="deleteDownload('${d.id}')" style="background:rgba(255,107,129,0.2);border:1px solid rgba(255,107,129,0.3);color:#ff6b81;padding:8px 12px;border-radius:6px;cursor:pointer"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>`;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (e) {
+                view.innerHTML = '<div class="empty-state"><p>Fehler beim Laden: ' + e.message + '</p></div>';
+            }
+        }
+        async function playDownload(downloadId) {
+            const token = localStorage.getItem('anime_token');
+            if (!token) return;
+            window.open('/api/downloads/play/' + downloadId + '?token=' + token, '_blank');
+        }
+        async function deleteDownload(downloadId) {
+            if (!confirm('Download wirklich löschen?')) return;
+            const token = localStorage.getItem('anime_token');
+            if (!token) return;
+            await fetch('/api/downloads/' + downloadId, { method: 'DELETE', headers: { 'X-Anime-Token': token } });
+            showDownloads();
+        }
+        function goHome() {
+            stopPlayer();
+            currentView = 'home';
+            document.getElementById('detail-view').style.display = 'none';
+            document.getElementById('player-view').style.display = 'none';
+            document.getElementById('search-results').style.display = 'none';
+            document.getElementById('pricing-view').style.display = 'none';
+            document.getElementById('admin-view').style.display = 'none';
+            document.getElementById('bestellungen-view').style.display = 'none';
+            document.getElementById('popular-section').style.display = 'block';
+            document.getElementById('new-episodes-section').style.display = 'block';
+            document.getElementById('trending-section').style.display = 'block';
+            document.getElementById('top-section').style.display = 'block';
+            document.getElementById('catalog').style.display = 'block';
+            document.getElementById('announcement-banner').style.display = '';
+            document.getElementById('search-section').style.display = '';
+            document.getElementById('continue-watching-section').style.display = '';
+            document.getElementById('welcome-banner').style.display = '';
+            document.getElementById('impressum-view').style.display = 'none';
+            document.getElementById('datenschutz-view').style.display = 'none';
+            document.getElementById('downloads-view').style.display = 'none';
+            loadTrending();
+            loadPopular();
+            loadTop();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- Impressum & Datenschutz ---
+        function showImpressum() {
+            hideAllViews();
+            const el = document.getElementById('impressum-view');
+            el.style.display = 'block';
+            el.innerHTML = `
+                <div class="main">
+                    <div class="legal-page">
+                        <button class="back-btn" onclick="goHome()"><i class="fas fa-arrow-left"></i> Zurück</button>
+                        <h1><i class="fas fa-scale-balanced"></i> Impressum</h1>
+                        <p class="legal-subtitle">Angaben gemäß § 5 TMG</p>
+                        
+                        <div class="legal-section">
+                            <h2><i class="fas fa-user"></i> Verantwortlicher</h2>
+                            <p class="value">CZEIO</p>
+                            <p>Kontakt: Über WhatsApp erreichbar</p>
+                        </div>
+                        
+                        <div class="legal-section">
+                            <h2><i class="fas fa-server"></i> Hosting</h2>
+                            <p>Diese Website wird über einen privaten Server betrieben. Kein kommerzielles Hosting.</p>
+                        </div>
+                        
+                        <div class="legal-section">
+                            <h2><i class="fas fa-shield-halved"></i> Haftungsausschluss</h2>
+                            <p>Die Inhalte dieser Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.</p>
+                            <p style="margin-top:10px">Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen.</p>
+                        </div>
+                        
+                        <div class="legal-section">
+                            <h2><i class="fas fa-copyright"></i> Urheberrecht</h2>
+                            <p>Die durch die Seitenbetreiber erstellen Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+                        </div>
+                    </div>
+                </div>`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showDatenschutz() {
+            hideAllViews();
+            const el = document.getElementById('datenschutz-view');
+            el.style.display = 'block';
+            el.innerHTML = `
+                <div class="main">
+                    <div class="legal-page">
+                        <button class="back-btn" onclick="goHome()"><i class="fas fa-arrow-left"></i> Zurück</button>
+                        <h1><i class="fas fa-shield-halved"></i> Datenschutzerklärung</h1>
+                        <p class="legal-subtitle">Datenschutz gemäß DSGVO</p>
+                        
+                        <div class="legal-section">
+                            <h2><i class="fas fa-database"></i> Erhobene Daten</h2>
+                            <ul>
+                                <li>WhatsApp-Nummer (zur Authentifizierung)</li>
+                                <li>Registrierungsname</li>
+                                <li>Chat-Inhalte (nur zur Bot-Funktionalität)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="legal-section">
+                            <h2><i class="fas fa-bullseye"></i> Zweck der Verarbeitung</h2>
+                            <p>Bereitstellung der Anime-Streaming-Funktionalität, Nutzerverwaltung und Anzeige von Anime-Inhalten.</p>
+                        </div>
+                        
+                        <div class="legal-section">
+                            <h2><i class="fas fa-gavel"></i> Rechtsgrundlage</h2>
+                            <p>Art. 6 Abs. 1 lit. a DSGVO — Einwilligung durch Registrierung und Nutzung des Service.</p>
+                        </div>
+                        
+                        <div class="legal-section">
+                            <h2><i class="fas fa-trash-can"></i> Löschung</h2>
+                            <p>Sie können jederzeit die Löschung Ihrer Daten anfordern. Nutzen Sie dazu den Bot-Befehl <strong style="color:var(--accent)">$delete</strong> oder kontaktieren Sie uns direkt.</p>
+                        </div>
+                        
+                        <div class="legal-section">
+                            <h2><i class="fas fa-envelope"></i> Kontakt</h2>
+                            <p>Bei Fragen zum Datenschutz kontaktieren Sie uns über WhatsApp.</p>
+                        </div>
+                    </div>
+                </div>`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function hideAllViews() {
+            document.getElementById('detail-view').style.display = 'none';
+            document.getElementById('player-view').style.display = 'none';
+            document.getElementById('search-results').style.display = 'none';
+            document.getElementById('popular-section').style.display = 'none';
+            document.getElementById('trending-section').style.display = 'none';
+            document.getElementById('top-section').style.display = 'none';
+            document.getElementById('catalog').style.display = 'none';
+            document.getElementById('impressum-view').style.display = 'none';
+            document.getElementById('datenschutz-view').style.display = 'none';
+            document.getElementById('admin-view').style.display = 'none';
+            document.getElementById('bestellungen-view').style.display = 'none';
+            stopPlayer();
+        }
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        async function filterCatalog(letter) {
+            showToast('Lade Katalog: ' + letter.toUpperCase());
+            document.getElementById('catalog-grid').innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i><p>Lade Anime...</p></div>';
+            
+            try {
+                const [anilistRes, aniworldRes] = await Promise.all([
+                    fetch('/api/anime/catalog?letter=' + encodeURIComponent(letter)).then(r => r.json()).catch(() => ({ results: [] })),
+                    fetch('/api/aniworld/catalog').then(r => r.json()).catch(() => ({ results: [] }))
+                ]);
+                let allResults = [];
+                if (anilistRes.results && anilistRes.results.length > 0) {
+                    allResults = anilistRes.results.filter(a => {
+                        const title = (a.title?.english || a.title?.romaji || '').toLowerCase();
+                        return title.charAt(0) === letter.toLowerCase();
+                    });
+                }
+                if (aniworldRes.results && aniworldRes.results.length > 0) {
+                    const aniwForLetter = aniworldRes.results.filter(a => a.letter === letter.toLowerCase());
+                    const existingUrls = new Set(allResults.map(a => {
+                        const t = (a.title?.english || a.title?.romaji || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                        return t;
+                    }));
+                    for (const a of aniwForLetter) {
+                        const slug = a.url.split('/').pop();
+                        if (!existingUrls.has(slug)) {
+                            allResults.push({
+                                id: 'aniworld-' + slug,
+                                title: { romaji: a.title, english: a.title, native: null },
+                                coverImage: { large: a.cover, medium: a.cover },
+                                genres: [],
+                                averageScore: null,
+                                episodes: null,
+                                status: null,
+                                format: 'TV',
+                                _aniworld: true
+                            });
+                        }
+                    }
+                }
+                if (allResults.length > 0) {
+                    document.getElementById('catalog-grid').innerHTML = allResults.map(a => {
+                        if (a._aniworld) return createAniWorldCatalogCard(a);
+                        return createAniListCard(a);
+                    }).join('');
+                } else {
+                    document.getElementById('catalog-grid').innerHTML = '<div class="empty-state"><i class="fas fa-film"></i><p>Keine Anime für "' + letter.toUpperCase() + '" gefunden</p></div>';
+                }
+            } catch (e) {
+                document.getElementById('catalog-grid').innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Fehler beim Laden</p></div>';
+            }
+        }
+
+        function createAniWorldCatalogCard(a) {
+            const slug = a.url.split('/').pop();
+            const cover = a.cover || 'https://via.placeholder.com/180x260?text=' + encodeURIComponent(a.title);
+            return `<div class="anime-card" onclick="showAnime('${a.url}', '${a.title.replace(/'/g, "\\'")}')">
+                <div class="poster-wrapper">
+                    <img class="poster" src="${cover}" alt="${a.title}" onerror="this.src='https://via.placeholder.com/180x260?text=Anime'">
+                    <div class="card-badge" style="background:rgba(14,165,233,0.9)">AniWorld</div>
+                </div>
+                <div class="card-info">
+                    <div class="card-title">${a.title}</div>
+                    <div class="card-meta">Direkt streamen</div>
+                </div>
+            </div>`;
+        }
+
+        // --- Toast ---
+        function logout() {
+            localStorage.removeItem('anime_token');
+            localStorage.removeItem('anime_user');
+            window.location.href = '/';
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // --- Adblocker: Dynamische Popups & Werbung ---
+        const adblockDomains = ['doubleclick.net', 'googlesyndication.com', 'googleadservices.com', 'adnxs.com', 'taboola.com', 'outbrain.com', 'amazon-adsystem.com', 'adsrvr.org', 'mathtag.com', 'rubiconproject.com', 'pubmatic.com', 'casalemedia.com', 'turn.com', 'spotx.tv', 'spotxchange.com', 'jwpltx.com', 'jwpsrv.com', 'voe.sx', 'clipwatching.com', 'doodstream.com', 'streamtape.com', 'filemoon.sx', 'vidmoly.to'];
+        
+        // MutationObserver - neue Ad-Elemente sofort entfernen
+        const adObserver = new MutationObserver((mutations) => {
+            mutations.forEach(m => {
+                m.addedNodes.forEach(node => {
+                    if (node.nodeType === 1) {
+                        const tag = (node.tagName || '').toLowerCase();
+                        const id = (node.id || '').toLowerCase();
+                        const cls = (node.className || '').toString().toLowerCase();
+                        const src = (node.src || '').toLowerCase();
+                        if (tag === 'iframe' && adblockDomains.some(d => src.includes(d))) {
+                            node.remove();
+                        }
+                        if (id.includes('ad') || cls.includes('ad-') || cls.includes('popup') || cls.includes('overlay')) {
+                            node.style.cssText = 'display:none!important';
+                        }
+                    }
+                });
+            });
+        });
+        adObserver.observe(document.documentElement, { childList: true, subtree: true });
+        
+        // Popup/Alert/Confirm override für iframes
+        window.addEventListener('load', () => {
+            document.querySelectorAll('iframe').forEach(f => {
+                try {
+                    f.contentWindow.alert = () => {};
+                    f.contentWindow.confirm = () => {};
+                    f.contentWindow.open = () => null;
+                } catch {}
+            });
+        });
+
+        // --- Admin Panel ---
+        function showAdmin() {
+            document.getElementById('admin-view').style.display = 'block';
+            document.getElementById('pricing-view').style.display = 'none';
+            document.getElementById('popular-section').style.display = 'none';
+            document.getElementById('trending-section').style.display = 'none';
+            document.getElementById('top-section').style.display = 'none';
+            document.getElementById('catalog').style.display = 'none';
+            document.getElementById('search-results').style.display = 'none';
+            document.getElementById('detail-view').style.display = 'none';
+            document.getElementById('player-view').style.display = 'none';
+            loadAdminPending();
+            loadAdminActive();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        async function loadAdminPending() {
+            try {
+                const res = await fetch('/api/anime/pending');
+                const data = await res.json();
+                const el = document.getElementById('admin-pending-list');
+                if (!data.pending || data.pending.length === 0) {
+                    el.innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:24px"><i class="fas fa-inbox" style="font-size:2rem;margin-bottom:12px;display:block"></i>Keine ausstehenden Bestellungen</div>';
+                    return;
+                }
+                el.innerHTML = '<h3 style="margin-bottom:16px;color:#888"><i class="fas fa-clock" style="margin-right:8px"></i>Ausstehend (' + data.pending.length + ')</h3>' +
+                    data.pending.map(s => {
+                        const tierColors = { basic: 'var(--accent)', standard: '#777', premium: '#999' };
+                        const tierNames = { basic: 'Basic', standard: 'Standard', premium: 'Premium' };
+                        const color = tierColors[s.tier] || 'var(--accent)';
+                        return '<div style="background:var(--bg-secondary);border:1px solid var(--glass-border);border-radius:14px;padding:20px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">' +
+                            '<div>' +
+                                '<div style="font-weight:600;font-size:1.05rem;margin-bottom:4px"><i class="fas fa-user" style="margin-right:8px;color:var(--text-muted)"></i>@' + s.username + '</div>' +
+                                '<div style="color:' + color + ';font-weight:600">' + (tierNames[s.tier] || s.tier) + '</div>' +
+                                '<div style="color:var(--text-muted);font-size:0.8rem;margin-top:4px">' + new Date(s.createdAt).toLocaleString('de-DE') + '</div>' +
+                            '</div>' +
+                            '<div style="display:flex;gap:10px">' +
+                                '<button onclick="adminApprove(\'' + s.id + '\')" style="padding:10px 22px;background:#555;border:none;border-radius:10px;color:#fff;font-weight:600;cursor:pointer;font-size:0.9rem"><i class="fas fa-check" style="margin-right:6px"></i>Bestätigen</button>' +
+                                '<button onclick="adminReject(\'' + s.id + '\')" style="padding:10px 22px;background:rgba(100,100,100,0.15);border:1px solid rgba(100,100,100,0.3);border-radius:10px;color:#888;font-weight:600;cursor:pointer;font-size:0.9rem"><i class="fas fa-times" style="margin-right:6px"></i>Ablehnen</button>' +
+                            '</div>' +
+                        '</div>';
+                    }).join('');
+            } catch (e) {
+                document.getElementById('admin-pending-list').innerHTML = '<div style="color:#888;text-align:center;padding:24px">Fehler beim Laden</div>';
+            }
+        }
+
+        async function loadAdminActive() {
+            try {
+                const res = await fetch('/api/anime/all-subs');
+                const data = await res.json();
+                const el = document.getElementById('admin-active-grid');
+                const active = (data.active || []).filter(s => s.active);
+                if (active.length === 0) {
+                    el.innerHTML = '<div style="color:var(--text-muted);text-align:center;padding:16px">Keine aktiven Abos</div>';
+                    return;
+                }
+                const tierColors = { basic: 'var(--accent)', standard: '#777', premium: '#999' };
+                const tierNames = { basic: 'Basic', standard: 'Standard', premium: 'Premium' };
+                el.innerHTML = active.map(s => {
+                    const color = tierColors[s.tier] || 'var(--accent)';
+                    const exp = s.expiresAt ? new Date(s.expiresAt).toLocaleDateString('de-DE') : 'Unbegrenzt';
+                    return '<div style="background:var(--bg-secondary);border:1px solid var(--glass-border);border-radius:12px;padding:16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between">' +
+                        '<div>' +
+                            '<div style="font-weight:600">@' + s.username + ' <span style="color:' + color + ';font-size:0.85rem;margin-left:8px">' + (tierNames[s.tier] || s.tier) + '</span></div>' +
+                            '<div style="color:var(--text-muted);font-size:0.8rem">Läuft bis: ' + exp + '</div>' +
+                        '</div>' +
+                        '<div style="display:flex;align-items:center;gap:10px">' +
+                            '<code style="background:rgba(255,255,255,0.06);padding:6px 12px;border-radius:8px;font-size:0.8rem;color:var(--text-secondary)">' + s.token + '</code>' +
+                            '<button onclick="adminRevoke(\'' + s.id + '\')" style="padding:8px 14px;background:rgba(100,100,100,0.1);border:1px solid rgba(100,100,100,0.2);border-radius:8px;color:#888;cursor:pointer;font-size:0.8rem"><i class="fas fa-ban"></i></button>' +
+                        '</div>' +
+                    '</div>';
+                }).join('');
+            } catch {}
+        }
+
+        async function adminApprove(subId) {
+            try {
+                const res = await fetch('/api/anime/approve', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ subId }) });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('Abo bestätigt! Token: ' + data.token);
+                    loadAdminPending();
+                    loadAdminActive();
+                } else { showToast('Fehler: ' + data.error); }
+            } catch { showToast('Verbindungsfehler'); }
+        }
+
+        async function adminReject(subId) {
+            try {
+                const res = await fetch('/api/anime/reject', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ subId }) });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('Abo abgelehnt');
+                    loadAdminPending();
+                } else { showToast('Fehler: ' + data.error); }
+            } catch { showToast('Verbindungsfehler'); }
+        }
+
+        async function adminRevoke(subId) {
+            if (!confirm('Token wirklich widerrufen?')) return;
+            try {
+                const res = await fetch('/api/anime/revoke', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ subId }) });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('Token widerrufen (@' + data.username + ')');
+                    loadAdminActive();
+                } else { showToast('Fehler: ' + data.error); }
+            } catch { showToast('Verbindungsfehler'); }
+        }
+
+        // --- Bestellungen Panel ---
+        let bestellungenFilter = 'pending';
+        function showBestellungen() {
+            document.getElementById('bestellungen-view').style.display = 'block';
+            document.getElementById('admin-view').style.display = 'none';
+            document.getElementById('pricing-view').style.display = 'none';
+            document.getElementById('popular-section').style.display = 'none';
+            document.getElementById('trending-section').style.display = 'none';
+            document.getElementById('top-section').style.display = 'none';
+            document.getElementById('catalog').style.display = 'none';
+            document.getElementById('search-results').style.display = 'none';
+            document.getElementById('detail-view').style.display = 'none';
+            document.getElementById('player-view').style.display = 'none';
+            document.getElementById('search-section').style.display = 'none';
+            bestellungenFilter = 'pending';
+            updateBestellungTabs();
+            loadBestellungen('pending');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateBestellungTabs() {
+            document.querySelectorAll('.bestellung-tab').forEach(b => b.classList.remove('active-tab'));
+            const map = { pending: 'btn-pending', approved: 'btn-approved', rejected: 'btn-rejected', all: 'btn-all' };
+            const el = document.getElementById(map[bestellungenFilter]);
+            if (el) el.classList.add('active-tab');
+        }
+
+        async function loadBestellungen(filter) {
+            bestellungenFilter = filter;
+            updateBestellungTabs();
+            try {
+                const res = await fetch('/api/anime/all-subs');
+                const data = await res.json();
+                const allPending = data.pending || [];
+                const allActive = data.active || [];
+                const all = [...allPending, ...allActive];
+
+                const pending = all.filter(s => s.status === 'pending');
+                const approved = all.filter(s => s.status === 'approved' || s.active === true);
+                const rejected = all.filter(s => s.status === 'rejected');
+
+                const tierColors = { basic: 'var(--accent)', standard: '#777', premium: '#999' };
+                const tierNames = { basic: 'Basic', standard: 'Standard', premium: 'Premium' };
+                const statusColors = { pending: '#888', approved: '#888', rejected: '#777', active: '#888', revoked: '#777' };
+                const statusNames = { pending: 'Ausstehend', approved: 'Genehmigt', rejected: 'Abgelehnt', active: 'Aktiv', revoked: 'Widerrufen' };
+
+                // Stats
+                const statsEl = document.getElementById('bestellungen-stats');
+                statsEl.innerHTML =
+                    '<div class="stat-box"><div class="stat-num" style="color:#888">' + pending.length + '</div><div class="stat-label"><i class="fas fa-clock"></i> Ausstehend</div></div>' +
+                    '<div class="stat-box"><div class="stat-num" style="color:#888">' + approved.length + '</div><div class="stat-label"><i class="fas fa-check-circle"></i> Genehmigt</div></div>' +
+                    '<div class="stat-box"><div class="stat-num" style="color:#777">' + rejected.length + '</div><div class="stat-label"><i class="fas fa-times-circle"></i> Abgelehnt</div></div>' +
+                    '<div class="stat-box"><div class="stat-num" style="color:var(--text)">' + all.length + '</div><div class="stat-label"><i class="fas fa-list"></i> Gesamt</div></div>';
+
+                // Filter
+                let filtered;
+                if (filter === 'all') filtered = all;
+                else if (filter === 'approved') filtered = approved;
+                else if (filter === 'rejected') filtered = rejected;
+                else filtered = pending;
+
+                const el = document.getElementById('bestellungen-list');
+                if (filtered.length === 0) {
+                    el.innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:40px"><i class="fas fa-inbox" style="font-size:2.5rem;margin-bottom:16px;display:block;opacity:0.4"></i>Keine Bestellungen vorhanden</div>';
+                    return;
+                }
+
+                // Sort by date, newest first
+                filtered.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+
+                el.innerHTML = filtered.map(s => {
+                    const color = tierColors[s.tier] || 'var(--accent)';
+                    const tierName = tierNames[s.tier] || s.tier || '—';
+                    const st = s.status || (s.active ? 'active' : 'unknown');
+                    const stColor = statusColors[st] || 'var(--text-muted)';
+                    const stName = statusNames[st] || st;
+                    const date = s.createdAt ? new Date(s.createdAt).toLocaleString('de-DE') : '—';
+                    const expiry = s.expiresAt ? new Date(s.expiresAt).toLocaleDateString('de-DE') : '—';
+
+                    let actions = '';
+                    if (st === 'pending') {
+                        actions =
+                            '<button onclick="bestellApprove(\'' + s.id + '\')" style="padding:8px 18px;background:#555;border:none;border-radius:10px;color:#fff;font-weight:600;cursor:pointer;font-size:0.85rem"><i class="fas fa-check" style="margin-right:4px"></i>Bestätigen</button>' +
+                            '<button onclick="bestellReject(\'' + s.id + '\')" style="padding:8px 18px;background:rgba(100,100,100,0.15);border:1px solid rgba(100,100,100,0.3);border-radius:10px;color:#888;font-weight:600;cursor:pointer;font-size:0.85rem"><i class="fas fa-times" style="margin-right:4px"></i>Ablehnen</button>';
+                    } else if (st === 'approved' || st === 'active') {
+                        if (s.cancelled) {
+                            actions = '<button onclick="bestellUncancel(\'' + s.id + '\')" style="padding:8px 14px;background:rgba(100,100,100,0.15);border:1px solid rgba(100,100,100,0.3);border-radius:8px;color:#888;cursor:pointer;font-size:0.8rem;margin-right:6px"><i class="fas fa-rotate-right" style="margin-right:4px"></i>Aktivieren</button>' +
+                                '<button onclick="bestellRevoke(\'' + s.id + '\')" style="padding:8px 14px;background:rgba(100,100,100,0.1);border:1px solid rgba(100,100,100,0.2);border-radius:8px;color:#888;cursor:pointer;font-size:0.8rem"><i class="fas fa-ban" style="margin-right:4px"></i>Widerrufen</button>';
+                        } else {
+                            actions = '<button onclick="bestellCancel(\'' + s.id + '\')" style="padding:8px 14px;background:rgba(100,100,100,0.15);border:1px solid rgba(100,100,100,0.3);border-radius:8px;color:#888;cursor:pointer;font-size:0.8rem;margin-right:6px"><i class="fas fa-clock" style="margin-right:4px"></i>Kündigen</button>' +
+                                '<button onclick="bestellRevoke(\'' + s.id + '\')" style="padding:8px 14px;background:rgba(100,100,100,0.1);border:1px solid rgba(100,100,100,0.2);border-radius:8px;color:#888;cursor:pointer;font-size:0.8rem"><i class="fas fa-ban" style="margin-right:4px"></i>Widerrufen</button>';
+                        }
+                    }
+
+                    const cancelledBadge = s.cancelled ? '<span style="color:#888;font-size:0.75rem;font-weight:600;margin-left:6px"><i class="fas fa-clock"></i> Gekündigt</span>' : '';
+
+                    return '<div class="bestellung-card">' +
+                        '<div style="flex:1;min-width:200px">' +
+                            '<div style="font-weight:600;font-size:1.05rem;margin-bottom:4px"><i class="fas fa-user" style="margin-right:8px;color:var(--text-muted)"></i>@' + s.username + '</div>' +
+                            '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px">' +
+                                '<span style="color:' + color + ';font-weight:600;font-size:0.9rem"><i class="fas fa-crown" style="margin-right:4px"></i>' + tierName + '</span>' +
+                                '<span style="color:' + stColor + ';font-weight:600;font-size:0.9rem"><i class="fas fa-circle" style="font-size:0.5rem;vertical-align:middle;margin-right:4px"></i>' + stName + cancelledBadge + '</span>' +
+                                '<span style="color:var(--text-muted);font-size:0.85rem"><i class="fas fa-calendar" style="margin-right:4px"></i>' + date + '</span>' +
+                                (s.expiresAt ? '<span style="color:var(--text-muted);font-size:0.85rem"><i class="fas fa-hourglass-end" style="margin-right:4px"></i>Bis: ' + expiry + '</span>' : '') +
+                            '</div>' +
+                            (s.token ? '<div style="margin-top:8px"><code style="background:rgba(255,255,255,0.06);padding:4px 10px;border-radius:6px;font-size:0.78rem;color:var(--text-secondary)">Token: ' + s.token + '</code></div>' : '') +
+                        '</div>' +
+                        '<div style="display:flex;gap:8px;align-items:center">' + actions + '</div>' +
+                    '</div>';
+                }).join('');
+            } catch {
+                document.getElementById('bestellungen-list').innerHTML = '<div style="color:#888;text-align:center;padding:24px"><i class="fas fa-exclamation-triangle" style="margin-right:8px"></i>Fehler beim Laden</div>';
+            }
+        }
+
+        async function bestellApprove(subId) {
+            try {
+                const res = await fetch('/api/anime/approve', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ subId }) });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('Abo bestätigt! Token: ' + data.token);
+                    loadBestellungen(bestellungenFilter);
+                } else { showToast('Fehler: ' + data.error); }
+            } catch { showToast('Verbindungsfehler'); }
+        }
+
+        async function bestellReject(subId) {
+            try {
+                const res = await fetch('/api/anime/reject', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ subId }) });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('Abo abgelehnt');
+                    loadBestellungen(bestellungenFilter);
+                } else { showToast('Fehler: ' + data.error); }
+            } catch { showToast('Verbindungsfehler'); }
+        }
+
+        async function bestellRevoke(subId) {
+            if (!confirm('Token wirklich widerrufen?')) return;
+            try {
+                const res = await fetch('/api/anime/revoke', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ subId }) });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('Token widerrufen (@' + data.username + ')');
+                    loadBestellungen(bestellungenFilter);
+                } else { showToast('Fehler: ' + data.error); }
+            } catch { showToast('Verbindungsfehler'); }
+        }
+
+        async function bestellCancel(subId) {
+            if (!confirm('Abo kündigen? Es bleibt bis zum Ablauf aktiv.')) return;
+            try {
+                const res = await fetch('/api/anime/cancel', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ subId }) });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('Abo gekündigt (@' + data.username + ')');
+                    loadBestellungen(bestellungenFilter);
+                } else { showToast('Fehler: ' + data.error); }
+            } catch { showToast('Verbindungsfehler'); }
+        }
+
+        async function bestellUncancel(subId) {
+            try {
+                const res = await fetch('/api/anime/uncancel', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ subId }) });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('Kündigung rückgängig (@' + data.username + ')');
+                    loadBestellungen(bestellungenFilter);
+                } else { showToast('Fehler: ' + data.error); }
+            } catch { showToast('Verbindungsfehler'); }
+        }
+
+        // ============ CONTINUE WATCHING ============
+        async function loadContinueWatching() {
+            const token = localStorage.getItem('anime_token');
+            if (!token) return;
+            try {
+                const res = await fetch('/api/watch/continue?source=aniworld', { headers: { 'X-Anime-Token': token } });
+                const data = await res.json();
+                if (!data.items || data.items.length === 0) return;
+                
+                const section = document.getElementById('continue-watching-section');
+                const container = document.getElementById('cw-container');
+                if (!section || !container) return;
+                
+                section.style.display = 'block';
+                container.innerHTML = data.items.map(item => {
+                    const nextEp = item.episode;
+                    const meta = item.season ? `S${item.season} E${item.episode}` : `Episode ${item.episode}`;
+                    const nextMeta = item.season ? `S${item.season} E${nextEp}` : `Episode ${nextEp}`;
+                    const poster = item.poster || 'https://via.placeholder.com/320x180/1e1e32/7c5cff?text=' + encodeURIComponent(item.title);
+                    
+                    return `<div class="cw-card" onclick="continueWatch('${item.title.replace(/'/g, "\\'")}', ${item.season || 0}, ${nextEp}, '${(item.source || '').replace(/'/g, "\\'")}')" title="${item.title} — ${meta}">
+                        <img class="cw-poster" src="${poster}" alt="${item.title}" onerror="this.src='https://via.placeholder.com/320x180/1e1e32/7c5cff?text=Anime'">
+                        <div class="cw-overlay"><div class="cw-play-btn"><i class="fas fa-play" style="margin-left:2px"></i></div></div>
+                        <div class="cw-info">
+                            <div class="cw-title">${item.germanTitle || item.title}</div>
+                            <div class="cw-meta">${meta}</div>
+                        </div>
+                    </div>`;
+                }).join('');
+            } catch {}
+        }
+
+        function continueWatch(title, season, nextEp, source) {
+            window._cwAutoPlay = { title, season, episode: nextEp };
+            searchAnime(title);
+        }
+
+        // Call loadContinueWatching after login
+        const _origCheckSub = window.checkSubscription;
+        if (typeof _origCheckSub === 'function') {
+            window.checkSubscription = async function() {
+                const result = await _origCheckSub.apply(this, arguments);
+                if (result) loadContinueWatching();
+                return result;
+            };
+        }
+        window.addEventListener('load', () => { setTimeout(loadContinueWatching, 2000); });
+
+        // --- Adblocker: Dynamische Popups & Werbung ---
+    </script>
+
+</body>
+</html>

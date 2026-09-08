@@ -1,0 +1,26 @@
+{
+  "czeio": {
+    "accentColor": "#666566",
+    "overlayOpacity": "0",
+    "cardOpacity": "23",
+    "glassBlur": "0",
+    "soundEnabled": false,
+    "videoSoundEnabled": false,
+    "bgBlur": "1"
+  },
+  "nerox": {
+    "soundEnabled": false,
+    "overlayOpacity": "0",
+    "cardOpacity": "100",
+    "glassBlur": "0",
+    "accentColor": "#666566",
+    "bgBlur": "0"
+  },
+  "kushi": {
+    "accentColor": "#4f4a46",
+    "overlayOpacity": "100",
+    "cardOpacity": "99",
+    "bgBlur": "20",
+    "soundEnabled": false
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "prefix": "!",
+  "categories": [
+    {
+      "name": "Account",
+      "icon": "fa-solid fa-user",
+      "commands": [
+        {"cmd": "!registrieren <Name>", "desc": "Beim Bot registrieren"},
+        {"cmd": "!profil", "desc": "Profil anzeigen"},
+        {"cmd": "!profil @user", "desc": "Profil von anderem User"},
+        {"cmd": "!xp", "desc": "XP & Level anzeigen"},
+        {"cmd": "!xp @user", "desc": "XP von anderem User"},
+        {"cmd": "!name <Name>", "desc": "Namen ändern"},
+        {"cmd": "!meinname", "desc": "Aktuellen Namen anzeigen"},
+        {"cmd": "!delete", "desc": "Account löschen"}
+      ]
+    },
+    {
+      "name": "Economy",
+      "icon": "fa-solid fa-coins",
+      "commands": [
+        {"cmd": "!bal", "desc": "Guthaben anzeigen"},
+        {"cmd": "!bal @user", "desc": "Guthaben von anderem User"},
+        {"cmd": "!daily", "desc": "Tägliche 500 Coins abholen"},
+        {"cmd": "!work", "desc": "Arbeiten & Coins verdienen"},
+        {"cmd": "!pay @user <Betrag>", "desc": "Geld überweisen"},
+        {"cmd": "!top", "desc": "Top 10 Rangliste"},
+        {"cmd": "!shop", "desc": "Shop anzeigen"},
+        {"cmd": "!shop kaufen <Anzahl>", "desc": "Boxen kaufen"},
+        {"cmd": "!shop booster <Anzahl>", "desc": "Booster kaufen"}
+      ]
+    },
+    {
+      "name": "Casino",
+      "icon": "fa-solid fa-dice",
+      "commands": [
+        {"cmd": "!gamble <Betrag>", "desc": "Glücksspiel 50/50"},
+        {"cmd": "!slots <Betrag>", "desc": "Slot-Maschine"},
+        {"cmd": "!coinflip <Betrag>", "desc": "Münzwurf"},
+        {"cmd": "!slot", "desc": "Kostenlose Slot Machine"}
+      ]
+    },
+    {
+      "name": "Spaß",
+      "icon": "fa-solid fa-gamepad",
+      "commands": [
+        {"cmd": "!witz", "desc": "Witz erzählen"},
+        {"cmd": "!8ball <Frage>", "desc": "Magic 8-Ball"},
+        {"cmd": "!rps <schere/stein/papier>", "desc": "Schere Stein Papier"},
+        {"cmd": "!truth", "desc": "Wahrheit"},
+        {"cmd": "!dare", "desc": "Pflicht"},
+        {"cmd": "!münzwurf", "desc": "Münzwurf"},
+        {"cmd": "!würfel", "desc": "Würfelwurf"},
+        {"cmd": "!zahlen", "desc": "Zahl raten 1-100"},
+        {"cmd": "!compliment", "desc": "Kompliment geben"},
+        {"cmd": "!insult", "desc": "Zufällige Beleidigung"},
+        {"cmd": "!roast", "desc": "Jemanden roasten"},
+        {"cmd": "!rate @user", "desc": "Bewerten 1-10"},
+        {"cmd": "!pickup", "desc": "Pickup Line"},
+        {"cmd": "!rizz", "desc": "Rizz Line"},
+        {"cmd": "!simprate @user", "desc": "Simp-Rate"},
+        {"cmd": "!love @user1 @user2", "desc": "Love Calculator"},
+        {"cmd": "!marry @user", "desc": "Heiratsvorschlag"},
+        {"cmd": "!divorce @user", "desc": "Scheidung"},
+        {"cmd": "!reverse <Text>", "desc": "Text umkehren"},
+        {"cmd": "!zufallszahl [min] [max]", "desc": "Zufällige Zahl"},
+        {"cmd": "!remind <min> <text>", "desc": "Erinnerung setzen"},
+        {"cmd": "!funfact", "desc": "Zufälliger Fun Fact"},
+        {"cmd": "!hug @user", "desc": "Umarmen"},
+        {"cmd": "!kiss @user", "desc": "Küssen"},
+        {"cmd": "!slap @user", "desc": "Ohrfeige"},
+        {"cmd": "!punch @user", "desc": "Schlagen"}
+      ]
+    },
+    {
+      "name": "Sozial",
+      "icon": "fa-solid fa-heart",
+      "commands": [
+        {"cmd": "!hochzeit @user", "desc": "Heiraten"},
+        {"cmd": "!scheidung", "desc": "Scheiden"},
+        {"cmd": "!liebe @user", "desc": "Liebes-Check"},
+        {"cmd": "!pair @user", "desc": "Pärchen-Check"},
+        {"cmd": "!sex @user", "desc": "Zusammen legen"},
+        {"cmd": "!afk [grund]", "desc": "AFK setzen"},
+        {"cmd": "!back", "desc": "AFK beenden"}
+      ]
+    },
+    {
+      "name": "Level & Rang",
+      "icon": "fa-solid fa-trophy",
+      "commands": [
+        {"cmd": "!level", "desc": "Level-Status anzeigen"},
+        {"cmd": "!level @user", "desc": "Level von anderem User"},
+        {"cmd": "!give xp @user <Menge>", "desc": "XP geben (Admin)"},
+        {"cmd": "!leaderboard", "desc": "Top 10 Rangliste"}
+      ]
+    },
+    {
+      "name": "Tools",
+      "icon": "fa-solid fa-wrench",
+      "commands": [
+        {"cmd": "!rechner <formel>", "desc": "Taschenrechner"},
+        {"cmd": "!uebersetzen <text> | <sprache>", "desc": "Google Translate"},
+        {"cmd": "!numcheck <nummer>", "desc": "Telefonnummer analysieren"},
+        {"cmd": "!google <suchbegriff>", "desc": "Google Suchlink"},
+        {"cmd": "!tts <Text>", "desc": "Text to Speech"},
+        {"cmd": "!save", "desc": "Nachricht speichern (Owner)"}
+      ]
+    },
+    {
+      "name": "System",
+      "icon": "fa-solid fa-gear",
+      "commands": [
+        {"cmd": "!ping", "desc": "Antwortzeit prüfen"},
+        {"cmd": "!öffnen", "desc": "Letztes Medium öffnen"},
+        {"cmd": "!datenbank", "desc": "Datenbank speichern"},
+        {"cmd": "!system", "desc": "System-Info (PC)"}
+      ]
+    },
+    {
+      "name": "Download",
+      "icon": "fa-solid fa-download",
+      "commands": [
+        {"cmd": "!yt <URL>", "desc": "YouTube Video downloaden"},
+        {"cmd": "!tt <URL>", "desc": "TikTok Video downloaden"},
+        {"cmd": "!ig <URL>", "desc": "Instagram downloaden"},
+        {"cmd": "!tw <URL>", "desc": "Twitter/X Video downloaden"},
+        {"cmd": "!sc <URL>", "desc": "Snapchat Link"},
+        {"cmd": "!musik <Song>", "desc": "Musik suchen & downloaden"}
+      ]
+    },
+    {
+      "name": "Sticker & Media",
+      "icon": "fa-solid fa-palette",
+      "commands": [
+        {"cmd": "!sticker", "desc": "Bild/GIF zu Sticker"},
+        {"cmd": "!audio", "desc": "Voice zu Audio"}
+      ]
+    },
+    {
+      "name": "Anime & Bilder",
+      "icon": "fa-solid fa-image",
+      "commands": [
+        {"cmd": "!neko", "desc": "Anime Neko Bild"},
+        {"cmd": "!waifu", "desc": "Anime Waifu Bild"},
+        {"cmd": "!wallpaper", "desc": "Anime Wallpaper"},
+        {"cmd": "!cat", "desc": "Katzenbild"},
+        {"cmd": "!dog", "desc": "Hundebild"},
+        {"cmd": "!fox", "desc": "Fuchsbild"},
+        {"cmd": "!nom", "desc": "Anime nom GIF"},
+        {"cmd": "!poke", "desc": "Anime poke GIF"},
+        {"cmd": "!cry", "desc": "Anime cry GIF"},
+        {"cmd": "!kiss @user", "desc": "Anime kiss GIF"},
+        {"cmd": "!pat @user", "desc": "Anime pat GIF"},
+        {"cmd": "!hug @user", "desc": "Anime hug GIF"},
+        {"cmd": "!wink", "desc": "Anime wink GIF"},
+        {"cmd": "!facepalm", "desc": "Anime facepalm GIF"},
+        {"cmd": "!anime <Name>", "desc": "Anime suchen"},
+        {"cmd": "!film <Name>", "desc": "Film suchen"},
+        {"cmd": "!aniworld <Name>", "desc": "Anime auf Aniworld suchen"},
+        {"cmd": "!nsfw <kategorie>", "desc": "NSFW Bilder (Owner only)"}
+      ]
+    },
+    {
+      "name": "Admin",
+      "icon": "fa-solid fa-shield-halved",
+      "commands": [
+        {"cmd": "!warn @user", "desc": "Verwarnen"},
+        {"cmd": "!unwarn @user", "desc": "Warnung entfernen"},
+        {"cmd": "!clearwarn @user", "desc": "Alle Warnungen löschen"},
+        {"cmd": "!warnlist", "desc": "Alle Warnungen"},
+        {"cmd": "!kick @user", "desc": "Mitglied kicken"},
+        {"cmd": "!nuke", "desc": "ALLE Nicht-Admins kicken"},
+        {"cmd": "!add <nummer>", "desc": "Mitglied hinzufügen"},
+        {"cmd": "!promote @user", "desc": "Zum Admin befördern"},
+        {"cmd": "!demote @user", "desc": "Admin entziehen"},
+        {"cmd": "!timeout @user <sek>", "desc": "User stummschalten"},
+        {"cmd": "!clear [anzahl]", "desc": "Nachrichten löschen"},
+        {"cmd": "!everyone", "desc": "Alle erwähnen"},
+        {"cmd": "!adminmode <modus> <on/off>", "desc": "Admin-Modi"},
+        {"cmd": "!antilink enable/disable", "desc": "Links automatisch löschen"},
+        {"cmd": "!autosticker enable/disable", "desc": "Bilder zu Stickern"},
+        {"cmd": "!grouplink", "desc": "Gruppenlink anzeigen"},
+        {"cmd": "!addbadword <wort>", "desc": "Badword hinzufügen"},
+        {"cmd": "!removebadword <wort>", "desc": "Badword entfernen"},
+        {"cmd": "!welcome enable/disable", "desc": "Willkommensnachrichten"},
+        {"cmd": "!leave", "desc": "Bot verlässt Gruppe"}
+      ]
+    },
+    {
+      "name": "Owner",
+      "icon": "fa-solid fa-crown",
+      "commands": [
+        {"cmd": "!mute", "desc": "Bot stummschalten"},
+        {"cmd": "!ban @user", "desc": "User bannen"},
+        {"cmd": "!unban @user", "desc": "User entbannen"},
+        {"cmd": "!bc <Nachricht>", "desc": "Broadcast an alle Gruppen"},
+        {"cmd": "!bantext <typ>", "desc": "Ban Report Vorlagen"},
+        {"cmd": "!grouplist", "desc": "Alle Gruppen auflisten"},
+        {"cmd": "!gruppe", "desc": "Gruppen-Link"},
+        {"cmd": "!ersteller", "desc": "Bot-Ersteller anzeigen"},
+        {"cmd": "!shutdown", "desc": "Bot ausschalten"},
+        {"cmd": "!restart", "desc": "Bot neu starten"},
+        {"cmd": "!reset", "desc": "Alle User-Daten löschen"},
+        {"cmd": "!eval <code>", "desc": "JavaScript ausführen"},
+        {"cmd": "!royale @user <king/queen/owner>", "desc": "Group Royale Rollen"},
+        {"cmd": "!badwords", "desc": "Badwords anzeigen"}
+      ]
+    }
+  ]
+}

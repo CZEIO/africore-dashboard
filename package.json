@@ -1,0 +1,22 @@
+{
+  "name": "africore-dashboard",
+  "version": "1.0.0",
+  "description": "Africore Dashboard - Anime & Serien Streaming",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.7.0",
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.7.0",
+    "express-session": "^1.18.1",
+    "multer": "^2.3.0"
+  }
+}

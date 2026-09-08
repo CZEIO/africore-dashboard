@@ -1,0 +1,665 @@
+{
+  "prefix": "$",
+  "categories": [
+    {
+      "name": "General",
+      "icon": "fa-solid fa-circle-info",
+      "commands": [
+        {
+          "cmd": "$menu",
+          "desc": "Hauptmenü mit allen Kategorien"
+        },
+        {
+          "cmd": "$help",
+          "desc": "Alle Befehle anzeigen (.help <Kategorie>)"
+        },
+        {
+          "cmd": "$ping",
+          "desc": "Antwortzeit messen"
+        },
+        {
+          "cmd": "$uptime",
+          "desc": "Bot-Laufzeit anzeigen"
+        },
+        {
+          "cmd": "$botstatus",
+          "desc": "Bot-Status (Online, Uptime, Users)"
+        },
+        {
+          "cmd": "$profile",
+          "desc": "Detailliertes Profil anzeigen"
+        },
+        {
+          "cmd": "$level",
+          "desc": "Dein Level und XP-Fortschritt"
+        },
+        {
+          "cmd": "$leaderboard",
+          "desc": "Top 10 Benutzer nach Level/XP"
+        },
+        {
+          "cmd": "$levelall",
+          "desc": "Level aller Gruppenmitglieder (Owner)"
+        },
+        {
+          "cmd": "$xp @user <Menge>",
+          "desc": "XP vergeben (Owner)"
+        },
+        {
+          "cmd": "$afk <Grund>",
+          "desc": "AFK-Modus aktivieren"
+        },
+        {
+          "cmd": "$sleep <Grund>",
+          "desc": "AFK mit Schlaf-Thema"
+        },
+        {
+          "cmd": "$answer <Text>",
+          "desc": "Tägliche Frage beantworten"
+        },
+        {
+          "cmd": "$questions",
+          "desc": "Heutige Fragen-Antworten anzeigen"
+        },
+        {
+          "cmd": "$remind <Minuten> <Text>",
+          "desc": "Erinnerung setzen"
+        },
+        {
+          "cmd": "$registrieren <Name>",
+          "desc": "Registrieren um Befehle zu nutzen"
+        },
+        {
+          "cmd": "$meinname",
+          "desc": "Zeigt deinen registrierten Namen"
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "icon": "fa-solid fa-shield-halved",
+      "commands": [
+        {
+          "cmd": "$kick @user",
+          "desc": "Benutzer aus der Gruppe kicken"
+        },
+        {
+          "cmd": "$add <Nummer>",
+          "desc": "Benutzer per Telefonnummer hinzufügen"
+        },
+        {
+          "cmd": "$promote @user",
+          "desc": "Zum Admin befördern"
+        },
+        {
+          "cmd": "$demote @user",
+          "desc": "Admin-Status entziehen"
+        },
+        {
+          "cmd": "$everyone",
+          "desc": "Alle Gruppenmitglieder erwähnen"
+        },
+        {
+          "cmd": "$clear [Anzahl]",
+          "desc": "Bot-Nachrichten löschen (Standard: 50)"
+        },
+        {
+          "cmd": "$adminmode <typ> an/aus",
+          "desc": "Admin-Modi: lock, botmute, silent"
+        },
+        {
+          "cmd": "$mute an/aus",
+          "desc": "Gruppe stummschalten"
+        },
+        {
+          "cmd": "$timeout @user <Sekunden>",
+          "desc": "Temporär stummschalten"
+        },
+        {
+          "cmd": "$warn @user",
+          "desc": "Verwarnung geben (3 = Kick)"
+        },
+        {
+          "cmd": "$unwarn @user",
+          "desc": "Eine Verwarnung entfernen"
+        },
+        {
+          "cmd": "$clearwarn @user",
+          "desc": "Alle Verwarnungen löschen"
+        },
+        {
+          "cmd": "$warnlist",
+          "desc": "Alle Verwarnungen anzeigen"
+        },
+        {
+          "cmd": "$antilink an/aus",
+          "desc": "Anti-Link-Schutz aktivieren"
+        },
+        {
+          "cmd": "$welcome an/aus",
+          "desc": "Willkommensnachrichten aktivieren"
+        },
+        {
+          "cmd": "$autosticker an/aus",
+          "desc": "Auto-Sticker für Bilder/Videos"
+        },
+        {
+          "cmd": "$addbadword <Wort>",
+          "desc": "Badword hinzufügen"
+        },
+        {
+          "cmd": "$removebadword <Wort>",
+          "desc": "Badword entfernen"
+        },
+        {
+          "cmd": "$badwords",
+          "desc": "Alle Badwords anzeigen"
+        },
+        {
+          "cmd": "$grouplink",
+          "desc": "Gruppen-Einladungslink"
+        },
+        {
+          "cmd": "$revoke",
+          "desc": "Einladungslink widerrufen"
+        },
+        {
+          "cmd": "$leave",
+          "desc": "Bot verlässt die Gruppe"
+        },
+        {
+          "cmd": "$nuke",
+          "desc": "ALLE Nicht-Admins kicken (Owner)"
+        },
+        {
+          "cmd": "$setkoenigin @user <Name>",
+          "desc": "Gruppen-Königin setzen"
+        },
+        {
+          "cmd": "$setkoenig @user <Name>",
+          "desc": "Gruppen-König setzen"
+        },
+        {
+          "cmd": "$setbesitzer @user <Name>",
+          "desc": "Gruppen-Owner setzen"
+        },
+        {
+          "cmd": "$royalinfo",
+          "desc": "König/Königin-Info anzeigen"
+        }
+      ]
+    },
+    {
+      "name": "Owner",
+      "icon": "fa-solid fa-crown",
+      "commands": [
+        {
+          "cmd": "$ban @user",
+          "desc": "Benutzer dauerhaft bannen"
+        },
+        {
+          "cmd": "$unban @user",
+          "desc": "Ban aufheben"
+        },
+        {
+          "cmd": "$bc <Nachricht>",
+          "desc": "Nachricht an alle privat senden"
+        },
+        {
+          "cmd": "$eval <Code>",
+          "desc": "JavaScript-Code ausführen"
+        },
+        {
+          "cmd": "$shutdown",
+          "desc": "Bot herunterfahren"
+        },
+        {
+          "cmd": "$restart",
+          "desc": "Bot neu starten"
+        },
+        {
+          "cmd": "$grouplist",
+          "desc": "Alle Gruppen auflisten"
+        },
+        {
+          "cmd": "$reset",
+          "desc": "Alle Level zurücksetzen"
+        },
+        {
+          "cmd": "$setname <Name>",
+          "desc": "Bot-Profilname ändern"
+        },
+        {
+          "cmd": "$setstatus <Text>",
+          "desc": "Bot-Status ändern"
+        }
+      ]
+    },
+    {
+      "name": "Sticker & Media",
+      "icon": "fa-solid fa-icons",
+      "commands": [
+        {
+          "cmd": "$sticker",
+          "desc": "Bild/GIF/Video zu Sticker konvertieren"
+        },
+        {
+          "cmd": "$audio",
+          "desc": "Sprachnachricht als Audio zurücksenden"
+        }
+      ]
+    },
+    {
+      "name": "Spiele",
+      "icon": "fa-solid fa-gamepad",
+      "commands": [
+        {
+          "cmd": "$muenzwurf",
+          "desc": "Münzwurf (Kopf oder Zahl)"
+        },
+        {
+          "cmd": "$wuerfel",
+          "desc": "Würfeln (1-6)"
+        },
+        {
+          "cmd": "$rps <stein/papier/schere>",
+          "desc": "Stein-Papier-Schere gegen Bot"
+        },
+        {
+          "cmd": "$zahlen",
+          "desc": "Zahlenraten-Spiel (1-100)"
+        }
+      ]
+    },
+    {
+      "name": "Economy",
+      "icon": "fa-solid fa-coins",
+      "commands": [
+        {
+          "cmd": "$bal",
+          "desc": "Coin-Balance anzeigen"
+        },
+        {
+          "cmd": "$daily",
+          "desc": "500 Coins (24h Cooldown)"
+        },
+        {
+          "cmd": "$work",
+          "desc": "50-200 Coins (1h Cooldown)"
+        },
+        {
+          "cmd": "$gamble <Betrag>",
+          "desc": "50/50 Gamble - Doppel oder nichts"
+        },
+        {
+          "cmd": "$slots <Betrag>",
+          "desc": "Slot Machine (2x/5x)"
+        },
+        {
+          "cmd": "$coinflip <Betrag> <kopf/zahl>",
+          "desc": "Münzwurf mit Einsatz"
+        },
+        {
+          "cmd": "$pay <Name> <Betrag>",
+          "desc": "Coins an User überweisen"
+        },
+        {
+          "cmd": "$top",
+          "desc": "Top 10 reichste User"
+        },
+        {
+          "cmd": "$shop",
+          "desc": "Shop anzeigen"
+        },
+        {
+          "cmd": "$shop kaufen <Anzahl>",
+          "desc": "Boxen kaufen (100/90/80 Coins)"
+        },
+        {
+          "cmd": "$shop booster <Anzahl>",
+          "desc": "XP Booster kaufen (500 Coins)"
+        },
+        {
+          "cmd": "$delete",
+          "desc": "Account löschen"
+        }
+      ]
+    },
+    {
+      "name": "Spaß",
+      "icon": "fa-solid fa-face-grin-tears",
+      "commands": [
+        {
+          "cmd": "$witz",
+          "desc": "Zufälliger Witz"
+        },
+        {
+          "cmd": "$8ball <Frage>",
+          "desc": "Magische 8-Ball Antwort"
+        },
+        {
+          "cmd": "$truth",
+          "desc": "Wahrheit oder Pflicht: Wahrheit"
+        },
+        {
+          "cmd": "$dare",
+          "desc": "Wahrheit oder Pflicht: Pflicht"
+        },
+        {
+          "cmd": "$funfact",
+          "desc": "Zufälliger Fun-Fact"
+        },
+        {
+          "cmd": "$zufallszahl",
+          "desc": "Zufallszahl 1-100"
+        },
+        {
+          "cmd": "$compliment @user",
+          "desc": "Kompliment geben"
+        },
+        {
+          "cmd": "$insult @user",
+          "desc": "Beleidigung (freundlich)"
+        },
+        {
+          "cmd": "$rate @user",
+          "desc": "Benutzer 1-10 Sterne bewerten"
+        },
+        {
+          "cmd": "$roast @user",
+          "desc": "Roast geben"
+        },
+        {
+          "cmd": "$pickup",
+          "desc": "Zufällige Anmache"
+        },
+        {
+          "cmd": "$rizz",
+          "desc": "Zufälliger Rizz-Spruch"
+        },
+        {
+          "cmd": "$simprate @user",
+          "desc": "Simp-Rate prüfen"
+        },
+        {
+          "cmd": "$love @user @user",
+          "desc": "Liebeskompatibilität berechnen"
+        },
+        {
+          "cmd": "$marry @user",
+          "desc": "Heiratsantrag machen"
+        },
+        {
+          "cmd": "$divorce @user",
+          "desc": "Scheidung einreichen"
+        },
+        {
+          "cmd": "$slot",
+          "desc": "Slot-Maschine"
+        },
+        {
+          "cmd": "$reverse <Text>",
+          "desc": "Text umkehren"
+        },
+        {
+          "cmd": "$fragen",
+          "desc": "Heutige Fragen-Antworten"
+        },
+        {
+          "cmd": "$kiss @user",
+          "desc": "Kuss geben"
+        },
+        {
+          "cmd": "$hug @user",
+          "desc": "Umarmung geben"
+        },
+        {
+          "cmd": "$pat @user",
+          "desc": "Klopfen auf den Kopf"
+        },
+        {
+          "cmd": "$slap @user",
+          "desc": "Ohrfeige geben"
+        },
+        {
+          "cmd": "$poke @user",
+          "desc": "Anstupsen"
+        },
+        {
+          "cmd": "$wave @user",
+          "desc": "Winken"
+        },
+        {
+          "cmd": "$highfive @user",
+          "desc": "High-Five geben"
+        },
+        {
+          "cmd": "$bite @user",
+          "desc": "Beißen"
+        },
+        {
+          "cmd": "$bonk @user",
+          "desc": "Bonk!"
+        },
+        {
+          "cmd": "$ship @user @user",
+          "desc": "Zwei Benutzer shippen"
+        },
+        {
+          "cmd": "$kill @user",
+          "desc": "Playful Kill"
+        },
+        {
+          "cmd": "$bodycount @user",
+          "desc": "Zufälliger Bodycount"
+        },
+        {
+          "cmd": "$penis @user",
+          "desc": "Größen-Meter"
+        },
+        {
+          "cmd": "$simp @user",
+          "desc": "Simp-Meter"
+        },
+        {
+          "cmd": "$pickme @user",
+          "desc": "Pick-Me-Meter"
+        },
+        {
+          "cmd": "$ass @user",
+          "desc": "Ass-Meter"
+        },
+        {
+          "cmd": "$gay @user",
+          "desc": "Gay-Meter"
+        },
+        {
+          "cmd": "$lesbisch @user",
+          "desc": "Lesbisch-Meter"
+        }
+      ]
+    },
+    {
+      "name": "Text & Tools",
+      "icon": "fa-solid fa-screwdriver-wrench",
+      "commands": [
+        {
+          "cmd": "$numcheck <Nummer>",
+          "desc": "Telefonnummer-Analyse"
+        },
+        {
+          "cmd": "$rechner <Formel>",
+          "desc": "Taschenrechner"
+        },
+        {
+          "cmd": "$uebersetzen <Text> | <Sprache>",
+          "desc": "Text übersetzen"
+        },
+        {
+          "cmd": "$google <Suche>",
+          "desc": "Google-Suchlink generieren"
+        },
+        {
+          "cmd": "$tts <Text>",
+          "desc": "Text-to-Speech"
+        },
+        {
+          "cmd": "$oeffnen",
+          "desc": "Letztes Medium abrufen"
+        },
+        {
+          "cmd": "$save",
+          "desc": "Nachricht speichern (Owner)"
+        }
+      ]
+    },
+    {
+      "name": "Downloader",
+      "icon": "fa-solid fa-download",
+      "commands": [
+        {
+          "cmd": "$musik <Songname>",
+          "desc": "YouTube-Song als Audio"
+        },
+        {
+          "cmd": "$tt <TikTok-Link>",
+          "desc": "TikTok-Video downloaden"
+        },
+        {
+          "cmd": "$yt <YouTube-URL>",
+          "desc": "YouTube-Video downloaden"
+        },
+        {
+          "cmd": "$ig <Instagram-URL>",
+          "desc": "Instagram-Post/Reel downloaden"
+        },
+        {
+          "cmd": "$tw <Twitter-URL>",
+          "desc": "Twitter/X-Video downloaden"
+        },
+        {
+          "cmd": "$sc <Snapchat-Link>",
+          "desc": "Snapchat-Link teilen"
+        }
+      ]
+    },
+    {
+      "name": "Anime & Bilder",
+      "icon": "fa-solid fa-palette",
+      "commands": [
+        {
+          "cmd": "$neko",
+          "desc": "Zufälliges Neko-Bild"
+        },
+        {
+          "cmd": "$waifu",
+          "desc": "Zufälliges Waifu-Bild"
+        },
+        {
+          "cmd": "$wallpaper",
+          "desc": "Zufälliger Anime-Wallpaper"
+        },
+        {
+          "cmd": "$cat",
+          "desc": "Zufälliges Katzenbild"
+        },
+        {
+          "cmd": "$dog",
+          "desc": "Zufälliges Doggirl-Bild"
+        },
+        {
+          "cmd": "$fox",
+          "desc": "Zufälliges Foxgirl-Bild"
+        },
+        {
+          "cmd": "$nsfw <typ>",
+          "desc": "NSFW-Bild (Owner)"
+        },
+        {
+          "cmd": "$anime <Name>",
+          "desc": "Anime-Info via MyAnimeList"
+        },
+        {
+          "cmd": "$film <Name>",
+          "desc": "Film-Info via OMDb"
+        },
+        {
+          "cmd": "$img <Prompt>",
+          "desc": "KI-Bild generieren"
+        }
+      ]
+    },
+    {
+      "name": "Ban/Report",
+      "icon": "fa-solid fa-ban",
+      "commands": [
+        {
+          "cmd": "$bantext spam",
+          "desc": "WhatsApp-Report-Text: Spam"
+        },
+        {
+          "cmd": "$bantext beleidigung",
+          "desc": "Report-Text: Beleidigung"
+        },
+        {
+          "cmd": "$bantext drohung",
+          "desc": "Report-Text: Drohung"
+        },
+        {
+          "cmd": "$bantext nackt",
+          "desc": "Report-Text: Nacktbild"
+        },
+        {
+          "cmd": "$bantext scam",
+          "desc": "Report-Text: Betrug"
+        },
+        {
+          "cmd": "$bantext kinder",
+          "desc": "Report-Text: Kindesmissbrauch"
+        },
+        {
+          "cmd": "$bantext rassismus",
+          "desc": "Report-Text: Rassismus"
+        }
+      ]
+    },
+    {
+      "name": "Narcissist API",
+      "icon": "fa-solid fa-qrcode",
+      "commands": [
+        {
+          "cmd": "$qr <Text/URL>",
+          "desc": "QR-Code generieren"
+        },
+        {
+          "cmd": "$decodeqr <URL>",
+          "desc": "QR-Code aus Bild lesen"
+        },
+        {
+          "cmd": "$qrcheck <URL>",
+          "desc": "URL erreichbarkeit prüfen"
+        },
+        {
+          "cmd": "$gif <Kategorie>",
+          "desc": "Zufälliges GIF"
+        },
+        {
+          "cmd": "$gifs",
+          "desc": "Verfügbare GIF-Kategorien"
+        },
+        {
+          "cmd": "$onion <Begriff>",
+          "desc": "$onion-Links durchsuchen"
+        },
+        {
+          "cmd": "$narcissist",
+          "desc": "API-Status anzeigen"
+        },
+        {
+          "cmd": "$bancheck <Nummer>",
+          "desc": "Prüfen ob Nummer gebannt ist"
+        }
+      ]
+    }
+  ]
+}

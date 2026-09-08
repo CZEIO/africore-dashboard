@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CZEIO X NEROX Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="bg-container" id="bg-container"></div>
+    <div class="bg-overlay"></div>
+    <canvas class="cursor-canvas" id="cursor-canvas"></canvas>
+    <div class="particles" id="particles"></div>
+
+    <div class="dashboard">
+<aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="sidebar-close"><i class="fa-solid fa-xmark"></i></button>
+    <div class="sidebar-header">
+                <div class="bot-logo" id="bot-logo">
+                    <i class="fa-solid fa-user" id="bot-logo-icon"></i>
+                    <img id="bot-logo-img" src="" alt="Bot" style="display:none">
+                </div>
+                <h2 id="bot-name">Bot</h2>
+                <span class="bot-badge" id="bot-badge">Online</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-tab="overview">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Übersicht</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="users">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Benutzer</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="groups">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Gruppen</span>
+                </a>
+    <a href="#" class="nav-item" data-tab="warnings">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span>Warnungen</span>
+    </a>
+    <a href="#" class="nav-item" data-tab="commands">
+        <i class="fa-solid fa-terminal"></i>
+        <span>Befehle</span>
+    </a>
+    <a href="#" class="nav-item" data-tab="adminpanel">
+        <i class="fa-solid fa-sliders"></i>
+        <span>Admin-Panel</span>
+    </a>
+    <a href="#" class="nav-item" data-tab="settings">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Einstellungen</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="loginlog">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>Login-Log</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="registrierungen">
+                    <i class="fa-solid fa-user-check"></i>
+                    <span>Registrierungen</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="aniworld">
+                    <i class="fa-solid fa-film"></i>
+                    <span>AniWorld</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="bestellungen">
+                    <i class="fa-solid fa-receipt"></i>
+                    <span>Bestellungen</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="ki-assistant-btn" id="ki-assistant-btn">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span>KI-Assistent</span>
+                </button>
+                <button class="logout-btn" id="logout-btn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Abmelden</span>
+                </button>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button class="menu-toggle" id="menu-toggle">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <h1 id="page-title">Übersicht</h1>
+            <div class="topbar-right">
+                <button class="sound-toggle" id="sound-toggle" title="Sound an/aus">
+                    <i class="fa-solid fa-volume-high" id="sound-icon"></i>
+                </button>
+                <button class="sound-toggle video-sound-toggle" id="video-sound-toggle" title="Video-Sound an/aus" style="display:none">
+                    <i class="fa-solid fa-film" id="video-sound-icon"></i>
+                </button>
+                <span class="last-update" id="last-update">-</span>
+                <button class="refresh-btn" id="refresh-btn">
+                    <i class="fa-solid fa-rotate"></i>
+                </button>
+            </div>
+            </header>
+
+            <div class="content">
+                <!-- Übersicht Tab -->
+                <div class="tab-content active" id="tab-overview">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon users-icon">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="stat-users">0</span>
+                                <span class="stat-label">Benutzer</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon groups-icon">
+                                <i class="fa-solid fa-layer-group"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="stat-groups">0</span>
+                                <span class="stat-label">Gruppen</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon xp-icon">
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="stat-xp">0</span>
+                                <span class="stat-label">Gesamt XP</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon coins-icon">
+                                <i class="fa-solid fa-coins"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="stat-coins">0</span>
+                                <span class="stat-label">Gesamt Coins</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon uptime-icon">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="stat-uptime">0m</span>
+                                <span class="stat-label">Uptime</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon warnings-icon">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="stat-warnings">0</span>
+                                <span class="stat-label">Warnungen</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card bot-control-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-terminal"></i> Bot-Steuerung</h3>
+                            <div class="bot-status-badge" id="bot-status-badge">
+                                <span class="status-dot" id="status-dot"></span>
+                                <span id="status-text">Unbekannt</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="bot-controls">
+                                <button class="bot-btn start-btn" id="bot-start-btn" title="Bot starten">
+                                    <i class="fa-solid fa-play"></i>
+                                    <span>Starten</span>
+                                </button>
+                                <button class="bot-btn stop-btn" id="bot-stop-btn" title="Bot stoppen">
+                                    <i class="fa-solid fa-stop"></i>
+                                    <span>Stoppen</span>
+                                </button>
+                                <button class="bot-btn restart-btn" id="bot-restart-btn" title="Bot neustarten">
+                                    <i class="fa-solid fa-rotate-right"></i>
+                                    <span>Neustart</span>
+                                </button>
+                            </div>
+                            <div id="qr-container">
+                                <img id="qr-image" src="" alt="QR-Code" style="max-width:280px;border-radius:12px;margin-top:12px;border:2px solid rgba(255,255,255,0.1)">
+                                <p id="qr-hint" class="muted" style="margin-top:8px;font-size:12px">QR-Code mit WhatsApp scannen</p>
+                            </div>
+                            <div id="bot-control-message" class="form-message"></div>
+                        </div>
+                    </div>
+
+                    <div class="card top-users-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-trophy"></i> Top Benutzer</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="top-users-list" id="top-users-list">
+                                <p class="muted">Lädt...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benutzer Tab -->
+                <div class="tab-content" id="tab-users">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-users"></i> Alle Benutzer</h3>
+                            <div class="search-box">
+                                <i class="fa-solid fa-search"></i>
+                                <input type="text" id="user-search" placeholder="Suchen...">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-wrap">
+                                <table class="data-table" id="users-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Level</th>
+                                            <th>XP</th>
+                                            <th>Rang</th>
+                                            <th>Coins</th>
+                                            <th>Nummer</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="users-tbody">
+                                        <tr><td colspan="7" class="muted">Lädt...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gruppen Tab -->
+                <div class="tab-content" id="tab-groups">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-layer-group"></i> Alle Gruppen</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="groups-grid" id="groups-grid">
+                                <p class="muted">Lädt...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warnungen Tab -->
+                <div class="tab-content" id="tab-warnings">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-triangle-exclamation"></i> Warnungen</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="warnings-list" id="warnings-list">
+                                <p class="muted">Lädt...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Befehle Tab -->
+                <div class="tab-content" id="tab-commands">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-terminal"></i> Befehle</h3>
+                            <input type="text" id="cmd-search" class="search-input" placeholder="Befehl suchen...">
+                        </div>
+                        <div class="card-body">
+                            <div id="commands-list" class="commands-grid">
+                                <p class="muted">Lädt...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin-Panel Tab -->
+                <div class="tab-content" id="tab-adminpanel">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-layer-group"></i> Gruppen auswählen</h3>
+                            <div class="adminpanel-actions">
+                                <button class="btn btn-sm" id="ap-select-all">Alle</button>
+                                <button class="btn btn-sm" id="ap-deselect-all">Keine</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="ap-groups-list" class="ap-groups-list">
+                                <p class="muted">Lädt...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-top:1.5rem">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-key"></i> Bot-Präfix</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="ap-prefix-row">
+                                <input type="text" id="ap-prefix-input" class="search-input" maxlength="5" placeholder="Präfix">
+                                <button class="prefix-save-btn" id="ap-prefix-save"><i class="fa-solid fa-check"></i> Speichern</button>
+                            </div>
+                            <p class="muted" style="font-size:0.72rem;margin-top:0.4rem">Ändert das Bot-Kommando-Präfix (z.B. $ oder Q). Bot startet neu.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-top:1.5rem" id="ap-settings-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-gear"></i> Gruppen-Einstellungen <span id="ap-selected-count" class="ap-count"></span></h3>
+                        </div>
+                        <div class="card-body" id="ap-settings-body">
+                            <p class="muted">Mindestens eine Gruppe auswählen</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Einstellungen Tab -->
+                <div class="tab-content" id="tab-settings">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-sliders"></i> Transparenz</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="slider-group">
+                                <label>
+                                    <span>Overlay-Stärke</span>
+                                    <span class="slider-value" id="overlay-value">35%</span>
+                                </label>
+                                <input type="range" id="overlay-slider" min="0" max="100" value="35" class="custom-slider">
+                            </div>
+                            <div class="slider-group">
+                                <label>
+                                    <span>Card-Transparenz</span>
+                                    <span class="slider-value" id="card-value">65%</span>
+                                </label>
+                                <input type="range" id="card-slider" min="10" max="100" value="65" class="custom-slider">
+                            </div>
+                            <div class="slider-group">
+                                <label>
+                                    <span>Hintergrund-Schärfe</span>
+                                    <span class="slider-value" id="blur-value">0px</span>
+                                </label>
+                                <input type="range" id="blur-slider" min="0" max="20" value="0" class="custom-slider">
+                            </div>
+                            <div class="slider-group">
+                                <label>
+                                    <span>Glassmorphism-Blur</span>
+                                    <span class="slider-value" id="glass-value">12px</span>
+                                </label>
+                                <input type="range" id="glass-slider" min="0" max="12" value="12" class="custom-slider">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-image"></i> Hintergrund</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="bg-preview" id="bg-preview">
+                                <p class="muted">Kein Hintergrund gesetzt</p>
+                            </div>
+                            <div class="bg-upload-area" id="bg-upload-area">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                <p>Datei hierher ziehen oder klicken</p>
+                                <span>JPG, PNG, GIF, MP4 (max 20MB)</span>
+                                <input type="file" id="bg-file-input" accept="image/*,video/mp4,video/webm" hidden>
+                            </div>
+                            <div id="bg-upload-message" class="form-message"></div>
+                            <button class="settings-btn danger" id="bg-delete-btn" style="display:none">
+                                <i class="fa-solid fa-trash"></i> Hintergrund entfernen
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-image"></i> Profilbild</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="profile-preview" id="profile-preview">
+                                <i class="fa-solid fa-user" id="profile-placeholder"></i>
+                            </div>
+                            <div class="bg-upload-area" id="profile-upload-area" style="padding:20px">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                <p>Bild hochladen</p>
+                                <span>JPG, PNG (max 5MB)</span>
+                                <input type="file" id="profile-file-input" accept="image/*" hidden>
+                            </div>
+                            <div id="profile-upload-message" class="form-message"></div>
+                            <div class="profile-actions">
+                                <button class="settings-btn" id="profile-save-btn" style="display:none">
+                                    <i class="fa-solid fa-check"></i> Speichern
+                                </button>
+                                <button class="settings-btn danger" id="profile-delete-btn" style="display:none">
+                                    <i class="fa-solid fa-trash"></i> Entfernen
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-lock"></i> Passwort ändern</h3>
+                        </div>
+                        <div class="card-body">
+                            <form id="password-form" class="settings-form">
+                                <div class="form-group">
+                                    <label for="current-password">Aktuelles Passwort</label>
+                                    <input type="password" id="current-password" placeholder="Aktuelles Passwort eingeben...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-password">Neues Passwort</label>
+                                    <input type="password" id="new-password" placeholder="Neues Passwort eingeben...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirm-password">Neues Passwort bestätigen</label>
+                                    <input type="password" id="confirm-password" placeholder="Neues Passwort wiederholen...">
+                                </div>
+                                <div id="password-message" class="form-message"></div>
+                                <button type="submit" class="settings-btn">
+                                    <i class="fa-solid fa-check"></i> Passwort speichern
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Login-Log Tab -->
+                <div class="tab-content" id="tab-loginlog">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-clock-rotate-left"></i> Login-Verlauf</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="loginlog-list">
+                                <p class="muted">Lädt...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registrierungen Tab -->
+                <div class="tab-content" id="tab-registrierungen">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-user-check"></i> Registrierungen</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="registrierungen-list">
+                                <p class="muted">Lädt...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab-aniworld">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-film"></i> AniWorld Downloads</h3>
+                            <button class="btn btn-sm" onclick="loadAniWorldDownloads()"><i class="fa-solid fa-refresh"></i></button>
+                        </div>
+                        <div class="card-body">
+                            <div id="aniworld-downloads-list">
+                                <p class="muted">Lädt...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BESTELLUNGEN TAB -->
+                <div class="tab-content" id="tab-bestellungen">
+                    <div class="stats-grid" id="bestellung-stats" style="margin-bottom:24px">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background:rgba(255,215,0,0.15);color:#ffd700">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="best-pending-count">0</span>
+                                <span class="stat-label">Ausstehend</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background:rgba(0,212,170,0.15);color:#00d4aa">
+                                <i class="fa-solid fa-check-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="best-approved-count">0</span>
+                                <span class="stat-label">Genehmigt</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background:rgba(255,71,87,0.15);color:#ff4757">
+                                <i class="fa-solid fa-times-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="best-rejected-count">0</span>
+                                <span class="stat-label">Abgelehnt</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background:rgba(124,92,255,0.15);color:#7c5cff">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="best-total-count">0</span>
+                                <span class="stat-label">Aktive Abos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-bottom:16px">
+                        <div class="card-header">
+                            <div style="display:flex;gap:8px;flex-wrap:wrap" id="bestellung-tabs">
+                                <button class="btn btn-sm best-tab active" data-filter="pending" onclick="loadBestellungen('pending')"><i class="fa-solid fa-clock"></i> Ausstehend</button>
+                                <button class="btn btn-sm best-tab" data-filter="approved" onclick="loadBestellungen('approved')"><i class="fa-solid fa-check-circle"></i> Genehmigt</button>
+                                <button class="btn btn-sm best-tab" data-filter="rejected" onclick="loadBestellungen('rejected')"><i class="fa-solid fa-times-circle"></i> Abgelehnt</button>
+                                <button class="btn btn-sm best-tab" data-filter="all" onclick="loadBestellungen('all')"><i class="fa-solid fa-list"></i> Alle</button>
+                            </div>
+                            <button class="btn btn-sm" onclick="loadBestellungen(bestellungFilter)" title="Aktualisieren"><i class="fa-solid fa-rotate"></i></button>
+                        </div>
+                        <div class="card-body">
+                            <div id="bestellungen-list">
+                                <p class="muted">Lädt Bestellungen...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- GRUPPEN-DETAIL MODAL -->
+    <div class="modal" id="group-modal" style="display:none">
+        <div class="modal-overlay" onclick="closeGroupModal()"></div>
+        <div class="modal-panel">
+            <div class="modal-header">
+                <div class="modal-title-wrap">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <div>
+                        <h2 id="group-modal-name">Gruppenname</h2>
+                        <span class="modal-subtitle" id="group-modal-jid">JID</span>
+                    </div>
+                </div>
+                <button class="modal-close-btn" onclick="closeGroupModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="group-meta" id="group-modal-meta"></div>
+                <div class="member-list" id="group-modal-members">
+                    <p class="muted">Lädt Mitglieder...</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span class="member-count" id="group-modal-count">0 Mitglieder</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- BESTÄTIGUNGS-MODAL -->
+    <div class="modal" id="confirm-modal" style="display:none">
+        <div class="modal-overlay" onclick="closeConfirmModal()"></div>
+        <div class="modal-panel modal-small">
+            <div class="modal-header">
+                <h2 id="confirm-title">Bestätigung</h2>
+                <button class="modal-close-btn" onclick="closeConfirmModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-message"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="settings-btn" onclick="closeConfirmModal()">Abbrechen</button>
+                <button class="settings-btn danger" id="confirm-btn" onclick="executeAdminAction()">Bestätigen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- KI ASSISTENT CHAT -->
+    <div class="ki-chat-overlay" id="ki-chat-overlay" style="display:none">
+        <div class="ki-chat-modal">
+            <div class="ki-chat-header">
+                <div class="ki-chat-title">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span>KI-Assistent</span>
+                </div>
+                <button class="ki-chat-close" onclick="closeKiChat()">&times;</button>
+            </div>
+            <div class="ki-chat-messages" id="ki-chat-messages">
+                <div class="ki-chat-msg bot">
+                    <div class="ki-chat-avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div class="ki-chat-bubble">Hey! Ich bin dein KI-Assistent. Was kann ich für dich tun?</div>
+                </div>
+            </div>
+            <div class="ki-chat-input-area">
+                <input type="text" id="ki-chat-input" placeholder="Nachricht eingeben..." autocomplete="off">
+                <button class="ki-chat-send" id="ki-chat-send">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

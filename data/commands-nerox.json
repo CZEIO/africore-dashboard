@@ -1,0 +1,111 @@
+{
+  "prefix": "Q",
+  "categories": [
+    {
+      "name": "Account",
+      "icon": "fa-solid fa-user",
+      "commands": [
+        { "cmd": "Qname", "desc": "Registrieren mit einzigartigem Namen" },
+        { "cmd": "Qregister", "desc": "Alias für Qname" },
+        { "cmd": "Qprofil", "desc": "Detailliertes Profil anzeigen" },
+        { "cmd": "Qxp", "desc": "XP und Level-Fortschritt" },
+        { "cmd": "Qdelete", "desc": "Eigenes Konto löschen" }
+      ]
+    },
+    {
+      "name": "Economy",
+      "icon": "fa-solid fa-coins",
+      "commands": [
+        { "cmd": "Qbal", "desc": "Guthaben (Coins) anzeigen" },
+        { "cmd": "Qdaily", "desc": "Täglichen Bonus sammeln (500 Coins)" },
+        { "cmd": "Qwork", "desc": "Arbeiten und Coins verdienen" },
+        { "cmd": "Qpay <Name> <Betrag>", "desc": "Coins an Benutzer überweisen" },
+        { "cmd": "Qtop", "desc": "Top 10 Leaderboard nach Coins" }
+      ]
+    },
+    {
+      "name": "Casino",
+      "icon": "fa-solid fa-dice",
+      "commands": [
+        { "cmd": "Qgamble", "desc": "Gambling (50/50 Chance)" },
+        { "cmd": "Qslots", "desc": "Slot-Maschine" },
+        { "cmd": "Qcoinflip <Betrag> <kopf/zahl>", "desc": "Münzwurf mit Einsatz" }
+      ]
+    },
+    {
+      "name": "Shop",
+      "icon": "fa-solid fa-cart-shopping",
+      "commands": [
+        { "cmd": "Qshop", "desc": "Shop anzeigen" },
+        { "cmd": "Qshop kaufen <Anzahl>", "desc": "Boxen kaufen" },
+        { "cmd": "Qshop booster <Anzahl>", "desc": "XP/Coin-Booster kaufen" }
+      ]
+    },
+    {
+      "name": "Sozial",
+      "icon": "fa-solid fa-heart",
+      "commands": [
+        { "cmd": "Qhug <Von> <Ziel>", "desc": "Jemanden umarmen" },
+        { "cmd": "Qkiss <Von> <Ziel>", "desc": "Jemanden küssen" },
+        { "cmd": "Qslap <Von> <Ziel>", "desc": "Ohrfeige geben" },
+        { "cmd": "Qpunch <Von> <Ziel>", "desc": "Schlagen" },
+        { "cmd": "Qfuck", "desc": "18+ Spiel" },
+        { "cmd": "Qpenis", "desc": "Größen-Meter" },
+        { "cmd": "Qass", "desc": "Ass-Meter" }
+      ]
+    },
+    {
+      "name": "System",
+      "icon": "fa-solid fa-gear",
+      "commands": [
+        { "cmd": "Qhelp", "desc": "Hilfe zu allen Befehlen" },
+        { "cmd": "Qmenu", "desc": "Bot-Menü mit Kategorien" },
+        { "cmd": "Qping", "desc": "Latenz prüfen" },
+        { "cmd": "Qdatenbank", "desc": "Datenbank manuell speichern" },
+        { "cmd": "Qoffnen", "desc": "Letztes Medium abrufen" }
+      ]
+    },
+    {
+      "name": "Download",
+      "icon": "fa-solid fa-download",
+      "commands": [
+        { "cmd": "Qyt <YouTube-URL>", "desc": "YouTube-Video downloaden" },
+        { "cmd": "Qtt <TikTok-URL>", "desc": "TikTok-Video downloaden" },
+        { "cmd": "Qig <Instagram-URL>", "desc": "Instagram-Content downloaden" },
+        { "cmd": "Qmusik <Songname>", "desc": "Song als Audio senden" },
+        { "cmd": "Qsc <Snapchat-Link>", "desc": "Snapchat-Link teilen" }
+      ]
+    },
+    {
+      "name": "Admin",
+      "icon": "fa-solid fa-shield-halved",
+      "commands": [
+        { "cmd": "Qwarn @user", "desc": "Verwarnung geben (3 = Kick)" },
+        { "cmd": "Qunwarn @user", "desc": "Verwarnung entfernen" },
+        { "cmd": "Qwarnlist", "desc": "Alle Verwarnungen anzeigen" },
+        { "cmd": "Qaddbadword <Wort>", "desc": "Badword hinzufügen" },
+        { "cmd": "Qremovebadword <Wort>", "desc": "Badword entfernen" },
+        { "cmd": "Qbadwords", "desc": "Alle Badwords anzeigen" },
+        { "cmd": "Qkick @user", "desc": "Mitglied kicken" },
+        { "cmd": "Qkill", "desc": "NUKE – Alle Nicht-Admins kicken" },
+        { "cmd": "Qwelcome enable/disable", "desc": "Willkommensnachrichten" }
+      ]
+    },
+    {
+      "name": "Sticker",
+      "icon": "fa-solid fa-icons",
+      "commands": [
+        { "cmd": "Qsticker", "desc": "Bild/GIF/Video zu Sticker konvertieren" }
+      ]
+    },
+    {
+      "name": "Owner",
+      "icon": "fa-solid fa-crown",
+      "commands": [
+        { "cmd": "Qmute", "desc": "Bot stummschalten (nur Owner)" },
+        { "cmd": "Qersteller", "desc": "Bot-Ersteller-Info" },
+        { "cmd": "Qgruppe", "desc": "Gruppen-Einladungslink" }
+      ]
+    }
+  ]
+}
