@@ -1177,6 +1177,32 @@ app.get('/api/bot/:botId/remote-command', (req, res) => {
 // ========== REMOTE DATA PUSH (Bot schickt Daten an Render) ==========
 const remotePushData = {};
 
+// Push-Daten beim Server-Start laden (damit sie Deploy überleben)
+function loadPushDataFromDisk() {
+    const pushDir = path.join(__dirname, 'data');
+    if (!fs.existsSync(pushDir)) return;
+    const dirs = fs.readdirSync(pushDir).filter(d => d.startsWith('push_'));
+    for (const dir of dirs) {
+        const botId = dir.replace('push_', '');
+        const dirPath = path.join(pushDir, dir);
+        const data = { users: {}, groups: {}, warnings: {}, stats: {}, settings: {}, lastPush: 0 };
+        try {
+            const usersFile = path.join(dirPath, 'users.json');
+            if (fs.existsSync(usersFile)) data.users = JSON.parse(fs.readFileSync(usersFile, 'utf8'));
+            const groupsFile = path.join(dirPath, 'groups.json');
+            if (fs.existsSync(groupsFile)) data.groups = JSON.parse(fs.readFileSync(groupsFile, 'utf8'));
+            const warningsFile = path.join(dirPath, 'warnings.json');
+            if (fs.existsSync(warningsFile)) data.warnings = JSON.parse(fs.readFileSync(warningsFile, 'utf8'));
+            const statsFile = path.join(dirPath, 'stats.json');
+            if (fs.existsSync(statsFile)) data.stats = JSON.parse(fs.readFileSync(statsFile, 'utf8'));
+            data.lastPush = Date.now();
+            remotePushData[botId] = data;
+            console.log(`[Push] Daten geladen fuer ${botId}`);
+        } catch (e) { console.log(`[Push] Ladefehler fuer ${botId}:`, e.message); }
+    }
+}
+loadPushDataFromDisk();
+
 app.post('/api/bot/:botId/push-data', (req, res) => {
     const { botId } = req.params;
     const { users, groups, warnings, stats, settings } = req.body;
@@ -1188,12 +1214,15 @@ app.post('/api/bot/:botId/push-data', (req, res) => {
         settings: settings || {},
         lastPush: Date.now()
     };
-    // Auch in DB-Dateien speichern damit Dashboard-Logik funktioniert
-    const botDir = path.join(DB_DIR, 'push_' + botId);
-    fs.mkdirSync(botDir, { recursive: true });
-    if (users) fs.writeFileSync(path.join(botDir, 'registriert.json'), JSON.stringify(users, null, 2));
-    if (groups) fs.writeFileSync(path.join(botDir, 'knowngroups.json'), JSON.stringify(groups, null, 2));
-    if (warnings) fs.writeFileSync(path.join(botDir, 'warnings.json'), JSON.stringify(warnings, null, 2));
+    // In Dateien speichern damit Daten Deploy-Überleben
+    const pushDir = path.join(__dirname, 'data', 'push_' + botId);
+    fs.mkdirSync(pushDir, { recursive: true });
+    try {
+        if (users) fs.writeFileSync(path.join(pushDir, 'users.json'), JSON.stringify(users, null, 2));
+        if (groups) fs.writeFileSync(path.join(pushDir, 'groups.json'), JSON.stringify(groups, null, 2));
+        if (warnings) fs.writeFileSync(path.join(pushDir, 'warnings.json'), JSON.stringify(warnings, null, 2));
+        if (stats) fs.writeFileSync(path.join(pushDir, 'stats.json'), JSON.stringify(stats, null, 2));
+    } catch (e) { console.log('[Push] Datei-Fehler:', e.message); }
     res.json({ ok: true });
 });
 
