@@ -5,23 +5,11 @@ let soundEnabled = localStorage.getItem('dashSound') !== 'false';
 let videoSoundEnabled = localStorage.getItem('dashVideoSound') === 'true';
 
 const BOT_CONFIG = {
-    nerox: {
-        name: 'NeroX Bot',
-        icon: 'fa-skull',
-        color: '#ff4757',
-        particleColor: 'rgba(255, 71, 87, '
-    },
     czeio: {
         name: 'CZEIO Bot',
         icon: 'fa-robot',
         color: '#00d4aa',
         particleColor: 'rgba(0, 212, 170, '
-    },
-    kushi: {
-        name: 'Missy Bot',
-        icon: 'fa-heart',
-        color: '#ff6b9d',
-        particleColor: 'rgba(255, 107, 157, '
     }
 };
 
@@ -886,8 +874,8 @@ async function loadLoginLog() {
         container.innerHTML = data.logs.map(log => {
             const d = new Date(log.time);
             const time = d.toLocaleString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-            const botName = log.bot === 'czeio' ? 'CZEIO Bot' : 'NeroX Bot';
-            const botColor = log.bot === 'czeio' ? 'var(--czeio)' : 'var(--nerox)';
+            const botName = 'CZEIO Bot';
+            const botColor = 'var(--czeio)';
             return `
                 <div class="loginlog-item">
                     <div class="loginlog-dot" style="background:${botColor}"></div>
